@@ -1,0 +1,9 @@
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery.Controller\bin\Debug\netstandard2.0\WFAHomeDelivery.Controller.deps.json
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery.Controller\bin\Debug\netstandard2.0\WFAHomeDelivery.Controller.dll
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery.Controller\bin\Debug\netstandard2.0\WFAHomeDelivery.Controller.pdb
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery.Controller\obj\Debug\netstandard2.0\WFAHomeDelivery.Controller.csprojAssemblyReference.cache
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery.Controller\obj\Debug\netstandard2.0\WFAHomeDelivery.Controller.csproj.CoreCompileInputs.cache
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery.Controller\obj\Debug\netstandard2.0\WFAHomeDelivery.Controller.AssemblyInfoInputs.cache
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery.Controller\obj\Debug\netstandard2.0\WFAHomeDelivery.Controller.AssemblyInfo.cs
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery.Controller\obj\Debug\netstandard2.0\WFAHomeDelivery.Controller.dll
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery.Controller\obj\Debug\netstandard2.0\WFAHomeDelivery.Controller.pdb

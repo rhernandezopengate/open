@@ -10,8 +10,9 @@ C:\Users\rhern\source\repos\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.pdb
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\bin\Debug\WFAHomeDelivery.exe.config
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\bin\Debug\WFAHomeDelivery.exe
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\bin\Debug\WFAHomeDelivery.pdb
-C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.csprojAssemblyReference.cache
-C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.Form1.resources
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.frmEscaneos.resources
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.frmInventarios.resources
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.frmMenu.resources
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.Properties.Resources.resources
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.csproj.GenerateResource.cache
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.csproj.CoreCompileInputs.cache

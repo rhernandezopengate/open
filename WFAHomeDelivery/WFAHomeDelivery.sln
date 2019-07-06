@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFAHomeDelivery", "WFAHomeDelivery.csproj", "{DBDB293E-8BF3-446D-8958-15BCAFBA506F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFAHomeDelivery.Controller", "..\WFAHomeDelivery.Controller\WFAHomeDelivery.Controller.csproj", "{20D053DD-15AC-4E42-9101-64FA8F043CEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFAHomeDelivery.Model", "..\WFAHomeDelivery.Model\WFAHomeDelivery.Model.csproj", "{3834BFF1-586E-4E4D-914B-9066EB7EBD1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{DBDB293E-8BF3-446D-8958-15BCAFBA506F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBDB293E-8BF3-446D-8958-15BCAFBA506F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBDB293E-8BF3-446D-8958-15BCAFBA506F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20D053DD-15AC-4E42-9101-64FA8F043CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20D053DD-15AC-4E42-9101-64FA8F043CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20D053DD-15AC-4E42-9101-64FA8F043CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20D053DD-15AC-4E42-9101-64FA8F043CEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3834BFF1-586E-4E4D-914B-9066EB7EBD1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3834BFF1-586E-4E4D-914B-9066EB7EBD1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3834BFF1-586E-4E4D-914B-9066EB7EBD1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3834BFF1-586E-4E4D-914B-9066EB7EBD1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

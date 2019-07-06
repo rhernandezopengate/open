@@ -46,16 +46,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="frmCargaOracle.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="frmCargaOracle.Designer.cs">
+      <DependentUpon>frmCargaOracle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEscaneos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEscaneos.Designer.cs">
+      <DependentUpon>frmEscaneos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmInventarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInventarios.Designer.cs">
+      <DependentUpon>frmInventarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMenu.Designer.cs">
+      <DependentUpon>frmMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProductos.Designer.cs">
+      <DependentUpon>frmProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="frmEscaneos.resx">
+      <DependentUpon>frmEscaneos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInventarios.resx">
+      <DependentUpon>frmInventarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMenu.resx">
+      <DependentUpon>frmMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
