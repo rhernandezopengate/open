@@ -30,16 +30,7 @@ namespace WFAHomeDelivery
         private void SalirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        private void ReportesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmInventarios newMDIChild = new frmInventarios();
-            // Set the parent form of the child window.  
-            newMDIChild.MdiParent = this;
-            // Display the new form.  
-            newMDIChild.Show();
-        }
+        }       
 
         private void CargaOracleToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -53,6 +44,15 @@ namespace WFAHomeDelivery
         private void ProductosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmSKU newMDIChild = new frmSKU();
+            // Set the parent form of the child window.  
+            newMDIChild.MdiParent = this;
+            // Display the new form.  
+            newMDIChild.Show();
+        }
+
+        private void OrdenesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmOrdenes newMDIChild = new frmOrdenes();
             // Set the parent form of the child window.  
             newMDIChild.MdiParent = this;
             // Display the new form.  

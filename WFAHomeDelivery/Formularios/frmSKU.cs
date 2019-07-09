@@ -23,6 +23,7 @@ namespace WFAHomeDelivery.Formularios
         private void FrmSKU_Load(object sender, EventArgs e)
         {
             lblId.Visible = false;
+            rbNo.Checked = true;
             CargarGrid();
         }
 
@@ -48,6 +49,7 @@ namespace WFAHomeDelivery.Formularios
             skus.Descripcion = this.txtDescripcion.Text;
             skus.uom = this.txtUOM.Text;
             skus.codigobarras = this.txtCodigoBarras.Text;
+            skus.codigobarras = rbSi.Checked ? "SI" : "NO";
 
             if (ctrl.ConsultaBySku(this.txtSKU.Text) == null)
             {
@@ -92,6 +94,17 @@ namespace WFAHomeDelivery.Formularios
                 this.txtDescripcion.Text = skus.Descripcion;
                 this.txtUOM.Text = skus.uom;
                 this.lblId.Text = skus.id.ToString();
+
+                if (skus.codigobidimensional.Equals("SI"))
+                {
+                    rbSi.Checked = true;
+                    rbNo.Checked = false;
+                }
+                else
+                {
+                    rbSi.Checked = false;
+                    rbNo.Checked = true;
+                }
             }
         }
 
@@ -111,6 +124,7 @@ namespace WFAHomeDelivery.Formularios
                     skus.Descripcion = this.txtDescripcion.Text;
                     skus.uom = this.txtUOM.Text;
                     skus.codigobarras = this.txtCodigoBarras.Text;
+                    skus.codigobidimensional = rbSi.Checked ? "SI" : "NO";
 
                     if (ctrl.EditarSKU(skus))
                     {
@@ -136,6 +150,8 @@ namespace WFAHomeDelivery.Formularios
             this.txtUOM.Text = "";
             this.txtCodigoBarras.Text = "";
             this.lblId.Text = "";
+            rbSi.Checked = false;
+            rbNo.Checked = true;
         }
 
         private void TxtBusqueda_KeyUp(object sender, KeyEventArgs e)

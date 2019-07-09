@@ -5,12 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="db5e737f846e41e1ba9b96a390c7a261" Name="Diagram1">
-        <EntityTypeShape EntityType="DB_A3F19C_OGModel.statusordenimpresa" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A3F19C_OGModel.statusordenimpresa" Width="1.75" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="DB_A3F19C_OGModel.ordenes" Width="1.5" PointX="3.25" PointY="0.75" />
         <AssociationConnector Association="DB_A3F19C_OGModel.ordenes_statusordenimpresa_fk" />
         <EntityTypeShape EntityType="DB_A3F19C_OGModel.detordenproductoshd" Width="1.5" PointX="5.75" PointY="0.75" />
         <AssociationConnector Association="DB_A3F19C_OGModel.detordenesproductos_ordenes_fk" />
-        <EntityTypeShape EntityType="DB_A3F19C_OGModel.skus" Width="1.5" PointX="8.375" PointY="0.875" />
+        <EntityTypeShape EntityType="DB_A3F19C_OGModel.skus" Width="1.5" PointX="8.125" PointY="0.75" />
         <AssociationConnector Association="DB_A3F19C_OGModel.detordenesproductos_skus_fk" />
       </Diagram>
     </edmx:Diagrams>

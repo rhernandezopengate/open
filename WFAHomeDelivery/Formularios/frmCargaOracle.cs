@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WFAHomeDelivery.Controllers;
+using WFAHomeDelivery.Entities;
 
 namespace WFAHomeDelivery
 {
@@ -17,6 +19,9 @@ namespace WFAHomeDelivery
         private string Excel03ConString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR={1}'";
         private string Excel07ConString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR={1}'";
         DataTable dtCharge;
+        OrdenesController ctrlOrden;
+        DetOrdenProductosHDController ctrlDetalle;
+        SkusController ctrlSKU;
 
         public frmCargaOracle()
         {
@@ -86,53 +91,79 @@ namespace WFAHomeDelivery
 
         public void AgregarOrdenes()
         {
+            List<ordenes> list = new List<ordenes>();
+            ctrlOrden = new OrdenesController();
             foreach (DataRow row in dtCharge.Rows)
             {
-                if (row[0].ToString() != "")
-                {
-                    DateTime fecha = Convert.ToDateTime(row[0].ToString());
-                }
-
-                if (row[1].ToString() != "")
-                {
-
-                }
+                ordenes ordenes = new ordenes();
 
                 if (row[3].ToString() != "")
                 {
+                    ordenes.Orden = row[3].ToString();
+                    ordenes.FechaAlta = DateTime.Now;
+                    ordenes.TxnNumber = row[1].ToString();
+                    ordenes.User = row[5].ToString();
 
-                }
+                    if (row[0].ToString() != "")
+                    {
+                        ordenes.TxnDate = Convert.ToDateTime(row[0].ToString());
+                    }
 
-                if (row[5].ToString() != "")
+                    list.Add(ordenes);
+                }                                
+            }
+
+            if (ctrlOrden.CargaOracle(list))
+            {
+                if (AgregarDetalles())
                 {
-
+                    MessageBox.Show("Carga Completa Correctamente", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                else
+                {
+                    MessageBox.Show("Ha ocurrido un error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ha ocurrido un error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public void AgregarDetalles()
+        public bool AgregarDetalles()
         {
+            List<detordenproductoshd> list = new List<detordenproductoshd>();
+            ctrlOrden = new OrdenesController();
+            ctrlDetalle = new DetOrdenProductosHDController();
+            ctrlSKU = new SkusController();
             foreach (DataRow row in dtCharge.Rows)
             {
-                if (row[0].ToString() != "")
+                detordenproductoshd detordenproductoshd = new detordenproductoshd();
+
+
+
+                if (row[3].ToString() != "")
                 {
-                    DateTime fecha = Convert.ToDateTime(row[0].ToString());
+                    detordenproductoshd.Ordenes_Id = ctrlOrden.OrdenById(row[3].ToString());
                 }
+
+                if (row[2].ToString() != "")
+                {
+                    detordenproductoshd.Skus_Id = ctrlSKU.ConsultaBySku(row[2].ToString()).id;
+                }
+
+                if (row[4].ToString() != "")
+                {
+                    detordenproductoshd.cantidad = int.Parse(row[4].ToString());
+                }
+                list.Add(detordenproductoshd);
             }
+            return ctrlDetalle.AgregarDetalles(list);
         }    
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            try
-            {
-                AgregarOrdenes();
-                AgregarDetalles();
-                MessageBox.Show("Se ha cargado la información correctmente", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Ha ocurrido un error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }            
-        }        
+            AgregarOrdenes();            
+        }
     }
 }

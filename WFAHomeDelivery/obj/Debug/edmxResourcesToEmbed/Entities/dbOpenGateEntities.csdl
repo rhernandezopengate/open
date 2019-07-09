@@ -85,6 +85,7 @@
     <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="uom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="codigobarras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="codigobidimensional" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="detordenproductoshd" Relationship="DB_A3F19C_OGModel.detordenesproductos_skus_fk" FromRole="skus" ToRole="detordenproductoshd" />
   </EntityType>
   <Association Name="detordenesproductos_skus_fk">

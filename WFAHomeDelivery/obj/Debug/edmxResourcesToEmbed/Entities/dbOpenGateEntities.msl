@@ -36,6 +36,7 @@
     <EntitySetMapping Name="skus">
       <EntityTypeMapping TypeName="DB_A3F19C_OGModel.skus">
         <MappingFragment StoreEntitySet="skus">
+          <ScalarProperty Name="codigobidimensional" ColumnName="codigobidimensional" />
           <ScalarProperty Name="codigobarras" ColumnName="codigobarras" />
           <ScalarProperty Name="uom" ColumnName="uom" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
