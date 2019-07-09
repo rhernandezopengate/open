@@ -52,6 +52,7 @@
             this.salirToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(1295, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
@@ -74,12 +75,14 @@
             this.cargaOracleToolStripMenuItem.Name = "cargaOracleToolStripMenuItem";
             this.cargaOracleToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
             this.cargaOracleToolStripMenuItem.Text = "Carga Reporte Oracle";
+            this.cargaOracleToolStripMenuItem.Click += new System.EventHandler(this.CargaOracleToolStripMenuItem_Click);
             // 
             // productosToolStripMenuItem
             // 
             this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
-            this.productosToolStripMenuItem.Size = new System.Drawing.Size(89, 24);
-            this.productosToolStripMenuItem.Text = "Productos";
+            this.productosToolStripMenuItem.Size = new System.Drawing.Size(50, 24);
+            this.productosToolStripMenuItem.Text = "SKU";
+            this.productosToolStripMenuItem.Click += new System.EventHandler(this.ProductosToolStripMenuItem_Click);
             // 
             // cajasToolStripMenuItem
             // 
@@ -92,6 +95,7 @@
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
             this.reportesToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
             this.reportesToolStripMenuItem.Text = "Reportes";
+            this.reportesToolStripMenuItem.Click += new System.EventHandler(this.ReportesToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
@@ -108,9 +112,10 @@
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmMenu";            
+            this.Text = "frmMenu";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

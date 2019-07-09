@@ -14,7 +14,7 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,8 +34,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,23 +56,58 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmCargaOracle.cs">
+    <Compile Include="Controllers\OrdenesController.cs" />
+    <Compile Include="Controllers\SkusController.cs" />
+    <Compile Include="Entities\dbOpenGateEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbOpenGateEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\dbOpenGateEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\dbOpenGateEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbOpenGateEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\detordenproductoshd.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ordenes.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\skus.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\statusordenimpresa.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmCargaOracle.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmCargaOracle.Designer.cs">
+    <Compile Include="Formularios\frmCargaOracle.Designer.cs">
       <DependentUpon>frmCargaOracle.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmEscaneos.cs">
+    <Compile Include="Formularios\frmEscaneos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmEscaneos.Designer.cs">
+    <Compile Include="Formularios\frmEscaneos.Designer.cs">
       <DependentUpon>frmEscaneos.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmInventarios.cs">
+    <Compile Include="Formularios\frmInventarios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmInventarios.Designer.cs">
+    <Compile Include="Formularios\frmInventarios.Designer.cs">
       <DependentUpon>frmInventarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmSKU.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmSKU.Designer.cs">
+      <DependentUpon>frmSKU.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMenu.cs">
       <SubType>Form</SubType>
@@ -70,19 +115,19 @@
     <Compile Include="frmMenu.Designer.cs">
       <DependentUpon>frmMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmProductos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmProductos.Designer.cs">
-      <DependentUpon>frmProductos.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmEscaneos.resx">
+    <EmbeddedResource Include="Formularios\frmCargaOracle.resx">
+      <DependentUpon>frmCargaOracle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmEscaneos.resx">
       <DependentUpon>frmEscaneos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmInventarios.resx">
+    <EmbeddedResource Include="Formularios\frmInventarios.resx">
       <DependentUpon>frmInventarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmSKU.resx">
+      <DependentUpon>frmSKU.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMenu.resx">
       <DependentUpon>frmMenu.cs</DependentUpon>
@@ -96,6 +141,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EntityDeploy Include="Entities\dbOpenGateEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>dbOpenGateEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entities\dbOpenGateEntities.edmx.diagram">
+      <DependentUpon>dbOpenGateEntities.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -108,6 +161,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Entities\dbOpenGateEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>dbOpenGateEntities.Context.cs</LastGenOutput>
+      <DependentUpon>dbOpenGateEntities.edmx</DependentUpon>
+    </Content>
+    <Content Include="Entities\dbOpenGateEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>dbOpenGateEntities.edmx</DependentUpon>
+      <LastGenOutput>dbOpenGateEntities.cs</LastGenOutput>
+    </Content>
+    <Content Include="Images\sku.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

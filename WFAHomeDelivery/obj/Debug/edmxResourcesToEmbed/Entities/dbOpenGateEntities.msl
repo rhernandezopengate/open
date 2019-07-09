@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_A3F19C_OGModelStoreContainer" CdmEntityContainer="DB_A3F19C_OGEntities">
+    <EntitySetMapping Name="statusordenimpresa">
+      <EntityTypeMapping TypeName="DB_A3F19C_OGModel.statusordenimpresa">
+        <MappingFragment StoreEntitySet="statusordenimpresa">
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ordenes">
+      <EntityTypeMapping TypeName="DB_A3F19C_OGModel.ordenes">
+        <MappingFragment StoreEntitySet="ordenes">
+          <ScalarProperty Name="StatusOrdenImpresa_Id" ColumnName="StatusOrdenImpresa_Id" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="TxnNumber" ColumnName="TxnNumber" />
+          <ScalarProperty Name="TxnDate" ColumnName="TxnDate" />
+          <ScalarProperty Name="Orden" ColumnName="Orden" />
+          <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="detordenproductoshd">
+      <EntityTypeMapping TypeName="DB_A3F19C_OGModel.detordenproductoshd">
+        <MappingFragment StoreEntitySet="detordenproductoshd">
+          <ScalarProperty Name="codigoqr" ColumnName="codigoqr" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="Skus_Id" ColumnName="Skus_Id" />
+          <ScalarProperty Name="Ordenes_Id" ColumnName="Ordenes_Id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="skus">
+      <EntityTypeMapping TypeName="DB_A3F19C_OGModel.skus">
+        <MappingFragment StoreEntitySet="skus">
+          <ScalarProperty Name="codigobarras" ColumnName="codigobarras" />
+          <ScalarProperty Name="uom" ColumnName="uom" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Sku" ColumnName="Sku" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
