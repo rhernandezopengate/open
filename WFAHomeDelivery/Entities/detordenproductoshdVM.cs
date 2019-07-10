@@ -11,7 +11,9 @@ namespace WFAHomeDelivery.Entities
     }
     public partial class detordenproductoshd
     {
-        public string Descripcion { get; set; }
+        public string SKU { get; set; }
+
+        public int CantidadEscaneos { get; set; }
 
     }
 }

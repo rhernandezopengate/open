@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DetOrdenProductosHDController.cs" />
+    <Compile Include="Controllers\EscaneosController.cs" />
     <Compile Include="Controllers\OrdenesController.cs" />
     <Compile Include="Controllers\SkusController.cs" />
     <Compile Include="Entities\dbOpenGateEntities.Context.cs">

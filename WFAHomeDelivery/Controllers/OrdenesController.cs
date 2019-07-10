@@ -14,9 +14,9 @@ namespace WFAHomeDelivery.Controllers
         public bool CargaOracle(List<ordenes> listaOracle)
         {
             try
-            {
+            {                
                 foreach (var item in listaOracle)
-                {
+                {                    
                     if (db.ordenes.Where(x => x.Orden == item.Orden).FirstOrDefault() == null)
                     {
                         if (item.Orden != "")
@@ -48,25 +48,26 @@ namespace WFAHomeDelivery.Controllers
 
         public List<ordenes> listByOrden(string orden)
         {
-            List<ordenes> list = new List<ordenes>();
-            var collection = db.ordenes.Where(x => x.StatusOrdenImpresa_Id == 1 || x.StatusOrdenImpresa_Id == 2).ToList();
+            string query = "SELECT dbo.ordenes.id, dbo.ordenes.Orden, dbo.ordenes.TxnDate, dbo.ordenes.TxnNumber, dbo.ordenes.[User], dbo.ordenes.StatusOrdenImpresa_Id, dbo.ordenes.FechaAlta " +
+                           "FROM dbo.ordenes " +                           
+                           "WHERE dbo.ordenes.Orden LIKE '%' + @Orden + '%'"; 
 
-            if (orden != "")
-            {
-                collection = collection.Where(x => x.Orden.Contains(orden)).ToList();
-            }
+            var sqlQuery1 = db.ordenes.SqlQuery(query, new System.Data.SqlClient.SqlParameter("@Orden", orden)).ToList();
 
-            foreach (var item in collection)
+            List<ordenes> list = new List<ordenes>();      
+
+            foreach (var item in sqlQuery1)
             {
-                ordenes ordenesTemp = new ordenes();
-                ordenesTemp.Descripcion = item.statusordenimpresa.descripcion;
+                ordenes ordenesTemp = new ordenes();               
+                
                 ordenesTemp.Orden = item.Orden;
                 ordenesTemp.TxnDate = item.TxnDate;
                 ordenesTemp.TxnNumber = item.TxnNumber;
                 ordenesTemp.User = item.User;
+                ordenesTemp.Descripcion = item.statusordenimpresa.descripcion;
+
                 list.Add(ordenesTemp);
             }
-
             return list;
         }
     }

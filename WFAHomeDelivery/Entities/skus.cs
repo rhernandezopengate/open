@@ -26,6 +26,7 @@ namespace WFAHomeDelivery.Entities
         public string uom { get; set; }
         public string codigobarras { get; set; }
         public string codigobidimensional { get; set; }
+        public string qtymanual { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detordenproductoshd> detordenproductoshd { get; set; }

@@ -10,7 +10,7 @@
         <AssociationConnector Association="DB_A3F19C_OGModel.ordenes_statusordenimpresa_fk" />
         <EntityTypeShape EntityType="DB_A3F19C_OGModel.detordenproductoshd" Width="1.5" PointX="5.75" PointY="0.75" />
         <AssociationConnector Association="DB_A3F19C_OGModel.detordenesproductos_ordenes_fk" />
-        <EntityTypeShape EntityType="DB_A3F19C_OGModel.skus" Width="1.5" PointX="8.125" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A3F19C_OGModel.skus" Width="1.5" PointX="8" PointY="0.75" />
         <AssociationConnector Association="DB_A3F19C_OGModel.detordenesproductos_skus_fk" />
       </Diagram>
     </edmx:Diagrams>

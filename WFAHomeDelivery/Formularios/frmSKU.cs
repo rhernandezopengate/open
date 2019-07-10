@@ -22,8 +22,7 @@ namespace WFAHomeDelivery.Formularios
 
         private void FrmSKU_Load(object sender, EventArgs e)
         {
-            lblId.Visible = false;
-            rbNo.Checked = true;
+            lblId.Visible = false;            
             CargarGrid();
         }
 
@@ -50,6 +49,7 @@ namespace WFAHomeDelivery.Formularios
             skus.uom = this.txtUOM.Text;
             skus.codigobarras = this.txtCodigoBarras.Text;
             skus.codigobarras = rbSi.Checked ? "SI" : "NO";
+            skus.qtymanual = rbQTYSi.Checked ? "SI" : "NO";
 
             if (ctrl.ConsultaBySku(this.txtSKU.Text) == null)
             {
@@ -105,6 +105,17 @@ namespace WFAHomeDelivery.Formularios
                     rbSi.Checked = false;
                     rbNo.Checked = true;
                 }
+
+                if (skus.qtymanual.Equals("SI"))
+                {
+                    rbQTYSi.Checked = true;
+                    rbQTYNo.Checked = false;
+                }
+                else
+                {
+                    rbQTYSi.Checked = false;
+                    rbQTYNo.Checked = true;
+                }
             }
         }
 
@@ -125,6 +136,7 @@ namespace WFAHomeDelivery.Formularios
                     skus.uom = this.txtUOM.Text;
                     skus.codigobarras = this.txtCodigoBarras.Text;
                     skus.codigobidimensional = rbSi.Checked ? "SI" : "NO";
+                    skus.qtymanual = rbQTYSi.Checked ? "SI" : "NO";
 
                     if (ctrl.EditarSKU(skus))
                     {
@@ -152,6 +164,8 @@ namespace WFAHomeDelivery.Formularios
             this.lblId.Text = "";
             rbSi.Checked = false;
             rbNo.Checked = true;
+            rbQTYSi.Checked = false;
+            rbQTYNo.Checked = true;
         }
 
         private void TxtBusqueda_KeyUp(object sender, KeyEventArgs e)

@@ -62,6 +62,7 @@ namespace WFAHomeDelivery.Controllers
                 skuTemp.uom = skus.uom;
                 skuTemp.codigobarras = skus.codigobarras;
                 skuTemp.codigobidimensional = skus.codigobidimensional;
+                skuTemp.qtymanual = skus.qtymanual;
                 db.SaveChanges();
 
                 return true;
@@ -85,6 +86,8 @@ namespace WFAHomeDelivery.Controllers
                 skus.uom = item.uom;
                 skus.codigobarras = item.codigobarras;
                 skus.codigobidimensional = item.codigobidimensional;
+                skus.qtymanual = item.qtymanual;
+
                 lista.Add(skus);
             }
 
@@ -104,6 +107,8 @@ namespace WFAHomeDelivery.Controllers
                 skus.uom = item.uom;
                 skus.codigobarras = item.codigobarras;
                 skus.codigobidimensional = item.codigobidimensional;
+                skus.qtymanual = item.qtymanual;
+
                 lista.Add(skus);
             }
 
