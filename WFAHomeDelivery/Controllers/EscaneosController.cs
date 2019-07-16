@@ -22,6 +22,8 @@ namespace WFAHomeDelivery.Controllers
                     detordenproductoshd detordenproductoshd = new detordenproductoshd();
                     detordenproductoshd.SKU = item.skus.Sku;
                     detordenproductoshd.cantidad = item.cantidad;
+                    detordenproductoshd.CantidadEscaneos = 0;
+
                     lista.Add(detordenproductoshd);
                 }
 
@@ -31,7 +33,7 @@ namespace WFAHomeDelivery.Controllers
             {
                 return null;
             }
-        }
+        }       
 
         public List<detordenproductoshd> ListaCantidadesOrdenes(string orden, string sku)
         {
@@ -88,38 +90,31 @@ namespace WFAHomeDelivery.Controllers
             }
         }
 
-        public bool CantidadByArticulo(string orden, string sku, string[] arreglo)
-        {
+        public bool CantidadByArticulo(string orden, string sku, List<detordenproductoshd> lista)
+        {            
+            int? positivo = 0;
+            
             try
             {
-                int? cantidad = db.detordenproductoshd.Where(x => x.ordenes.Orden.Contains(orden) && x.skus.Sku.Contains(sku) ).Sum(x => x.cantidad);
-                int? positivo = cantidad * -1;
+                int? cantidad = db.detordenproductoshd.Where(x => x.ordenes.Orden.Contains(orden) && x.skus.Sku.Contains(sku)).Sum(x => x.cantidad);
+                positivo = cantidad * -1;
 
-                foreach (var item in arreglo.GroupBy(x => x))
+                int contadorArticulos = lista.Where(x => x.SKU == sku).Sum(x => x.CantidadSKUS);
+
+                if (contadorArticulos > positivo)
                 {
-                    if (item.Key != null)
-                    {
-                        if (item.Key.Equals(sku))
-                        {
-                            if (item.Count() > positivo)
-                            {
-                                return false;
-                            }
-                            else
-                            {
-                                return true;
-                            }
-                        }
-                    }
+                    return false;
                 }
-
-                return true;
+                else
+                {
+                    return true;
+                }                
             }
-            catch (Exception)
+            catch (Exception _ex)
             {
+                Console.WriteLine(_ex.Message.ToString());
                 return false;
-            }
-            
+            }            
         }
 
         public bool ValidarSKU(string _orden, string _sku)
@@ -159,5 +154,82 @@ namespace WFAHomeDelivery.Controllers
             }
         }
 
+        public bool IsQTYManual(string sku)
+        {
+            try
+            {
+                skus query = db.skus.Where(x => x.Sku.Contains(sku)).FirstOrDefault();
+
+                if (query.qtymanual.Equals("SI"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool IsQRCode(string sku)
+        {
+            try
+            {
+                skus query = db.skus.Where(x => x.Sku.Contains(sku)).FirstOrDefault();
+
+                if (query.codigobidimensional.Equals("SI"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public int? CantidadManualByArticulo(string orden, string sku)
+        {
+            try
+            {
+                int? cantidad = db.detordenproductoshd.Where(x => x.ordenes.Orden.Contains(orden) && x.skus.Sku.Contains(sku)).Sum(x => x.cantidad);
+                int? positivo = cantidad * -1;
+                                
+                return positivo;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        public bool ValidarQR(string qr, string sku, List<detordenproductoshd> list)
+        {
+            try
+            {
+                var query = list.Where(x => x.codigoqr == qr && x.SKU == sku).Sum(x => x.CantidadSKUS);
+
+                if (query > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }                
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
