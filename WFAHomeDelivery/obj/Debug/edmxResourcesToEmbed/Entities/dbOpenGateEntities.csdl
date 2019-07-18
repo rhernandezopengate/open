@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_A3F19C_OGModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DB_A3F19C_OGEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="statusordenimpresa" EntityType="DB_A3F19C_OGModel.statusordenimpresa" />
+    <EntitySet Name="ordenes" EntityType="DB_A3F19C_OGModel.ordenes" />
+    <AssociationSet Name="ordenes_statusordenimpresa_fk" Association="DB_A3F19C_OGModel.ordenes_statusordenimpresa_fk">
+      <End Role="statusordenimpresa" EntitySet="statusordenimpresa" />
+      <End Role="ordenes" EntitySet="ordenes" />
+    </AssociationSet>
+    <EntitySet Name="detordenproductoshd" EntityType="DB_A3F19C_OGModel.detordenproductoshd" />
+    <AssociationSet Name="detordenesproductos_ordenes_fk" Association="DB_A3F19C_OGModel.detordenesproductos_ordenes_fk">
+      <End Role="ordenes" EntitySet="ordenes" />
+      <End Role="detordenproductoshd" EntitySet="detordenproductoshd" />
+    </AssociationSet>
+    <EntitySet Name="skus" EntityType="DB_A3F19C_OGModel.skus" />
+    <AssociationSet Name="detordenesproductos_skus_fk" Association="DB_A3F19C_OGModel.detordenesproductos_skus_fk">
+      <End Role="skus" EntitySet="skus" />
+      <End Role="detordenproductoshd" EntitySet="detordenproductoshd" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="statusordenimpresa">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ordenes" Relationship="DB_A3F19C_OGModel.ordenes_statusordenimpresa_fk" FromRole="statusordenimpresa" ToRole="ordenes" />
+  </EntityType>
+  <EntityType Name="ordenes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FechaAlta" Type="DateTime" Precision="3" />
+    <Property Name="Orden" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="TxnDate" Type="DateTime" Precision="3" />
+    <Property Name="TxnNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="User" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="StatusOrdenImpresa_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="statusordenimpresa" Relationship="DB_A3F19C_OGModel.ordenes_statusordenimpresa_fk" FromRole="ordenes" ToRole="statusordenimpresa" />
+    <NavigationProperty Name="detordenproductoshd" Relationship="DB_A3F19C_OGModel.detordenesproductos_ordenes_fk" FromRole="ordenes" ToRole="detordenproductoshd" />
+  </EntityType>
+  <Association Name="ordenes_statusordenimpresa_fk">
+    <End Type="DB_A3F19C_OGModel.statusordenimpresa" Role="statusordenimpresa" Multiplicity="1" />
+    <End Type="DB_A3F19C_OGModel.ordenes" Role="ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="statusordenimpresa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ordenes">
+        <PropertyRef Name="StatusOrdenImpresa_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="detordenproductoshd">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ordenes_Id" Type="Int32" Nullable="false" />
+    <Property Name="Skus_Id" Type="Int32" Nullable="false" />
+    <Property Name="cantidad" Type="Int32" />
+    <Property Name="codigoqr" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ordenes" Relationship="DB_A3F19C_OGModel.detordenesproductos_ordenes_fk" FromRole="detordenproductoshd" ToRole="ordenes" />
+    <NavigationProperty Name="skus" Relationship="DB_A3F19C_OGModel.detordenesproductos_skus_fk" FromRole="detordenproductoshd" ToRole="skus" />
+  </EntityType>
+  <Association Name="detordenesproductos_ordenes_fk">
+    <End Type="DB_A3F19C_OGModel.ordenes" Role="ordenes" Multiplicity="1" />
+    <End Type="DB_A3F19C_OGModel.detordenproductoshd" Role="detordenproductoshd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ordenes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="detordenproductoshd">
+        <PropertyRef Name="Ordenes_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="skus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sku" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="uom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="codigobarras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="codigobidimensional" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="qtymanual" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="detordenproductoshd" Relationship="DB_A3F19C_OGModel.detordenesproductos_skus_fk" FromRole="skus" ToRole="detordenproductoshd" />
+  </EntityType>
+  <Association Name="detordenesproductos_skus_fk">
+    <End Type="DB_A3F19C_OGModel.skus" Role="skus" Multiplicity="1" />
+    <End Type="DB_A3F19C_OGModel.detordenproductoshd" Role="detordenproductoshd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="detordenproductoshd">
+        <PropertyRef Name="Skus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

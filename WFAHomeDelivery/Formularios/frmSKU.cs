@@ -48,7 +48,7 @@ namespace WFAHomeDelivery.Formularios
             skus.Descripcion = this.txtDescripcion.Text;
             skus.uom = this.txtUOM.Text;
             skus.codigobarras = this.txtCodigoBarras.Text;
-            skus.codigobarras = rbSi.Checked ? "SI" : "NO";
+            skus.codigobidimensional = rbSi.Checked ? "SI" : "NO";
             skus.qtymanual = rbQTYSi.Checked ? "SI" : "NO";
 
             if (ctrl.ConsultaBySku(this.txtSKU.Text) == null)

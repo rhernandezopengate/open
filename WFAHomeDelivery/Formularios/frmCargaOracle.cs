@@ -20,9 +20,6 @@ namespace WFAHomeDelivery
         private string Excel03ConString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR={1}'";
         private string Excel07ConString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR={1}'";
         DataTable dtCharge;
-        OrdenesController ctrlOrden;
-        DetOrdenProductosHDController ctrlDetalle;
-        SkusController ctrlSKU;
         DB_A3F19C_OGEntities db = new DB_A3F19C_OGEntities();
 
         public frmCargaOracle()
@@ -219,20 +216,11 @@ namespace WFAHomeDelivery
                 int idSKU = (int)sku.First();
                 int idOrden = (int)orden.First();
 
-                var detordensku = db.Database.SqlQuery<int>(
-                    "SELECT [id] FROM [DB_A3F19C_OG].[dbo].[detordenproductoshd] WHERE [Ordenes_Id] = {0} AND [Skus_Id] = {1}", 
+                dtDetalles.Rows.Add(new object[] {
                     idOrden,
-                    idSKU
-                    );                                     
-
-                if (detordensku.Count() == 0)
-                {
-                    dtDetalles.Rows.Add(new object[] {
-                        idOrden,
-                        idSKU,
-                        int.Parse(row[5].ToString())
-                    });
-                }
+                    idSKU,
+                    int.Parse(row[5].ToString())
+                });
             }
 
             using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))
