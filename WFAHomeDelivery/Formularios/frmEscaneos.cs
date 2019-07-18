@@ -20,6 +20,7 @@ namespace WFAHomeDelivery
         EscaneosController ctrlEscaneos;
         int index = 0;
         List<detordenproductoshd> lista;
+        List<detordenproductoshd> ListaGrid;
 
         public frmEscaneos()
         {
@@ -31,20 +32,28 @@ namespace WFAHomeDelivery
             
         }
 
-        public void CargarGrid(string orden)
+        public void CargarLista(string orden)
         {
             ctrlEscaneos = new EscaneosController();
             dgvEscaneos.AutoGenerateColumns = false;
+            ListaGrid = new List<detordenproductoshd>();
 
             if (ctrlEscaneos.ListaDetallesByOrden(orden) != null)
-            {
-                dgvEscaneos.DataSource = ctrlEscaneos.ListaDetallesByOrden(orden);
+            {                
+                ListaGrid = ctrlEscaneos.ListaDetallesByOrden(orden);
+                CargarGrid();
             }
             else
             {
                 MessageBox.Show("ESTE TICKET NO EXISTE");
             }            
-        }  
+        }
+
+        public void CargarGrid()
+        {
+            dgvEscaneos.AutoGenerateColumns = false;
+            dgvEscaneos.DataSource = ListaGrid;            
+        }
 
         public void CargarArreglo()
         {            
@@ -55,7 +64,7 @@ namespace WFAHomeDelivery
         {
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
-                CargarGrid(this.txtTicket.Text);
+                CargarLista(this.txtTicket.Text);
                 CargarArreglo();
                 this.txtProducto.Focus();
             }
@@ -66,9 +75,7 @@ namespace WFAHomeDelivery
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
                 ValidarLista();                
-                e.Handled = true;
-                this.txtProducto.Text = "";
-                this.txtProducto.Focus();
+                e.Handled = true;                
             }               
         }      
 
@@ -95,9 +102,10 @@ namespace WFAHomeDelivery
                         if (ValidarByCantidadArticulo())
                         {
                             if (ctrlEscaneos.IsQTYManual(this.txtProducto.Text))
-                            {                          
+                            {
                                 if (ValidarByCantidadArticulo())
                                 {
+                                    SystemSounds.Beep.Play();
                                     int cantidad = int.Parse(Microsoft.VisualBasic.Interaction.InputBox("AGREGAR CANTIDAD MANUAL", "TECLEAR LA CANTIDAD DE PRODUCTOS A INGRESAR"));
                                     if (cantidad > ctrlEscaneos.CantidadManualByArticulo(this.txtTicket.Text, this.txtProducto.Text))
                                     {
@@ -123,6 +131,7 @@ namespace WFAHomeDelivery
 
                             if (ctrlEscaneos.IsQRCode(this.txtProducto.Text))
                             {
+                                SystemSounds.Beep.Play();
                                 string qr = Microsoft.VisualBasic.Interaction.InputBox("AGREGAR CODIGO QR", "ESCANEAR CODIGO QR DEL PRODUCTO");
 
                                 if (qr.Equals(string.Empty))
@@ -148,10 +157,31 @@ namespace WFAHomeDelivery
                                         if (detalleTemp != null)
                                         {
                                             detalle.codigoqr = detalleTemp.codigoqr;
-                                        }                                        
+                                        }
                                     }
                                 }
                             }
+
+                            if (CerrarAutomaticamente())
+                            {
+                                SystemSounds.Beep.Play();                                
+                            }
+                            else
+                            {                                
+                                int cantidad = lista.Where(x => x.SKU == this.txtProducto.Text).Sum(x => x.CantidadSKUS);
+                                var detalleTemp = ListaGrid.Where(x => x.SKU == this.txtProducto.Text).FirstOrDefault();
+                                detalleTemp.CantidadSKUS = cantidad;
+
+                                dgvEscaneos.DataSource = null;
+                                dgvEscaneos.DataSource = ListaGrid;
+                                this.txtProducto.Text = "";
+                                this.txtProducto.Focus();                                   
+                            }
+                        }
+                        else
+                        {
+                            this.txtProducto.Text = "";
+                            this.txtProducto.Focus();
                         }
                     }                    
                 }
@@ -182,7 +212,8 @@ namespace WFAHomeDelivery
 
         public bool ValidarByCantidadTotal()
         {
-            if (lista.Count <= ctrlEscaneos.CantidadTotalArticulos(this.txtTicket.Text))
+            int cantidadLista = lista.Sum(x => x.CantidadSKUS);
+            if (cantidadLista <= ctrlEscaneos.CantidadTotalArticulos(this.txtTicket.Text))
             {
                 return true;
             }
@@ -195,13 +226,32 @@ namespace WFAHomeDelivery
 
                 return false;
             }
-        }        
+        }
+
+        public bool CerrarAutomaticamente()
+        {
+            int cantidadLista = lista.Sum(x => x.CantidadSKUS);
+            if (cantidadLista == ctrlEscaneos.CantidadTotalArticulos(this.txtTicket.Text))
+            {
+                lista = null;
+                index = 0;
+                this.txtProducto.Text = "";
+                this.txtTicket.Text = "";
+                dgvEscaneos.DataSource = null;
+                this.txtTicket.Focus();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
             SystemSounds.Beep.Play();
         }
-
         
     }
 }

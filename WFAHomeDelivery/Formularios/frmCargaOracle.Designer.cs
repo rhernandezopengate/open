@@ -44,7 +44,7 @@
             this.btnCargarArchivos.TabIndex = 11;
             this.btnCargarArchivos.Text = "Cargar Registros";
             this.btnCargarArchivos.UseVisualStyleBackColor = true;
-            this.btnCargarArchivos.Click += new System.EventHandler(this.Button2_Click);
+            this.btnCargarArchivos.Click += new System.EventHandler(this.BtnCargarArchivos_Click);
             // 
             // dataGridView1
             // 
@@ -89,7 +89,7 @@
             this.Controls.Add(this.btnSeleccionarArchivo);
             this.Name = "frmCargaOracle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmCargaOracle";            
+            this.Text = "frmCargaOracle";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

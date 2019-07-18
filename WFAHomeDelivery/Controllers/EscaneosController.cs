@@ -22,52 +22,12 @@ namespace WFAHomeDelivery.Controllers
                     detordenproductoshd detordenproductoshd = new detordenproductoshd();
                     detordenproductoshd.SKU = item.skus.Sku;
                     detordenproductoshd.cantidad = item.cantidad;
-                    detordenproductoshd.CantidadEscaneos = 0;
+                    detordenproductoshd.CantidadSKUS = 0;
 
                     lista.Add(detordenproductoshd);
                 }
 
                 return lista;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }       
-
-        public List<detordenproductoshd> ListaCantidadesOrdenes(string orden, string sku)
-        {
-            try
-            {
-                List<detordenproductoshd> lista = new List<detordenproductoshd>();
-
-                var skuTemp = db.skus.Where(x => x.Sku.Contains(sku));
-
-                if (skuTemp != null)
-                {                    
-                    foreach (var item in db.detordenproductoshd.Where(x => x.ordenes.Orden == orden && x.skus.Sku == sku).ToList())
-                    {
-                        detordenproductoshd detordenproductoshd = new detordenproductoshd();
-                        detordenproductoshd.SKU = item.skus.Sku;                  
-                        detordenproductoshd.cantidad = item.cantidad;
-                                             
-                        
-                        lista.Add(detordenproductoshd);
-                    }
-
-                    if (lista.Count == 0)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        return lista.OrderByDescending(x => x.SKU).ToList();
-                    }                    
-                }
-                else
-                {
-                    return null;
-                }                
             }
             catch (Exception)
             {

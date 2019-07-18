@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace WFAHomeDelivery
         OrdenesController ctrlOrden;
         DetOrdenProductosHDController ctrlDetalle;
         SkusController ctrlSKU;
+        DB_A3F19C_OGEntities db = new DB_A3F19C_OGEntities();
 
         public frmCargaOracle()
         {
@@ -90,80 +92,172 @@ namespace WFAHomeDelivery
         }
 
         public void AgregarOrdenes()
-        {
-            List<ordenes> list = new List<ordenes>();
-            ctrlOrden = new OrdenesController();
+        {            
+            DataTable dtOrden = new DataTable();
+
+            dtOrden.Columns.Add(new DataColumn()
+            {
+                ColumnName = "FechaAlta",
+                DataType = typeof(DateTime)
+            });
+
+            dtOrden.Columns.Add(new DataColumn()
+            {
+                ColumnName = "Orden",
+                DataType = typeof(string)
+            });
+
+            dtOrden.Columns.Add(new DataColumn()
+            {
+                ColumnName = "TxnDate",
+                DataType = typeof(DateTime)
+            });
+
+            dtOrden.Columns.Add(new DataColumn()
+            {
+                ColumnName = "TxnNumber",
+                DataType = typeof(string)
+            });
+
+            dtOrden.Columns.Add(new DataColumn()
+            {
+                ColumnName = "User",
+                DataType = typeof(string)
+            });
+
+            dtOrden.Columns.Add(new DataColumn()
+            {
+                ColumnName = "StatusOrdenImpresa_Id",
+                DataType = typeof(int)
+            });
+
+            List<ordenes> lista = new List<ordenes>();
+
             foreach (DataRow row in dtCharge.Rows)
             {
                 ordenes ordenes = new ordenes();
+                ordenes.FechaAlta = DateTime.Now;
+                ordenes.Orden = row[4].ToString();
+                ordenes.TxnDate = DateTime.Parse(row[0].ToString());
+                ordenes.TxnNumber = row[1].ToString();
+                ordenes.User = row[6].ToString();
+                ordenes.StatusOrdenImpresa_Id = 1;
 
-                if (row[3].ToString() != "")
-                {
-                    ordenes.Orden = row[3].ToString();
-                    ordenes.FechaAlta = DateTime.Now;
-                    ordenes.TxnNumber = row[1].ToString();
-                    ordenes.User = row[5].ToString();
-
-                    if (row[0].ToString() != "")
-                    {
-                        ordenes.TxnDate = Convert.ToDateTime(row[0].ToString());
-                    }
-
-                    list.Add(ordenes);
-                }                                
+                lista.Add(ordenes);                
             }
 
-            if (ctrlOrden.CargaOracle(list))
+            var grouping = lista.GroupBy(x => x.Orden).ToList();
+
+            foreach (var item in grouping)
             {
-                if (AgregarDetalles())
+                var orden = lista.Where(x => x.Orden == item.Key).FirstOrDefault();
+
+                if (orden != null)
                 {
-                    MessageBox.Show("Carga Completa Correctamente", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dtOrden.Rows.Add(new object[] {
+                            DateTime.Now,
+                            orden.Orden,
+                            orden.TxnDate,
+                            orden.TxnNumber,
+                            orden.User,
+                            orden.StatusOrdenImpresa_Id
+                        });
                 }
                 else
                 {
-                    MessageBox.Show("Ha ocurrido un error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.Write("La orden ya existe");
+                }
+            }                                                 
+
+            string connectionString = @"Data Source=SQL7001.site4now.net;Initial Catalog=DB_A3F19C_OG;User Id=DB_A3F19C_OG_admin;Password=xQ9znAhU;";
+
+            using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))
+            {
+                bulkCopy.DestinationTableName = "dbo.ordenes";
+
+                bulkCopy.ColumnMappings.Add("FechaAlta", "FechaAlta");
+                bulkCopy.ColumnMappings.Add("Orden", "Orden");
+                bulkCopy.ColumnMappings.Add("TxnDate", "TxnDate");
+                bulkCopy.ColumnMappings.Add("TxnNumber", "TxnNumber");
+                bulkCopy.ColumnMappings.Add("User", "User");
+                bulkCopy.ColumnMappings.Add("StatusOrdenImpresa_Id", "StatusOrdenImpresa_Id");
+
+                try
+                {
+                    bulkCopy.WriteToServer(dtOrden);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
-            else
+
+            DataTable dtDetalles = new DataTable();
+
+            dtDetalles.Columns.Add(new DataColumn()
             {
-                MessageBox.Show("Ha ocurrido un error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ColumnName = "Ordenes_Id",
+                DataType = typeof(int)
+            });
+
+            dtDetalles.Columns.Add(new DataColumn()
+            {
+                ColumnName = "Skus_Id",
+                DataType = typeof(int)
+            });
+
+            dtDetalles.Columns.Add(new DataColumn()
+            {
+                ColumnName = "cantidad",
+                DataType = typeof(int)
+            });
+
+            foreach (DataRow row in dtCharge.Rows)
+            {
+                var sku = db.Database.SqlQuery<int>("SELECT id FROM skus WHERE Sku = {0}", row[2].ToString());
+                var orden = db.Database.SqlQuery<int>("SELECT id FROM ordenes WHERE Orden = {0}", row[4].ToString());
+                int idSKU = (int)sku.First();
+                int idOrden = (int)orden.First();
+
+                var detordensku = db.Database.SqlQuery<int>(
+                    "SELECT [id] FROM [DB_A3F19C_OG].[dbo].[detordenproductoshd] WHERE [Ordenes_Id] = {0} AND [Skus_Id] = {1}", 
+                    idOrden,
+                    idSKU
+                    );                                     
+
+                if (detordensku.Count() == 0)
+                {
+                    dtDetalles.Rows.Add(new object[] {
+                        idOrden,
+                        idSKU,
+                        int.Parse(row[5].ToString())
+                    });
+                }
+            }
+
+            using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))
+            {
+                bulkCopy.DestinationTableName = "dbo.detordenproductoshd";
+
+                bulkCopy.ColumnMappings.Add("Ordenes_Id", "Ordenes_Id");
+                bulkCopy.ColumnMappings.Add("Skus_Id", "Skus_Id");
+                bulkCopy.ColumnMappings.Add("cantidad", "cantidad");
+
+                try
+                {
+                    bulkCopy.WriteToServer(dtDetalles);
+                    MessageBox.Show("SE HA CARGADO CORRECTAMENTE LA INFORMACION");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
 
-        public bool AgregarDetalles()
+        private void BtnCargarArchivos_Click(object sender, EventArgs e)
         {
-            List<detordenproductoshd> list = new List<detordenproductoshd>();
-            ctrlOrden = new OrdenesController();
-            ctrlDetalle = new DetOrdenProductosHDController();
-            ctrlSKU = new SkusController();
-            foreach (DataRow row in dtCharge.Rows)
-            {
-                detordenproductoshd detordenproductoshd = new detordenproductoshd();
-
-
-
-                if (row[3].ToString() != "")
-                {
-                    detordenproductoshd.Ordenes_Id = ctrlOrden.OrdenById(row[3].ToString());
-                }
-
-                if (row[2].ToString() != "")
-                {
-                    detordenproductoshd.Skus_Id = ctrlSKU.ConsultaBySku(row[2].ToString()).id;
-                }
-
-                if (row[4].ToString() != "")
-                {
-                    detordenproductoshd.cantidad = int.Parse(row[4].ToString());
-                }
-                list.Add(detordenproductoshd);
-            }
-            return ctrlDetalle.AgregarDetalles(list);
-        }    
-
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            AgregarOrdenes();            
+            AgregarOrdenes();
         }
     }
 }
