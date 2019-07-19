@@ -15,7 +15,7 @@ namespace WFAHomeDelivery.Controllers
             try
             {
                 List<detordenproductoshd> lista = new List<detordenproductoshd>();
-                ordenes ordenes = db.ordenes.Where(x => x.Orden == orden).FirstOrDefault();
+                ordenes ordenes = db.ordenes.Where(x => x.Orden.Contains(orden)).FirstOrDefault();
 
                 foreach (var item in db.detordenproductoshd.Where(x => x.Ordenes_Id == ordenes.id).ToList())
                 {

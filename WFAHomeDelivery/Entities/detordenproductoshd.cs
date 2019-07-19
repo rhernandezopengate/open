@@ -18,7 +18,6 @@ namespace WFAHomeDelivery.Entities
         public int Ordenes_Id { get; set; }
         public int Skus_Id { get; set; }
         public Nullable<int> cantidad { get; set; }
-        public string codigoqr { get; set; }
     
         public virtual ordenes ordenes { get; set; }
         public virtual skus skus { get; set; }

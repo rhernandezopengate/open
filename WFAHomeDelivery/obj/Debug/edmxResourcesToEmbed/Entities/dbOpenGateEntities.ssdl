@@ -8,7 +8,6 @@
     <Property Name="Ordenes_Id" Type="int" Nullable="false" />
     <Property Name="Skus_Id" Type="int" Nullable="false" />
     <Property Name="cantidad" Type="int" />
-    <Property Name="codigoqr" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="ordenes">
     <Key>
@@ -33,6 +32,7 @@
     <Property Name="codigobarras" Type="varchar" MaxLength="50" />
     <Property Name="codigobidimensional" Type="char" MaxLength="2" />
     <Property Name="qtymanual" Type="char" MaxLength="2" />
+    <Property Name="codigoqr" Type="char" MaxLength="2" />
   </EntityType>
   <EntityType Name="statusordenimpresa">
     <Key>

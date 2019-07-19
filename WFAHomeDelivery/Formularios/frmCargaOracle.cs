@@ -89,7 +89,7 @@ namespace WFAHomeDelivery
         }
 
         public void AgregarOrdenes()
-        {            
+        {
             DataTable dtOrden = new DataTable();
 
             dtOrden.Columns.Add(new DataColumn()
@@ -140,7 +140,7 @@ namespace WFAHomeDelivery
                 ordenes.User = row[6].ToString();
                 ordenes.StatusOrdenImpresa_Id = 1;
 
-                lista.Add(ordenes);                
+                lista.Add(ordenes);
             }
 
             var grouping = lista.GroupBy(x => x.Orden).ToList();
@@ -164,10 +164,10 @@ namespace WFAHomeDelivery
                 {
                     Console.Write("La orden ya existe");
                 }
-            }                                                 
+            }
 
             string connectionString = @"Data Source=SQL7001.site4now.net;Initial Catalog=DB_A3F19C_OG;User Id=DB_A3F19C_OG_admin;Password=xQ9znAhU;";
-
+            
             using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))
             {
                 bulkCopy.DestinationTableName = "dbo.ordenes";
@@ -209,16 +209,14 @@ namespace WFAHomeDelivery
                 DataType = typeof(int)
             });
 
-            foreach (DataRow row in dtCharge.Rows)
-            {
-                var sku = db.Database.SqlQuery<int>("SELECT id FROM skus WHERE Sku = {0}", row[2].ToString());
-                var orden = db.Database.SqlQuery<int>("SELECT id FROM ordenes WHERE Orden = {0}", row[4].ToString());
-                int idSKU = (int)sku.First();
-                int idOrden = (int)orden.First();
+            List<ordenes> listaOrdenes = db.ordenes.ToList();
+            List<skus> listaSKU = db.skus.ToList();
 
+            foreach (DataRow row in dtCharge.Rows)
+            {                
                 dtDetalles.Rows.Add(new object[] {
-                    idOrden,
-                    idSKU,
+                    listaOrdenes.Where(x => x.Orden == row[4].ToString()).FirstOrDefault().id,
+                    listaSKU.Where(x => x.Sku == row[2].ToString()).FirstOrDefault().id,
                     int.Parse(row[5].ToString())
                 });
             }
@@ -233,19 +231,20 @@ namespace WFAHomeDelivery
 
                 try
                 {
-                    bulkCopy.WriteToServer(dtDetalles);
-                    MessageBox.Show("SE HA CARGADO CORRECTAMENTE LA INFORMACION");
+                    bulkCopy.WriteToServer(dtDetalles);                   
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             }
+
+            MessageBox.Show("Se han cargado los registros correctamente");
         }
 
         private void BtnCargarArchivos_Click(object sender, EventArgs e)
         {
-            AgregarOrdenes();
+            AgregarOrdenes();            
         }
     }
 }

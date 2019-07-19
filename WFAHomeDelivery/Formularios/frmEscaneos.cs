@@ -20,7 +20,7 @@ namespace WFAHomeDelivery
         EscaneosController ctrlEscaneos;
         int index = 0;
         List<detordenproductoshd> lista;
-        List<detordenproductoshd> ListaGrid;
+        List<detordenproductoshd> ListaGrid;        
 
         public frmEscaneos()
         {
@@ -29,7 +29,7 @@ namespace WFAHomeDelivery
 
         private void FrmEscaneos_Load(object sender, EventArgs e)
         {
-            
+            this.txtTicket.Focus();            
         }
 
         public void CargarLista(string orden)
@@ -42,6 +42,8 @@ namespace WFAHomeDelivery
             {                
                 ListaGrid = ctrlEscaneos.ListaDetallesByOrden(orden);
                 CargarGrid();
+                string picker = Microsoft.VisualBasic.Interaction.InputBox("ESCANEAR CODIGO DE PICKER QUE SURTIO LA ORDEN", "CODIGO DE PICKER");
+                lblPicker.Text = picker;
             }
             else
             {
@@ -66,7 +68,9 @@ namespace WFAHomeDelivery
             {
                 CargarLista(this.txtTicket.Text);
                 CargarArreglo();
-                this.txtProducto.Focus();
+                
+                this.txtTicket.Enabled = false;
+                this.txtProducto.Focus();                
             }
         }
 
@@ -237,7 +241,9 @@ namespace WFAHomeDelivery
                 index = 0;
                 this.txtProducto.Text = "";
                 this.txtTicket.Text = "";
-                dgvEscaneos.DataSource = null;
+                this.lblPicker.Text = "";
+                dgvEscaneos.DataSource = null;                
+                this.txtTicket.Enabled = true;
                 this.txtTicket.Focus();
 
                 return true;
@@ -251,6 +257,14 @@ namespace WFAHomeDelivery
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
             SystemSounds.Beep.Play();
+            lista = null;
+            index = 0;
+            this.txtProducto.Text = "";
+            this.lblPicker.Text = "";
+            this.txtTicket.Text = "";
+            this.txtTicket.Enabled = true;
+            dgvEscaneos.DataSource = null;
+            this.txtTicket.Focus();
         }
         
     }

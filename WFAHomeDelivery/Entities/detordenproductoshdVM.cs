@@ -19,5 +19,7 @@ namespace WFAHomeDelivery.Entities
 
         public int CantidadEscaneos { get; set; }
 
+        public string codigoqr { get; set; }
+
     }
 }

@@ -13,7 +13,6 @@
           <Property Name="Ordenes_Id" Type="int" Nullable="false" />
           <Property Name="Skus_Id" Type="int" Nullable="false" />
           <Property Name="cantidad" Type="int" />
-          <Property Name="codigoqr" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="ordenes">
           <Key>
@@ -38,6 +37,7 @@
           <Property Name="codigobarras" Type="varchar" MaxLength="50" />
           <Property Name="codigobidimensional" Type="char" MaxLength="2" />
           <Property Name="qtymanual" Type="char" MaxLength="2" />
+          <Property Name="codigoqr" Type="char" MaxLength="2" />
         </EntityType>
         <EntityType Name="statusordenimpresa">
           <Key>
@@ -112,16 +112,16 @@
             <End Role="ordenes" EntitySet="ordenes" />
           </AssociationSet>
           <EntitySet Name="detordenproductoshd" EntityType="DB_A3F19C_OGModel.detordenproductoshd" />
+          <EntitySet Name="skus" EntityType="DB_A3F19C_OGModel.skus" />
           <AssociationSet Name="detordenesproductos_ordenes_fk" Association="DB_A3F19C_OGModel.detordenesproductos_ordenes_fk">
             <End Role="ordenes" EntitySet="ordenes" />
             <End Role="detordenproductoshd" EntitySet="detordenproductoshd" />
           </AssociationSet>
-          <EntitySet Name="skus" EntityType="DB_A3F19C_OGModel.skus" />
           <AssociationSet Name="detordenesproductos_skus_fk" Association="DB_A3F19C_OGModel.detordenesproductos_skus_fk">
             <End Role="skus" EntitySet="skus" />
             <End Role="detordenproductoshd" EntitySet="detordenproductoshd" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="statusordenimpresa">
           <Key>
             <PropertyRef Name="id" />
@@ -164,9 +164,22 @@
           <Property Name="Ordenes_Id" Type="Int32" Nullable="false" />
           <Property Name="Skus_Id" Type="Int32" Nullable="false" />
           <Property Name="cantidad" Type="Int32" />
-          <Property Name="codigoqr" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ordenes" Relationship="DB_A3F19C_OGModel.detordenesproductos_ordenes_fk" FromRole="detordenproductoshd" ToRole="ordenes" />
           <NavigationProperty Name="skus" Relationship="DB_A3F19C_OGModel.detordenesproductos_skus_fk" FromRole="detordenproductoshd" ToRole="skus" />
+        </EntityType>
+        <EntityType Name="skus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sku" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="uom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="codigobarras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="codigobidimensional" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="qtymanual" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="codigoqr" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="detordenproductoshd" Relationship="DB_A3F19C_OGModel.detordenesproductos_skus_fk" FromRole="skus" ToRole="detordenproductoshd" />
         </EntityType>
         <Association Name="detordenesproductos_ordenes_fk">
           <End Type="DB_A3F19C_OGModel.ordenes" Role="ordenes" Multiplicity="1" />
@@ -180,19 +193,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="skus">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Sku" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="uom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="codigobarras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="codigobidimensional" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="qtymanual" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="detordenproductoshd" Relationship="DB_A3F19C_OGModel.detordenesproductos_skus_fk" FromRole="skus" ToRole="detordenproductoshd" />
-        </EntityType>
         <Association Name="detordenesproductos_skus_fk">
           <End Type="DB_A3F19C_OGModel.skus" Role="skus" Multiplicity="1" />
           <End Type="DB_A3F19C_OGModel.detordenproductoshd" Role="detordenproductoshd" Multiplicity="*" />
@@ -205,7 +205,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -235,7 +235,6 @@
           <EntitySetMapping Name="detordenproductoshd">
             <EntityTypeMapping TypeName="DB_A3F19C_OGModel.detordenproductoshd">
               <MappingFragment StoreEntitySet="detordenproductoshd">
-                <ScalarProperty Name="codigoqr" ColumnName="codigoqr" />
                 <ScalarProperty Name="cantidad" ColumnName="cantidad" />
                 <ScalarProperty Name="Skus_Id" ColumnName="Skus_Id" />
                 <ScalarProperty Name="Ordenes_Id" ColumnName="Ordenes_Id" />
@@ -246,6 +245,7 @@
           <EntitySetMapping Name="skus">
             <EntityTypeMapping TypeName="DB_A3F19C_OGModel.skus">
               <MappingFragment StoreEntitySet="skus">
+                <ScalarProperty Name="codigoqr" ColumnName="codigoqr" />
                 <ScalarProperty Name="qtymanual" ColumnName="qtymanual" />
                 <ScalarProperty Name="codigobidimensional" ColumnName="codigobidimensional" />
                 <ScalarProperty Name="codigobarras" ColumnName="codigobarras" />
