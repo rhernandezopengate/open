@@ -20,6 +20,7 @@
     <Property Name="TxnNumber" Type="varchar" MaxLength="50" />
     <Property Name="User" Type="varchar" MaxLength="200" />
     <Property Name="StatusOrdenImpresa_Id" Type="int" Nullable="false" />
+    <Property Name="Picker" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="skus">
     <Key>
@@ -32,7 +33,6 @@
     <Property Name="codigobarras" Type="varchar" MaxLength="50" />
     <Property Name="codigobidimensional" Type="char" MaxLength="2" />
     <Property Name="qtymanual" Type="char" MaxLength="2" />
-    <Property Name="codigoqr" Type="char" MaxLength="2" />
   </EntityType>
   <EntityType Name="statusordenimpresa">
     <Key>

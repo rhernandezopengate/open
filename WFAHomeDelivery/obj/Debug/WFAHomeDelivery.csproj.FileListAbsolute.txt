@@ -27,4 +27,3 @@ C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHome
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.csproj.CopyComplete
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.exe
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.pdb
-C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.csprojAssemblyReference.cache

@@ -27,9 +27,10 @@ namespace WFAHomeDelivery.Entities
         public string TxnNumber { get; set; }
         public string User { get; set; }
         public int StatusOrdenImpresa_Id { get; set; }
+        public string Picker { get; set; }
     
-        public virtual statusordenimpresa statusordenimpresa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detordenproductoshd> detordenproductoshd { get; set; }
+        public virtual statusordenimpresa statusordenimpresa { get; set; }
     }
 }

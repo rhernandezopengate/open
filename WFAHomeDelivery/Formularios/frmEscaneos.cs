@@ -237,14 +237,19 @@ namespace WFAHomeDelivery
             int cantidadLista = lista.Sum(x => x.CantidadSKUS);
             if (cantidadLista == ctrlEscaneos.CantidadTotalArticulos(this.txtTicket.Text))
             {
-                lista = null;
-                index = 0;
-                this.txtProducto.Text = "";
-                this.txtTicket.Text = "";
-                this.lblPicker.Text = "";
-                dgvEscaneos.DataSource = null;                
-                this.txtTicket.Enabled = true;
-                this.txtTicket.Focus();
+                ctrlEscaneos = new EscaneosController();
+
+                if (ctrlEscaneos.CerrarOrden(this.txtTicket.Text, this.lblPicker.Text))
+                {
+                    lista = null;
+                    index = 0;
+                    this.txtProducto.Text = "";
+                    this.txtTicket.Text = "";
+                    this.lblPicker.Text = "";
+                    dgvEscaneos.DataSource = null;
+                    this.txtTicket.Enabled = true;
+                    this.txtTicket.Focus();
+                }
 
                 return true;
             }
@@ -265,7 +270,6 @@ namespace WFAHomeDelivery
             this.txtTicket.Enabled = true;
             dgvEscaneos.DataSource = null;
             this.txtTicket.Focus();
-        }
-        
+        }        
     }
 }

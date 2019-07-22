@@ -48,7 +48,7 @@ namespace WFAHomeDelivery.Controllers
 
         public List<ordenes> listByOrden(string orden)
         {
-            string query = "SELECT dbo.ordenes.id, dbo.ordenes.Orden, dbo.ordenes.TxnDate, dbo.ordenes.TxnNumber, dbo.ordenes.[User], dbo.ordenes.StatusOrdenImpresa_Id, dbo.ordenes.FechaAlta " +
+            string query = "SELECT dbo.ordenes.id, dbo.ordenes.Orden, dbo.ordenes.TxnDate, dbo.ordenes.TxnNumber, dbo.ordenes.[User], dbo.ordenes.StatusOrdenImpresa_Id, dbo.ordenes.FechaAlta, dbo.ordenes.Picker " +
                            "FROM dbo.ordenes " +                           
                            "WHERE dbo.ordenes.Orden LIKE '%' + @Orden + '%'"; 
 

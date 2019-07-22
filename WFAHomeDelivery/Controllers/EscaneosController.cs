@@ -97,23 +97,6 @@ namespace WFAHomeDelivery.Controllers
             }
         }
 
-        public bool CerrarOrden(string[] arreglo)
-        {
-            try
-            {
-                for (int i = 0; i < arreglo.Count(); i++)
-                {
-                    string a = arreglo[i].ToString();
-                }
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
         public bool IsQTYManual(string sku)
         {
             try
@@ -191,5 +174,23 @@ namespace WFAHomeDelivery.Controllers
                 return false;
             }
         }
+
+        public bool CerrarOrden(string orden, string picker)
+        {
+            try
+            {
+                ordenes ordenes = db.ordenes.Where(x => x.Orden.Contains(orden)).FirstOrDefault();
+                ordenes.StatusOrdenImpresa_Id = 3;
+                ordenes.Picker = picker;
+
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }                
     }
 }

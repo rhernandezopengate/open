@@ -26,8 +26,8 @@ namespace WFAHomeDelivery.Entities
         }
     
         public virtual DbSet<statusordenimpresa> statusordenimpresa { get; set; }
-        public virtual DbSet<ordenes> ordenes { get; set; }
         public virtual DbSet<detordenproductoshd> detordenproductoshd { get; set; }
+        public virtual DbSet<ordenes> ordenes { get; set; }
         public virtual DbSet<skus> skus { get; set; }
     }
 }
