@@ -191,6 +191,48 @@ namespace WFAHomeDelivery.Controllers
             {
                 return false;
             }
-        }                
+        }
+
+        public int ValidarGuia(string orden, string _guias)
+        {
+            try
+            {
+                var guias = db.guias.Where(x => x.Guia.Equals(_guias.Trim())).FirstOrDefault();
+
+                if (guias == null)
+                {
+                    //La guia no existe
+                    return 0;
+                }
+                else
+                {
+                    var ordenTemp = (from ordenes in db.ordenes                                    
+                                    where ordenes.Orden.Equals(orden.Trim())
+                                    select ordenes).FirstOrDefault();
+
+                    if (ordenTemp != null)
+                    {
+                        if (ordenTemp.id == guias.Ordenes_Id)
+                        {
+                            //La guia existe y pertenece a la orden
+                            return 1;
+                        }
+                        else
+                        {
+                            //La guia existe pero no pertenece a la orden
+                            return 2;
+                        }
+                    }
+                    else
+                    {
+                        return 2;
+                    }                    
+                }                
+            }
+            catch (Exception)
+            {
+                return 0;
+            }           
+        }
     }
 }

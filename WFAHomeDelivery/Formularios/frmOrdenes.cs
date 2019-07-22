@@ -12,8 +12,7 @@ using WFAHomeDelivery.Controllers;
 namespace WFAHomeDelivery.Formularios
 {
     public partial class frmOrdenes : Form
-    {
-        OrdenesController ctrlOrdenes;
+    {        
         public frmOrdenes()
         {
             InitializeComponent();
@@ -21,26 +20,18 @@ namespace WFAHomeDelivery.Formularios
 
         private void FrmOrdenes_Load(object sender, EventArgs e)
         {
-            CargarGrid();
-        }
-
-        public void CargarGrid()
-        {
-            dgvOrdenes.AutoGenerateColumns = false;
-            ctrlOrdenes = new OrdenesController();
-            if (this.txtBusqueda.Text.Equals(string.Empty))
-            {
-                dgvOrdenes.DataSource = ctrlOrdenes.listByOrden(string.Empty);
-            }
-            else
-            {
-                dgvOrdenes.DataSource = ctrlOrdenes.listByOrden(this.txtBusqueda.Text);
-            }
+            // TODO: esta línea de código carga datos en la tabla 'dB_A3F19C_OGDataSet.ordenes' Puede moverla o quitarla según sea necesario.
+            this.dataTable1TableAdapter.Fill(this.dB_A3F19C_OGDataSet.DataTable1);
         }
 
         private void TxtBusqueda_KeyUp(object sender, KeyEventArgs e)
         {
-            CargarGrid();
+            //CargarGrid();
+        }
+
+        private void TxtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

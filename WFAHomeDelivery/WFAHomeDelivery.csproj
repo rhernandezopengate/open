@@ -64,6 +64,14 @@
     <Compile Include="Controllers\EscaneosController.cs" />
     <Compile Include="Controllers\OrdenesController.cs" />
     <Compile Include="Controllers\SkusController.cs" />
+    <Compile Include="DB_A3F19C_OGDataSet.cs">
+      <DependentUpon>DB_A3F19C_OGDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DB_A3F19C_OGDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DB_A3F19C_OGDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Entities\dbOpenGateEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,6 +91,9 @@
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\detordenproductoshdVM.cs" />
+    <Compile Include="Entities\guias.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\ordenes.cs">
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>
@@ -92,6 +103,12 @@
     </Compile>
     <Compile Include="Entities\statusordenimpresa.cs">
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmCargaGuias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmCargaGuias.Designer.cs">
+      <DependentUpon>frmCargaGuias.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\frmCargaOracle.cs">
       <SubType>Form</SubType>
@@ -163,6 +180,17 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbOpenGateEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="DB_A3F19C_OGDataSet.xsc">
+      <DependentUpon>DB_A3F19C_OGDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DB_A3F19C_OGDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DB_A3F19C_OGDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DB_A3F19C_OGDataSet.xss">
+      <DependentUpon>DB_A3F19C_OGDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Entities\dbOpenGateEntities.edmx.diagram">
       <DependentUpon>dbOpenGateEntities.edmx</DependentUpon>
     </None>

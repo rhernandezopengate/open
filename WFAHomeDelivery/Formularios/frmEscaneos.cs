@@ -239,19 +239,60 @@ namespace WFAHomeDelivery
             {
                 ctrlEscaneos = new EscaneosController();
 
-                if (ctrlEscaneos.CerrarOrden(this.txtTicket.Text, this.lblPicker.Text))
+                string guia;
+                int? status = 0;
+                
+                do
                 {
-                    lista = null;
-                    index = 0;
-                    this.txtProducto.Text = "";
-                    this.txtTicket.Text = "";
-                    this.lblPicker.Text = "";
-                    dgvEscaneos.DataSource = null;
-                    this.txtTicket.Enabled = true;
-                    this.txtTicket.Focus();
-                }
+                    guia = Microsoft.VisualBasic.Interaction.InputBox("GUIA DE LA ORDEN", "ESCANEAR GUIA DE DHL");
+                                        
+                    if (guia != string.Empty)
+                    {
+                        if (guia.Equals("NA"))
+                        {
+                            SystemSounds.Asterisk.Play();
+                            MessageBox.Show("ESTA ORDEN NO SE PUEDE CERRAR, SIN LA GUIA CORRECTA, DEBE LIMPIAR LA ORDEN Y COMENZAR NUEVAMENTE.");
+                            break;
+                        }
 
-                return true;
+                        int statusGuia = ctrlEscaneos.ValidarGuia(this.txtTicket.Text, guia);
+                        status = statusGuia;
+                        if (statusGuia == 0)
+                        {
+                            SystemSounds.Asterisk.Play();
+                            MessageBox.Show("ESTA GUIA NO EXISTE");                            
+                        }
+                        else if (statusGuia == 1)
+                        {
+                            if (ctrlEscaneos.CerrarOrden(this.txtTicket.Text, this.lblPicker.Text))
+                            {
+                                lista = null;
+                                index = 0;
+                                this.txtProducto.Text = "";
+                                this.txtTicket.Text = "";
+                                this.lblPicker.Text = "";
+                                dgvEscaneos.DataSource = null;
+                                this.txtTicket.Enabled = true;
+                                this.txtTicket.Focus();                               
+                            }                            
+                        }
+                        else
+                        {
+                            SystemSounds.Asterisk.Play();
+                            MessageBox.Show("ESTA GUIA NO PERTENECE A LA ORDEN");                            
+                        }
+                    }                   
+
+                } while (status != 1);
+
+                if (status == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {

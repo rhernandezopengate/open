@@ -17,6 +17,11 @@
       <End Role="skus" EntitySet="skus" />
       <End Role="detordenproductoshd" EntitySet="detordenproductoshd" />
     </AssociationSet>
+    <EntitySet Name="guias" EntityType="DB_A3F19C_OGModel.guias" />
+    <AssociationSet Name="guias_ordenes_fk" Association="DB_A3F19C_OGModel.guias_ordenes_fk">
+      <End Role="ordenes" EntitySet="ordenes" />
+      <End Role="guias" EntitySet="guias" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="statusordenimpresa">
     <Key>
@@ -51,6 +56,7 @@
     <Property Name="Picker" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="detordenproductoshd" Relationship="DB_A3F19C_OGModel.detordenesproductos_ordenes_fk" FromRole="ordenes" ToRole="detordenproductoshd" />
     <NavigationProperty Name="statusordenimpresa" Relationship="DB_A3F19C_OGModel.ordenes_statusordenimpresa_fk" FromRole="ordenes" ToRole="statusordenimpresa" />
+    <NavigationProperty Name="guias" Relationship="DB_A3F19C_OGModel.guias_ordenes_fk" FromRole="ordenes" ToRole="guias" />
   </EntityType>
   <Association Name="detordenesproductos_ordenes_fk">
     <End Type="DB_A3F19C_OGModel.ordenes" Role="ordenes" Multiplicity="1" />
@@ -98,6 +104,27 @@
       </Principal>
       <Dependent Role="detordenproductoshd">
         <PropertyRef Name="Skus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="guias">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Guia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Ordenes_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ordenes" Relationship="DB_A3F19C_OGModel.guias_ordenes_fk" FromRole="guias" ToRole="ordenes" />
+  </EntityType>
+  <Association Name="guias_ordenes_fk">
+    <End Type="DB_A3F19C_OGModel.ordenes" Role="ordenes" Multiplicity="1" />
+    <End Type="DB_A3F19C_OGModel.guias" Role="guias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ordenes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="guias">
+        <PropertyRef Name="Ordenes_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

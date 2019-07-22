@@ -14,6 +14,14 @@
           <Property Name="Skus_Id" Type="int" Nullable="false" />
           <Property Name="cantidad" Type="int" />
         </EntityType>
+        <EntityType Name="guias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Guia" Type="varchar" MaxLength="50" />
+          <Property Name="Ordenes_Id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ordenes">
           <Key>
             <PropertyRef Name="id" />
@@ -70,6 +78,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="guias_ordenes_fk">
+          <End Role="ordenes" Type="Self.ordenes" Multiplicity="1" />
+          <End Role="guias" Type="Self.guias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ordenes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="guias">
+              <PropertyRef Name="Ordenes_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="ordenes_statusordenimpresa_fk">
           <End Role="statusordenimpresa" Type="Self.statusordenimpresa" Multiplicity="1" />
           <End Role="ordenes" Type="Self.ordenes" Multiplicity="*" />
@@ -84,6 +104,7 @@
         </Association>
         <EntityContainer Name="DB_A3F19C_OGModelStoreContainer">
           <EntitySet Name="detordenproductoshd" EntityType="Self.detordenproductoshd" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="guias" EntityType="Self.guias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ordenes" EntityType="Self.ordenes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="skus" EntityType="Self.skus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="statusordenimpresa" EntityType="Self.statusordenimpresa" Schema="dbo" store:Type="Tables" />
@@ -94,6 +115,10 @@
           <AssociationSet Name="detordenesproductos_skus_fk" Association="Self.detordenesproductos_skus_fk">
             <End Role="skus" EntitySet="skus" />
             <End Role="detordenproductoshd" EntitySet="detordenproductoshd" />
+          </AssociationSet>
+          <AssociationSet Name="guias_ordenes_fk" Association="Self.guias_ordenes_fk">
+            <End Role="ordenes" EntitySet="ordenes" />
+            <End Role="guias" EntitySet="guias" />
           </AssociationSet>
           <AssociationSet Name="ordenes_statusordenimpresa_fk" Association="Self.ordenes_statusordenimpresa_fk">
             <End Role="statusordenimpresa" EntitySet="statusordenimpresa" />
@@ -120,6 +145,11 @@
           <AssociationSet Name="detordenesproductos_skus_fk" Association="DB_A3F19C_OGModel.detordenesproductos_skus_fk">
             <End Role="skus" EntitySet="skus" />
             <End Role="detordenproductoshd" EntitySet="detordenproductoshd" />
+          </AssociationSet>
+          <EntitySet Name="guias" EntityType="DB_A3F19C_OGModel.guias" />
+          <AssociationSet Name="guias_ordenes_fk" Association="DB_A3F19C_OGModel.guias_ordenes_fk">
+            <End Role="ordenes" EntitySet="ordenes" />
+            <End Role="guias" EntitySet="guias" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="statusordenimpresa">
@@ -155,6 +185,7 @@
           <Property Name="Picker" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="detordenproductoshd" Relationship="DB_A3F19C_OGModel.detordenesproductos_ordenes_fk" FromRole="ordenes" ToRole="detordenproductoshd" />
           <NavigationProperty Name="statusordenimpresa" Relationship="DB_A3F19C_OGModel.ordenes_statusordenimpresa_fk" FromRole="ordenes" ToRole="statusordenimpresa" />
+          <NavigationProperty Name="guias" Relationship="DB_A3F19C_OGModel.guias_ordenes_fk" FromRole="ordenes" ToRole="guias" />
         </EntityType>
         <Association Name="detordenesproductos_ordenes_fk">
           <End Type="DB_A3F19C_OGModel.ordenes" Role="ordenes" Multiplicity="1" />
@@ -205,6 +236,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="guias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Guia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ordenes_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ordenes" Relationship="DB_A3F19C_OGModel.guias_ordenes_fk" FromRole="guias" ToRole="ordenes" />
+        </EntityType>
+        <Association Name="guias_ordenes_fk">
+          <End Type="DB_A3F19C_OGModel.ordenes" Role="ordenes" Multiplicity="1" />
+          <End Type="DB_A3F19C_OGModel.guias" Role="guias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ordenes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="guias">
+              <PropertyRef Name="Ordenes_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -252,6 +304,15 @@
                 <ScalarProperty Name="uom" ColumnName="uom" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Sku" ColumnName="Sku" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="guias">
+            <EntityTypeMapping TypeName="DB_A3F19C_OGModel.guias">
+              <MappingFragment StoreEntitySet="guias">
+                <ScalarProperty Name="Ordenes_Id" ColumnName="Ordenes_Id" />
+                <ScalarProperty Name="Guia" ColumnName="Guia" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
