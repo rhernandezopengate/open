@@ -42,7 +42,13 @@ namespace WFAHomeDelivery
             {                
                 ListaGrid = ctrlEscaneos.ListaDetallesByOrden(orden);
                 CargarGrid();
-                string picker = Microsoft.VisualBasic.Interaction.InputBox("ESCANEAR CODIGO DE PICKER QUE SURTIO LA ORDEN", "CODIGO DE PICKER");
+                string picker;
+
+                do
+                {
+                    picker = Microsoft.VisualBasic.Interaction.InputBox("ESCANEAR CODIGO DE PICKER QUE SURTIO LA ORDEN", "CODIGO DE PICKER");
+                } while (picker.Equals(string.Empty));
+                
                 lblPicker.Text = picker;
             }
             else
@@ -172,8 +178,8 @@ namespace WFAHomeDelivery
                             }
                             else
                             {                                
-                                int cantidad = lista.Where(x => x.SKU == this.txtProducto.Text).Sum(x => x.CantidadSKUS);
-                                var detalleTemp = ListaGrid.Where(x => x.SKU == this.txtProducto.Text).FirstOrDefault();
+                                int cantidad = lista.Where(x => x.SKU.Contains(this.txtProducto.Text)).Sum(x => x.CantidadSKUS);
+                                var detalleTemp = ListaGrid.Where(x => x.SKU.Contains(this.txtProducto.Text.ToUpper())).FirstOrDefault();
                                 detalleTemp.CantidadSKUS = cantidad;
 
                                 dgvEscaneos.DataSource = null;

@@ -51,7 +51,7 @@
             this.lblTicket.Location = new System.Drawing.Point(2, 0);
             this.lblTicket.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTicket.Name = "lblTicket";
-            this.lblTicket.Size = new System.Drawing.Size(120, 18);
+            this.lblTicket.Size = new System.Drawing.Size(151, 23);
             this.lblTicket.TabIndex = 0;
             this.lblTicket.Text = "Escanear Ticket";
             // 
@@ -61,7 +61,7 @@
             this.txtTicket.Location = new System.Drawing.Point(175, 2);
             this.txtTicket.Margin = new System.Windows.Forms.Padding(2);
             this.txtTicket.Name = "txtTicket";
-            this.txtTicket.Size = new System.Drawing.Size(299, 26);
+            this.txtTicket.Size = new System.Drawing.Size(299, 30);
             this.txtTicket.TabIndex = 1;
             this.txtTicket.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtTicket_KeyPress);
             // 
@@ -77,7 +77,7 @@
             this.dgvEscaneos.Name = "dgvEscaneos";
             this.dgvEscaneos.RowHeadersWidth = 51;
             this.dgvEscaneos.RowTemplate.Height = 24;
-            this.dgvEscaneos.Size = new System.Drawing.Size(553, 663);
+            this.dgvEscaneos.Size = new System.Drawing.Size(567, 543);
             this.dgvEscaneos.TabIndex = 4;
             // 
             // SKU
@@ -110,7 +110,7 @@
             this.txtProducto.Location = new System.Drawing.Point(175, 41);
             this.txtProducto.Margin = new System.Windows.Forms.Padding(2);
             this.txtProducto.Name = "txtProducto";
-            this.txtProducto.Size = new System.Drawing.Size(299, 26);
+            this.txtProducto.Size = new System.Drawing.Size(299, 30);
             this.txtProducto.TabIndex = 2;
             this.txtProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtProducto_KeyPress);
             // 
@@ -121,7 +121,7 @@
             this.lblProducto.Location = new System.Drawing.Point(2, 39);
             this.lblProducto.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblProducto.Name = "lblProducto";
-            this.lblProducto.Size = new System.Drawing.Size(142, 18);
+            this.lblProducto.Size = new System.Drawing.Size(99, 37);
             this.lblProducto.TabIndex = 3;
             this.lblProducto.Text = "Escanear Producto";
             // 
@@ -131,7 +131,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(494, 11);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(70, 92);
+            this.btnLimpiar.Size = new System.Drawing.Size(85, 71);
             this.btnLimpiar.TabIndex = 3;
             this.btnLimpiar.Text = "Limpiar Orden";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -164,7 +164,7 @@
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 76);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 18);
+            this.label1.Size = new System.Drawing.Size(65, 21);
             this.label1.TabIndex = 10;
             this.label1.Text = "Picker";
             // 
@@ -174,14 +174,14 @@
             this.lblPicker.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPicker.Location = new System.Drawing.Point(176, 76);
             this.lblPicker.Name = "lblPicker";
-            this.lblPicker.Size = new System.Drawing.Size(0, 18);
+            this.lblPicker.Size = new System.Drawing.Size(0, 21);
             this.lblPicker.TabIndex = 11;
             // 
             // frmEscaneos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 795);
+            this.ClientSize = new System.Drawing.Size(591, 675);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.dgvEscaneos);

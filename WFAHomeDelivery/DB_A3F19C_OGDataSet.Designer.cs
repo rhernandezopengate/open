@@ -279,6 +279,10 @@ namespace WFAHomeDelivery {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class DataTable1DataTable : global::System.Data.TypedTableBase<DataTable1Row> {
             
+            private global::System.Data.DataColumn columnid;
+            
+            private global::System.Data.DataColumn columnFechaAlta;
+            
             private global::System.Data.DataColumn columnOrden;
             
             private global::System.Data.DataColumn columnTxnDate;
@@ -287,13 +291,11 @@ namespace WFAHomeDelivery {
             
             private global::System.Data.DataColumn columnUser;
             
-            private global::System.Data.DataColumn columnStatusOrdenImpresa_Id;
-            
             private global::System.Data.DataColumn columnPicker;
             
-            private global::System.Data.DataColumn columnStatusOrden;
-            
             private global::System.Data.DataColumn columnGuia;
+            
+            private global::System.Data.DataColumn columnStatusGuia;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -330,6 +332,22 @@ namespace WFAHomeDelivery {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn idColumn {
+                get {
+                    return this.columnid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FechaAltaColumn {
+                get {
+                    return this.columnFechaAlta;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn OrdenColumn {
                 get {
                     return this.columnOrden;
@@ -362,14 +380,6 @@ namespace WFAHomeDelivery {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn StatusOrdenImpresa_IdColumn {
-                get {
-                    return this.columnStatusOrdenImpresa_Id;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn PickerColumn {
                 get {
                     return this.columnPicker;
@@ -378,17 +388,17 @@ namespace WFAHomeDelivery {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn StatusOrdenColumn {
+            public global::System.Data.DataColumn GuiaColumn {
                 get {
-                    return this.columnStatusOrden;
+                    return this.columnGuia;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn GuiaColumn {
+            public global::System.Data.DataColumn StatusGuiaColumn {
                 get {
-                    return this.columnGuia;
+                    return this.columnStatusGuia;
                 }
             }
             
@@ -429,20 +439,28 @@ namespace WFAHomeDelivery {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DataTable1Row AddDataTable1Row(string Orden, System.DateTime TxnDate, string TxnNumber, string User, int StatusOrdenImpresa_Id, string Picker, string StatusOrden, string Guia) {
+            public DataTable1Row AddDataTable1Row(System.DateTime FechaAlta, string Orden, System.DateTime TxnDate, string TxnNumber, string User, string Picker, string Guia, string StatusGuia) {
                 DataTable1Row rowDataTable1Row = ((DataTable1Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        null,
+                        FechaAlta,
                         Orden,
                         TxnDate,
                         TxnNumber,
                         User,
-                        StatusOrdenImpresa_Id,
                         Picker,
-                        StatusOrden,
-                        Guia};
+                        Guia,
+                        StatusGuia};
                 rowDataTable1Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDataTable1Row);
                 return rowDataTable1Row;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DataTable1Row FindByid(int id) {
+                return ((DataTable1Row)(this.Rows.Find(new object[] {
+                            id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -462,19 +480,24 @@ namespace WFAHomeDelivery {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
+                this.columnid = base.Columns["id"];
+                this.columnFechaAlta = base.Columns["FechaAlta"];
                 this.columnOrden = base.Columns["Orden"];
                 this.columnTxnDate = base.Columns["TxnDate"];
                 this.columnTxnNumber = base.Columns["TxnNumber"];
                 this.columnUser = base.Columns["User"];
-                this.columnStatusOrdenImpresa_Id = base.Columns["StatusOrdenImpresa_Id"];
                 this.columnPicker = base.Columns["Picker"];
-                this.columnStatusOrden = base.Columns["StatusOrden"];
                 this.columnGuia = base.Columns["Guia"];
+                this.columnStatusGuia = base.Columns["StatusGuia"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
+                this.columnid = new global::System.Data.DataColumn("id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnid);
+                this.columnFechaAlta = new global::System.Data.DataColumn("FechaAlta", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFechaAlta);
                 this.columnOrden = new global::System.Data.DataColumn("Orden", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOrden);
                 this.columnTxnDate = new global::System.Data.DataColumn("TxnDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
@@ -483,21 +506,26 @@ namespace WFAHomeDelivery {
                 base.Columns.Add(this.columnTxnNumber);
                 this.columnUser = new global::System.Data.DataColumn("User", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUser);
-                this.columnStatusOrdenImpresa_Id = new global::System.Data.DataColumn("StatusOrdenImpresa_Id", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnStatusOrdenImpresa_Id);
                 this.columnPicker = new global::System.Data.DataColumn("Picker", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPicker);
-                this.columnStatusOrden = new global::System.Data.DataColumn("StatusOrden", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnStatusOrden);
                 this.columnGuia = new global::System.Data.DataColumn("Guia", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnGuia);
+                this.columnStatusGuia = new global::System.Data.DataColumn("StatusGuia", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStatusGuia);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnid}, true));
+                this.columnid.AutoIncrement = true;
+                this.columnid.AutoIncrementSeed = -1;
+                this.columnid.AutoIncrementStep = -1;
+                this.columnid.AllowDBNull = false;
+                this.columnid.ReadOnly = true;
+                this.columnid.Unique = true;
                 this.columnOrden.MaxLength = 20;
                 this.columnTxnNumber.MaxLength = 50;
                 this.columnUser.MaxLength = 200;
-                this.columnStatusOrdenImpresa_Id.AllowDBNull = false;
                 this.columnPicker.MaxLength = 100;
-                this.columnStatusOrden.MaxLength = 50;
                 this.columnGuia.MaxLength = 50;
+                this.columnStatusGuia.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -640,6 +668,33 @@ namespace WFAHomeDelivery {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int id {
+                get {
+                    return ((int)(this[this.tableDataTable1.idColumn]));
+                }
+                set {
+                    this[this.tableDataTable1.idColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime FechaAlta {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableDataTable1.FechaAltaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'FechaAlta\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.FechaAltaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string Orden {
                 get {
                     try {
@@ -704,17 +759,6 @@ namespace WFAHomeDelivery {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int StatusOrdenImpresa_Id {
-                get {
-                    return ((int)(this[this.tableDataTable1.StatusOrdenImpresa_IdColumn]));
-                }
-                set {
-                    this[this.tableDataTable1.StatusOrdenImpresa_IdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string Picker {
                 get {
                     try {
@@ -726,22 +770,6 @@ namespace WFAHomeDelivery {
                 }
                 set {
                     this[this.tableDataTable1.PickerColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string StatusOrden {
-                get {
-                    try {
-                        return ((string)(this[this.tableDataTable1.StatusOrdenColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'StatusOrden\' de la tabla \'DataTable1\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDataTable1.StatusOrdenColumn] = value;
                 }
             }
             
@@ -759,6 +787,34 @@ namespace WFAHomeDelivery {
                 set {
                     this[this.tableDataTable1.GuiaColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string StatusGuia {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.StatusGuiaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'StatusGuia\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.StatusGuiaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFechaAltaNull() {
+                return this.IsNull(this.tableDataTable1.FechaAltaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFechaAltaNull() {
+                this[this.tableDataTable1.FechaAltaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -823,18 +879,6 @@ namespace WFAHomeDelivery {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsStatusOrdenNull() {
-                return this.IsNull(this.tableDataTable1.StatusOrdenColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetStatusOrdenNull() {
-                this[this.tableDataTable1.StatusOrdenColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsGuiaNull() {
                 return this.IsNull(this.tableDataTable1.GuiaColumn);
             }
@@ -843,6 +887,18 @@ namespace WFAHomeDelivery {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetGuiaNull() {
                 this[this.tableDataTable1.GuiaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsStatusGuiaNull() {
+                return this.IsNull(this.tableDataTable1.StatusGuiaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetStatusGuiaNull() {
+                this[this.tableDataTable1.StatusGuiaColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1005,14 +1061,15 @@ namespace WFAHomeDelivery.DB_A3F19C_OGDataSetTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "DataTable1";
+            tableMapping.ColumnMappings.Add("id", "id");
+            tableMapping.ColumnMappings.Add("FechaAlta", "FechaAlta");
             tableMapping.ColumnMappings.Add("Orden", "Orden");
             tableMapping.ColumnMappings.Add("TxnDate", "TxnDate");
             tableMapping.ColumnMappings.Add("TxnNumber", "TxnNumber");
             tableMapping.ColumnMappings.Add("User", "User");
-            tableMapping.ColumnMappings.Add("StatusOrdenImpresa_Id", "StatusOrdenImpresa_Id");
             tableMapping.ColumnMappings.Add("Picker", "Picker");
-            tableMapping.ColumnMappings.Add("StatusOrden", "StatusOrden");
             tableMapping.ColumnMappings.Add("Guia", "Guia");
+            tableMapping.ColumnMappings.Add("StatusGuia", "StatusGuia");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1029,10 +1086,18 @@ namespace WFAHomeDelivery.DB_A3F19C_OGDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT          dbo.ordenes.Orden, dbo.ordenes.[TxnDate], dbo.ordenes.[TxnNumber], dbo.ordenes.[User], dbo.ordenes.[StatusOrdenImpresa_Id], dbo.ordenes.[Picker], dbo.statusordenimpresa.descripcion as StatusOrden, dbo.guias.Guia
-FROM            dbo.ordenes 
-INNER JOIN      dbo.statusordenimpresa ON dbo.ordenes.StatusOrdenImpresa_Id = dbo.statusordenimpresa.id
-left join       dbo.guias on dbo.ordenes.id = dbo.guias.id";
+            this._commandCollection[0].CommandText = @"SELECT	dbo.ordenes.id, 
+		dbo.ordenes.FechaAlta, 
+		dbo.ordenes.Orden, 
+		dbo.ordenes.TxnDate, 
+		dbo.ordenes.TxnNumber, 
+		dbo.ordenes.[User], 
+		dbo.ordenes.Picker, 
+		dbo.guias.Guia, 
+		dbo.statusordenimpresa.descripcion AS StatusGuia
+FROM    dbo.ordenes 
+INNER JOIN dbo.guias ON dbo.ordenes.id = dbo.guias.Ordenes_Id 
+INNER JOIN dbo.statusordenimpresa ON dbo.ordenes.StatusOrdenImpresa_Id = dbo.statusordenimpresa.id";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

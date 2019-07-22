@@ -149,6 +149,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\DetOrdenesProductosVM.cs" />
+    <EmbeddedResource Include="Formularios\frmCargaGuias.resx">
+      <DependentUpon>frmCargaGuias.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmCargaOracle.resx">
       <DependentUpon>frmCargaOracle.cs</DependentUpon>
     </EmbeddedResource>

@@ -35,6 +35,7 @@
             this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ordenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cargarGuiasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,56 +46,64 @@
             this.homeToolStripMenuItem,
             this.escaneosToolStripMenuItem,
             this.cargaOracleToolStripMenuItem,
+            this.cargarGuiasToolStripMenuItem,
             this.productosToolStripMenuItem,
             this.ordenesToolStripMenuItem,
             this.salirToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1328, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1328, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // homeToolStripMenuItem
             // 
             this.homeToolStripMenuItem.Name = "homeToolStripMenuItem";
-            this.homeToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.homeToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
             this.homeToolStripMenuItem.Text = "Home";
             // 
             // escaneosToolStripMenuItem
             // 
             this.escaneosToolStripMenuItem.Name = "escaneosToolStripMenuItem";
-            this.escaneosToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.escaneosToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.escaneosToolStripMenuItem.Text = "Escaneos";
             this.escaneosToolStripMenuItem.Click += new System.EventHandler(this.EscaneosToolStripMenuItem_Click);
             // 
             // cargaOracleToolStripMenuItem
             // 
             this.cargaOracleToolStripMenuItem.Name = "cargaOracleToolStripMenuItem";
-            this.cargaOracleToolStripMenuItem.Size = new System.Drawing.Size(131, 20);
+            this.cargaOracleToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
             this.cargaOracleToolStripMenuItem.Text = "Carga Reporte Oracle";
             this.cargaOracleToolStripMenuItem.Click += new System.EventHandler(this.CargaOracleToolStripMenuItem_Click);
             // 
             // productosToolStripMenuItem
             // 
             this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
-            this.productosToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.productosToolStripMenuItem.Size = new System.Drawing.Size(50, 24);
             this.productosToolStripMenuItem.Text = "SKU";
             this.productosToolStripMenuItem.Click += new System.EventHandler(this.ProductosToolStripMenuItem_Click);
             // 
             // ordenesToolStripMenuItem
             // 
             this.ordenesToolStripMenuItem.Name = "ordenesToolStripMenuItem";
-            this.ordenesToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.ordenesToolStripMenuItem.Size = new System.Drawing.Size(78, 24);
             this.ordenesToolStripMenuItem.Text = "Ordenes";
             this.ordenesToolStripMenuItem.Click += new System.EventHandler(this.OrdenesToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(52, 24);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.SalirToolStripMenuItem_Click);
+            // 
+            // cargarGuiasToolStripMenuItem
+            // 
+            this.cargarGuiasToolStripMenuItem.Name = "cargarGuiasToolStripMenuItem";
+            this.cargarGuiasToolStripMenuItem.Size = new System.Drawing.Size(107, 24);
+            this.cargarGuiasToolStripMenuItem.Text = "Cargar Guias";
+            this.cargarGuiasToolStripMenuItem.Click += new System.EventHandler(this.CargarGuiasToolStripMenuItem_Click);
             // 
             // frmMenu
             // 
@@ -124,5 +133,6 @@
         private System.Windows.Forms.ToolStripMenuItem cargaOracleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ordenesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cargarGuiasToolStripMenuItem;
     }
 }

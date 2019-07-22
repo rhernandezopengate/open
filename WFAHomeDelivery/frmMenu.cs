@@ -58,5 +58,14 @@ namespace WFAHomeDelivery
             // Display the new form.  
             newMDIChild.Show();
         }
+
+        private void CargarGuiasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCargaGuias newMDIChild = new frmCargaGuias();
+            // Set the parent form of the child window.  
+            newMDIChild.MdiParent = this;
+            // Display the new form.  
+            newMDIChild.Show();
+        }
     }
 }

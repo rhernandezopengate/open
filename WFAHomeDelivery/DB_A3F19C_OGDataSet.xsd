@@ -9,27 +9,36 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="DB_A3F19C_OGConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="DB_A3F19C_OGConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT          dbo.ordenes.Orden, dbo.ordenes.[TxnDate], dbo.ordenes.[TxnNumber], dbo.ordenes.[User], dbo.ordenes.[StatusOrdenImpresa_Id], dbo.ordenes.[Picker], dbo.statusordenimpresa.descripcion as StatusOrden, dbo.guias.Guia
-FROM            dbo.ordenes 
-INNER JOIN      dbo.statusordenimpresa ON dbo.ordenes.StatusOrdenImpresa_Id = dbo.statusordenimpresa.id
-left join       dbo.guias on dbo.ordenes.id = dbo.guias.id</CommandText>
+                    <CommandText>SELECT	dbo.ordenes.id, 
+		dbo.ordenes.FechaAlta, 
+		dbo.ordenes.Orden, 
+		dbo.ordenes.TxnDate, 
+		dbo.ordenes.TxnNumber, 
+		dbo.ordenes.[User], 
+		dbo.ordenes.Picker, 
+		dbo.guias.Guia, 
+		dbo.statusordenimpresa.descripcion AS StatusGuia
+FROM    dbo.ordenes 
+INNER JOIN dbo.guias ON dbo.ordenes.id = dbo.guias.Ordenes_Id 
+INNER JOIN dbo.statusordenimpresa ON dbo.ordenes.StatusOrdenImpresa_Id = dbo.statusordenimpresa.id</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
             </MainSource>
             <Mappings>
+              <Mapping SourceColumn="id" DataSetColumn="id" />
+              <Mapping SourceColumn="FechaAlta" DataSetColumn="FechaAlta" />
               <Mapping SourceColumn="Orden" DataSetColumn="Orden" />
               <Mapping SourceColumn="TxnDate" DataSetColumn="TxnDate" />
               <Mapping SourceColumn="TxnNumber" DataSetColumn="TxnNumber" />
               <Mapping SourceColumn="User" DataSetColumn="User" />
-              <Mapping SourceColumn="StatusOrdenImpresa_Id" DataSetColumn="StatusOrdenImpresa_Id" />
               <Mapping SourceColumn="Picker" DataSetColumn="Picker" />
-              <Mapping SourceColumn="StatusOrden" DataSetColumn="StatusOrden" />
               <Mapping SourceColumn="Guia" DataSetColumn="Guia" />
+              <Mapping SourceColumn="StatusGuia" DataSetColumn="StatusGuia" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -44,6 +53,8 @@ left join       dbo.guias on dbo.ordenes.id = dbo.guias.id</CommandText>
         <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowClassName="DataTable1Row">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
+              <xs:element name="FechaAlta" msprop:Generator_ColumnVarNameInTable="columnFechaAlta" msprop:Generator_ColumnPropNameInRow="FechaAlta" msprop:Generator_ColumnPropNameInTable="FechaAltaColumn" msprop:Generator_UserColumnName="FechaAlta" type="xs:dateTime" minOccurs="0" />
               <xs:element name="Orden" msprop:Generator_ColumnVarNameInTable="columnOrden" msprop:Generator_ColumnPropNameInRow="Orden" msprop:Generator_ColumnPropNameInTable="OrdenColumn" msprop:Generator_UserColumnName="Orden" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -66,7 +77,6 @@ left join       dbo.guias on dbo.ordenes.id = dbo.guias.id</CommandText>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="StatusOrdenImpresa_Id" msprop:Generator_ColumnVarNameInTable="columnStatusOrdenImpresa_Id" msprop:Generator_ColumnPropNameInRow="StatusOrdenImpresa_Id" msprop:Generator_ColumnPropNameInTable="StatusOrdenImpresa_IdColumn" msprop:Generator_UserColumnName="StatusOrdenImpresa_Id" type="xs:int" />
               <xs:element name="Picker" msprop:Generator_ColumnVarNameInTable="columnPicker" msprop:Generator_ColumnPropNameInRow="Picker" msprop:Generator_ColumnPropNameInTable="PickerColumn" msprop:Generator_UserColumnName="Picker" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -74,14 +84,14 @@ left join       dbo.guias on dbo.ordenes.id = dbo.guias.id</CommandText>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="StatusOrden" msprop:Generator_ColumnVarNameInTable="columnStatusOrden" msprop:Generator_ColumnPropNameInRow="StatusOrden" msprop:Generator_ColumnPropNameInTable="StatusOrdenColumn" msprop:Generator_UserColumnName="StatusOrden" minOccurs="0">
+              <xs:element name="Guia" msprop:Generator_ColumnVarNameInTable="columnGuia" msprop:Generator_ColumnPropNameInRow="Guia" msprop:Generator_ColumnPropNameInTable="GuiaColumn" msprop:Generator_UserColumnName="Guia" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Guia" msprop:Generator_ColumnVarNameInTable="columnGuia" msprop:Generator_ColumnPropNameInRow="Guia" msprop:Generator_ColumnPropNameInTable="GuiaColumn" msprop:Generator_UserColumnName="Guia" minOccurs="0">
+              <xs:element name="StatusGuia" msprop:Generator_ColumnVarNameInTable="columnStatusGuia" msprop:Generator_ColumnPropNameInRow="StatusGuia" msprop:Generator_ColumnPropNameInTable="StatusGuiaColumn" msprop:Generator_UserColumnName="StatusGuia" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
@@ -93,5 +103,9 @@ left join       dbo.guias on dbo.ordenes.id = dbo.guias.id</CommandText>
         </xs:element>
       </xs:choice>
     </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DataTable1" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
   </xs:element>
 </xs:schema>
