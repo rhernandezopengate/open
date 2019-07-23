@@ -22,14 +22,16 @@ namespace WFAHomeDelivery
         List<detordenproductoshd> lista;
         List<detordenproductoshd> ListaGrid;        
 
-        public frmEscaneos()
+        public frmEscaneos(string nombre)
         {
-            InitializeComponent();            
+            InitializeComponent();
+            lblAuditor.Text = nombre;
+            this.txtTicket.Focus();            
         }
 
         private void FrmEscaneos_Load(object sender, EventArgs e)
         {
-            this.txtTicket.Focus();            
+                      
         }
 
         public void CargarLista(string orden)

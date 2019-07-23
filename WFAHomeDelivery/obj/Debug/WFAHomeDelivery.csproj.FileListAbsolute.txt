@@ -21,6 +21,7 @@ C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHome
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.frmInventarios.resources
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.Formularios.frmOrdenes.resources
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.Formularios.frmSKU.resources
+C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.frmLogin.resources
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.frmMenu.resources
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.Properties.Resources.resources
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.csproj.GenerateResource.cache

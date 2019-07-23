@@ -20,7 +20,7 @@ namespace WFAHomeDelivery
 
         private void EscaneosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmEscaneos newMDIChild = new frmEscaneos();
+            frmEscaneos newMDIChild = new frmEscaneos("Hola");
             // Set the parent form of the child window.  
             newMDIChild.MdiParent = this;
             // Display the new form.  
