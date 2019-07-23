@@ -30,5 +30,8 @@ namespace WFAHomeDelivery.Entities
         public virtual DbSet<ordenes> ordenes { get; set; }
         public virtual DbSet<skus> skus { get; set; }
         public virtual DbSet<guias> guias { get; set; }
+        public virtual DbSet<detusuariosordenes> detusuariosordenes { get; set; }
+        public virtual DbSet<usuarios> usuarios { get; set; }
+        public virtual DbSet<codigoqrordenes> codigoqrordenes { get; set; }
     }
 }

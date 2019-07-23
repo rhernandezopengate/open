@@ -234,5 +234,61 @@ namespace WFAHomeDelivery.Controllers
                 return 0;
             }           
         }
+
+        public void AgregarAuditorOrden(string orden, string usuario)
+        {
+            try
+            {                
+                detusuariosordenes detusuariosordenes = new detusuariosordenes();
+
+                detusuariosordenes.Ordenes_Id = db.ordenes.Where(x => x.Orden == orden).FirstOrDefault().id;
+                detusuariosordenes.Usuarios_Id = db.usuarios.Where(x => x.nombre.Equals(usuario)).FirstOrDefault().id;
+
+                db.detusuariosordenes.Add(detusuariosordenes);
+
+                db.SaveChanges();
+            }
+            catch (Exception _ex)
+            {
+                Console.Write(_ex.Message);
+            }
+        }
+
+        public void AgregarQrOrden(string orden, List<detordenproductoshd> list)
+        {
+            foreach (var item in list)
+            {
+                if (item.codigoqr != "NA")
+                {
+                    codigoqrordenes codigoqrordenes = new codigoqrordenes();
+                    codigoqrordenes.CodigoQR = item.codigoqr;
+                    codigoqrordenes.Ordenes_Id = db.ordenes.Where(x => x.Orden == orden).FirstOrDefault().id;
+
+                    db.codigoqrordenes.Add(codigoqrordenes);
+                    db.SaveChanges();
+                }                
+            }
+        }
+
+        public bool ValidarOrdenCerrada(string orden)
+        {
+            try
+            {
+                int status = db.ordenes.Where(x => x.Orden.Contains(orden)).FirstOrDefault().StatusOrdenImpresa_Id;
+                if (status == 3)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
     }
 }

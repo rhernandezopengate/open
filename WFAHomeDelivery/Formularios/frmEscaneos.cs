@@ -74,11 +74,23 @@ namespace WFAHomeDelivery
         {
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
-                CargarLista(this.txtTicket.Text);
-                CargarArreglo();
-                
-                this.txtTicket.Enabled = false;
-                this.txtProducto.Focus();                
+                ctrlEscaneos = new EscaneosController();
+                if (ctrlEscaneos.ValidarOrdenCerrada(this.txtTicket.Text))
+                {
+                    CargarLista(this.txtTicket.Text);
+                    CargarArreglo();
+                    this.txtTicket.Enabled = false;
+                    this.txtProducto.Focus();
+                }
+                else
+                {
+                    SystemSounds.Asterisk.Play();
+                    MessageBox.Show("Esta Orden Esta Cerrada");
+                    this.txtTicket.Text = "";
+                    this.txtTicket.Focus();
+                }
+
+                e.Handled = true;
             }
         }
 
@@ -271,9 +283,12 @@ namespace WFAHomeDelivery
                             MessageBox.Show("ESTA GUIA NO EXISTE");                            
                         }
                         else if (statusGuia == 1)
-                        {
+                        {                            
                             if (ctrlEscaneos.CerrarOrden(this.txtTicket.Text, this.lblPicker.Text))
                             {
+                                ctrlEscaneos.AgregarAuditorOrden(this.txtTicket.Text, this.lblAuditor.Text);
+                                ctrlEscaneos.AgregarQrOrden(this.txtTicket.Text, lista);
+
                                 lista = null;
                                 index = 0;
                                 this.txtProducto.Text = "";

@@ -22,6 +22,21 @@
       <End Role="ordenes" EntitySet="ordenes" />
       <End Role="guias" EntitySet="guias" />
     </AssociationSet>
+    <EntitySet Name="detusuariosordenes" EntityType="DB_A3F19C_OGModel.detusuariosordenes" />
+    <EntitySet Name="usuarios" EntityType="DB_A3F19C_OGModel.usuarios" />
+    <AssociationSet Name="detusuariosordenes_ordenes_fk" Association="DB_A3F19C_OGModel.detusuariosordenes_ordenes_fk">
+      <End Role="ordenes" EntitySet="ordenes" />
+      <End Role="detusuariosordenes" EntitySet="detusuariosordenes" />
+    </AssociationSet>
+    <AssociationSet Name="detusuariosordenes_usuarios_fk" Association="DB_A3F19C_OGModel.detusuariosordenes_usuarios_fk">
+      <End Role="usuarios" EntitySet="usuarios" />
+      <End Role="detusuariosordenes" EntitySet="detusuariosordenes" />
+    </AssociationSet>
+    <EntitySet Name="codigoqrordenes" EntityType="DB_A3F19C_OGModel.codigoqrordenes" />
+    <AssociationSet Name="codigoqrordenes_ordenes_fk" Association="DB_A3F19C_OGModel.codigoqrordenes_ordenes_fk">
+      <End Role="ordenes" EntitySet="ordenes" />
+      <End Role="codigoqrordenes" EntitySet="codigoqrordenes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="statusordenimpresa">
     <Key>
@@ -57,6 +72,8 @@
     <NavigationProperty Name="detordenproductoshd" Relationship="DB_A3F19C_OGModel.detordenesproductos_ordenes_fk" FromRole="ordenes" ToRole="detordenproductoshd" />
     <NavigationProperty Name="statusordenimpresa" Relationship="DB_A3F19C_OGModel.ordenes_statusordenimpresa_fk" FromRole="ordenes" ToRole="statusordenimpresa" />
     <NavigationProperty Name="guias" Relationship="DB_A3F19C_OGModel.guias_ordenes_fk" FromRole="ordenes" ToRole="guias" />
+    <NavigationProperty Name="detusuariosordenes" Relationship="DB_A3F19C_OGModel.detusuariosordenes_ordenes_fk" FromRole="ordenes" ToRole="detusuariosordenes" />
+    <NavigationProperty Name="codigoqrordenes" Relationship="DB_A3F19C_OGModel.codigoqrordenes_ordenes_fk" FromRole="ordenes" ToRole="codigoqrordenes" />
   </EntityType>
   <Association Name="detordenesproductos_ordenes_fk">
     <End Type="DB_A3F19C_OGModel.ordenes" Role="ordenes" Multiplicity="1" />
@@ -124,6 +141,72 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="guias">
+        <PropertyRef Name="Ordenes_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="detusuariosordenes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usuarios_Id" Type="Int32" Nullable="false" />
+    <Property Name="Ordenes_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ordenes" Relationship="DB_A3F19C_OGModel.detusuariosordenes_ordenes_fk" FromRole="detusuariosordenes" ToRole="ordenes" />
+    <NavigationProperty Name="usuarios" Relationship="DB_A3F19C_OGModel.detusuariosordenes_usuarios_fk" FromRole="detusuariosordenes" ToRole="usuarios" />
+  </EntityType>
+  <EntityType Name="usuarios">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tipousuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="detusuariosordenes" Relationship="DB_A3F19C_OGModel.detusuariosordenes_usuarios_fk" FromRole="usuarios" ToRole="detusuariosordenes" />
+  </EntityType>
+  <Association Name="detusuariosordenes_ordenes_fk">
+    <End Type="DB_A3F19C_OGModel.ordenes" Role="ordenes" Multiplicity="1" />
+    <End Type="DB_A3F19C_OGModel.detusuariosordenes" Role="detusuariosordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ordenes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="detusuariosordenes">
+        <PropertyRef Name="Ordenes_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="detusuariosordenes_usuarios_fk">
+    <End Type="DB_A3F19C_OGModel.usuarios" Role="usuarios" Multiplicity="1" />
+    <End Type="DB_A3F19C_OGModel.detusuariosordenes" Role="detusuariosordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="detusuariosordenes">
+        <PropertyRef Name="Usuarios_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="codigoqrordenes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodigoQR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Ordenes_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ordenes" Relationship="DB_A3F19C_OGModel.codigoqrordenes_ordenes_fk" FromRole="codigoqrordenes" ToRole="ordenes" />
+  </EntityType>
+  <Association Name="codigoqrordenes_ordenes_fk">
+    <End Type="DB_A3F19C_OGModel.ordenes" Role="ordenes" Multiplicity="1" />
+    <End Type="DB_A3F19C_OGModel.codigoqrordenes" Role="codigoqrordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ordenes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="codigoqrordenes">
         <PropertyRef Name="Ordenes_Id" />
       </Dependent>
     </ReferentialConstraint>

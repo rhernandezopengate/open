@@ -19,6 +19,8 @@ namespace WFAHomeDelivery.Entities
         {
             this.detordenproductoshd = new HashSet<detordenproductoshd>();
             this.guias = new HashSet<guias>();
+            this.detusuariosordenes = new HashSet<detusuariosordenes>();
+            this.codigoqrordenes = new HashSet<codigoqrordenes>();
         }
     
         public int id { get; set; }
@@ -35,5 +37,9 @@ namespace WFAHomeDelivery.Entities
         public virtual statusordenimpresa statusordenimpresa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<guias> guias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detusuariosordenes> detusuariosordenes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<codigoqrordenes> codigoqrordenes { get; set; }
     }
 }

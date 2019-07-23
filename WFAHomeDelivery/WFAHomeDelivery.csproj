@@ -72,6 +72,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DB_A3F19C_OGDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Entities\codigoqrordenes.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\dbOpenGateEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -91,6 +94,9 @@
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\detordenproductoshdVM.cs" />
+    <Compile Include="Entities\detusuariosordenes.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\guias.cs">
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>
@@ -102,6 +108,9 @@
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\statusordenimpresa.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\usuarios.cs">
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Formularios\frmCargaGuias.cs">

@@ -39,9 +39,9 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblAuditor = new System.Windows.Forms.Label();
             this.lblPicker = new System.Windows.Forms.Label();
             this.lblAuditor1 = new System.Windows.Forms.Label();
-            this.lblAuditor = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEscaneos)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -53,7 +53,7 @@
             this.lblTicket.Location = new System.Drawing.Point(2, 57);
             this.lblTicket.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTicket.Name = "lblTicket";
-            this.lblTicket.Size = new System.Drawing.Size(120, 18);
+            this.lblTicket.Size = new System.Drawing.Size(151, 23);
             this.lblTicket.TabIndex = 0;
             this.lblTicket.Text = "Escanear Ticket";
             // 
@@ -63,7 +63,7 @@
             this.txtTicket.Location = new System.Drawing.Point(175, 59);
             this.txtTicket.Margin = new System.Windows.Forms.Padding(2);
             this.txtTicket.Name = "txtTicket";
-            this.txtTicket.Size = new System.Drawing.Size(299, 26);
+            this.txtTicket.Size = new System.Drawing.Size(299, 30);
             this.txtTicket.TabIndex = 1;
             this.txtTicket.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtTicket_KeyPress);
             // 
@@ -112,7 +112,7 @@
             this.txtProducto.Location = new System.Drawing.Point(175, 93);
             this.txtProducto.Margin = new System.Windows.Forms.Padding(2);
             this.txtProducto.Name = "txtProducto";
-            this.txtProducto.Size = new System.Drawing.Size(299, 26);
+            this.txtProducto.Size = new System.Drawing.Size(299, 30);
             this.txtProducto.TabIndex = 2;
             this.txtProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtProducto_KeyPress);
             // 
@@ -123,7 +123,7 @@
             this.lblProducto.Location = new System.Drawing.Point(2, 91);
             this.lblProducto.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblProducto.Name = "lblProducto";
-            this.lblProducto.Size = new System.Drawing.Size(142, 18);
+            this.lblProducto.Size = new System.Drawing.Size(99, 31);
             this.lblProducto.TabIndex = 3;
             this.lblProducto.Text = "Escanear Producto";
             // 
@@ -169,9 +169,19 @@
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 18);
+            this.label1.Size = new System.Drawing.Size(65, 23);
             this.label1.TabIndex = 10;
             this.label1.Text = "Picker";
+            // 
+            // lblAuditor
+            // 
+            this.lblAuditor.AutoSize = true;
+            this.lblAuditor.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAuditor.Location = new System.Drawing.Point(176, 0);
+            this.lblAuditor.Name = "lblAuditor";
+            this.lblAuditor.Size = new System.Drawing.Size(62, 23);
+            this.lblAuditor.TabIndex = 11;
+            this.lblAuditor.Text = "label2";
             // 
             // lblPicker
             // 
@@ -179,7 +189,7 @@
             this.lblPicker.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPicker.Location = new System.Drawing.Point(176, 28);
             this.lblPicker.Name = "lblPicker";
-            this.lblPicker.Size = new System.Drawing.Size(53, 18);
+            this.lblPicker.Size = new System.Drawing.Size(65, 23);
             this.lblPicker.TabIndex = 11;
             this.lblPicker.Text = "Picker";
             // 
@@ -189,23 +199,13 @@
             this.lblAuditor1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAuditor1.Location = new System.Drawing.Point(3, 0);
             this.lblAuditor1.Name = "lblAuditor1";
-            this.lblAuditor1.Size = new System.Drawing.Size(58, 18);
+            this.lblAuditor1.Size = new System.Drawing.Size(72, 23);
             this.lblAuditor1.TabIndex = 10;
             this.lblAuditor1.Text = "Auditor";
             // 
-            // lblAuditor
-            // 
-            this.lblAuditor.AutoSize = true;
-            this.lblAuditor.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAuditor.Location = new System.Drawing.Point(176, 0);
-            this.lblAuditor.Name = "lblAuditor";
-            this.lblAuditor.Size = new System.Drawing.Size(50, 18);
-            this.lblAuditor.TabIndex = 11;
-            this.lblAuditor.Text = "label2";
-            // 
             // frmEscaneos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(591, 740);
             this.Controls.Add(this.tableLayoutPanel1);
