@@ -23,9 +23,7 @@ namespace WFAHomeDelivery.Controllers
                         {
                             ordenes ordenes = new ordenes();
                             ordenes.FechaAlta = item.FechaAlta;
-                            ordenes.Orden = item.Orden;
-                            ordenes.TxnDate = item.TxnDate;
-                            ordenes.TxnNumber = item.TxnNumber;
+                            ordenes.Orden = item.Orden;                            
                             ordenes.User = item.User;
                             ordenes.StatusOrdenImpresa_Id = 1;
                             db.ordenes.Add(ordenes);
@@ -48,7 +46,7 @@ namespace WFAHomeDelivery.Controllers
 
         public List<ordenes> listByOrden(string orden)
         {
-            string query = "SELECT dbo.ordenes.id, dbo.ordenes.Orden, dbo.ordenes.TxnDate, dbo.ordenes.TxnNumber, dbo.ordenes.[User], dbo.ordenes.StatusOrdenImpresa_Id, dbo.ordenes.FechaAlta, dbo.ordenes.Picker " +
+            string query = "SELECT dbo.ordenes.id, dbo.ordenes.Orden, dbo.ordenes.[User], dbo.ordenes.StatusOrdenImpresa_Id, dbo.ordenes.FechaAlta, dbo.ordenes.Picker " +
                            "FROM dbo.ordenes " +                           
                            "WHERE dbo.ordenes.Orden LIKE '%' + @Orden + '%'"; 
 
@@ -60,9 +58,7 @@ namespace WFAHomeDelivery.Controllers
             {
                 ordenes ordenesTemp = new ordenes();               
                 
-                ordenesTemp.Orden = item.Orden;
-                ordenesTemp.TxnDate = item.TxnDate;
-                ordenesTemp.TxnNumber = item.TxnNumber;
+                ordenesTemp.Orden = item.Orden;                
                 ordenesTemp.User = item.User;
                 ordenesTemp.Descripcion = item.statusordenimpresa.descripcion;
 

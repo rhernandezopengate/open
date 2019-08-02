@@ -103,14 +103,25 @@ namespace WFAHomeDelivery.Formularios
                 DataType = typeof(int)
             });
 
-            List<ordenes> lista = db.ordenes.ToList();
+            List<guias> lista = db.guias.ToList();
+            List<ordenes> listaOrden = db.ordenes.ToList();
 
             foreach (DataRow row in dtCharge.Rows)
-            {                
-                dtGuias.Rows.Add(new object[] {
-                    row[1].ToString(),
-                    lista.Where(x => x.Orden == row[0].ToString()).FirstOrDefault().id
-                });
+            {
+                string guia = row[1].ToString();
+                var guiaTemp = lista.Where(x => x.Guia == guia).FirstOrDefault();
+                var idORden = listaOrden.Where(x => x.Orden == row[0].ToString()).FirstOrDefault();
+
+                if (idORden != null)
+                {
+                    if (guiaTemp == null)
+                    {
+                        dtGuias.Rows.Add(new object[] {
+                        guia,
+                        idORden.id
+                    });
+                    }
+                }                    
             }
 
             string connectionString = @"Data Source=SQL7001.site4now.net;Initial Catalog=DB_A3F19C_OG;User Id=DB_A3F19C_OG_admin;Password=xQ9znAhU;";

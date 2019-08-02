@@ -17,29 +17,30 @@ namespace WFAHomeDelivery.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ordenes()
         {
-            this.detordenproductoshd = new HashSet<detordenproductoshd>();
-            this.guias = new HashSet<guias>();
-            this.detusuariosordenes = new HashSet<detusuariosordenes>();
             this.codigoqrordenes = new HashSet<codigoqrordenes>();
+            this.detordenproductoshd = new HashSet<detordenproductoshd>();
+            this.detusuariosordenes = new HashSet<detusuariosordenes>();
+            this.erroresordenes = new HashSet<erroresordenes>();
+            this.guias = new HashSet<guias>();
         }
     
         public int id { get; set; }
         public Nullable<System.DateTime> FechaAlta { get; set; }
         public string Orden { get; set; }
-        public Nullable<System.DateTime> TxnDate { get; set; }
-        public string TxnNumber { get; set; }
         public string User { get; set; }
         public int StatusOrdenImpresa_Id { get; set; }
         public string Picker { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<detordenproductoshd> detordenproductoshd { get; set; }
-        public virtual statusordenimpresa statusordenimpresa { get; set; }
+        public virtual ICollection<codigoqrordenes> codigoqrordenes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<guias> guias { get; set; }
+        public virtual ICollection<detordenproductoshd> detordenproductoshd { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detusuariosordenes> detusuariosordenes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<codigoqrordenes> codigoqrordenes { get; set; }
+        public virtual ICollection<erroresordenes> erroresordenes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<guias> guias { get; set; }
+        public virtual statusordenimpresa statusordenimpresa { get; set; }
     }
 }

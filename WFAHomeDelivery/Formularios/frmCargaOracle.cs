@@ -90,43 +90,37 @@ namespace WFAHomeDelivery
 
         public void AgregarOrdenes()
         {
+            List<ordenes> listaValidacion = db.ordenes.ToList();
             DataTable dtOrden = new DataTable();
 
+            //Fecha Alta
             dtOrden.Columns.Add(new DataColumn()
             {
                 ColumnName = "FechaAlta",
                 DataType = typeof(DateTime)
             });
 
+            //Status Orden
+            dtOrden.Columns.Add(new DataColumn()
+            {
+                ColumnName = "StatusOrdenImpresa_Id",
+                DataType = typeof(int)
+            });
+
+            //3 Orden
             dtOrden.Columns.Add(new DataColumn()
             {
                 ColumnName = "Orden",
                 DataType = typeof(string)
             });
 
-            dtOrden.Columns.Add(new DataColumn()
-            {
-                ColumnName = "TxnDate",
-                DataType = typeof(DateTime)
-            });
-
-            dtOrden.Columns.Add(new DataColumn()
-            {
-                ColumnName = "TxnNumber",
-                DataType = typeof(string)
-            });
-
+            //4 User
             dtOrden.Columns.Add(new DataColumn()
             {
                 ColumnName = "User",
                 DataType = typeof(string)
             });
-
-            dtOrden.Columns.Add(new DataColumn()
-            {
-                ColumnName = "StatusOrdenImpresa_Id",
-                DataType = typeof(int)
-            });
+            
 
             List<ordenes> lista = new List<ordenes>();
 
@@ -134,112 +128,131 @@ namespace WFAHomeDelivery
             {
                 ordenes ordenes = new ordenes();
                 ordenes.FechaAlta = DateTime.Now;
-                ordenes.Orden = row[4].ToString();
-                ordenes.TxnDate = DateTime.Parse(row[0].ToString());
-                ordenes.TxnNumber = row[1].ToString();
-                ordenes.User = row[6].ToString();
+                ordenes.Orden = row[3].ToString();
+                ordenes.User = row[4].ToString();
                 ordenes.StatusOrdenImpresa_Id = 1;
 
-                lista.Add(ordenes);
+                //ordenes.TxnDate = DateTime.Parse(row[0].ToString());
+                //ordenes.TxnNumber = row[1].ToString();
+
+
+                var orden = listaValidacion.Where(x => x.Orden.Contains(row[4].ToString())).FirstOrDefault();
+                if (orden == null)
+                {
+                    lista.Add(ordenes);
+                }                
             }
 
-            var grouping = lista.GroupBy(x => x.Orden).ToList();
-
-            foreach (var item in grouping)
+            if (lista.Count > 0)
             {
-                var orden = lista.Where(x => x.Orden == item.Key).FirstOrDefault();
+                var grouping = lista.GroupBy(x => x.Orden).ToList();
 
-                if (orden != null)
+                foreach (var item in grouping)
                 {
-                    dtOrden.Rows.Add(new object[] {
+                    var orden = lista.Where(x => x.Orden == item.Key).FirstOrDefault();
+
+                    if (orden != null)
+                    {
+                        dtOrden.Rows.Add(new object[] {
                             DateTime.Now,
+                            orden.StatusOrdenImpresa_Id,
                             orden.Orden,
-                            orden.TxnDate,
-                            orden.TxnNumber,
-                            orden.User,
-                            orden.StatusOrdenImpresa_Id
+                            //orden.TxnDate,
+                            //orden.TxnNumber,
+                            orden.User
+                            
                         });
+                    }
+                    else
+                    {
+                        Console.Write("La orden ya existe");
+                    }
                 }
-                else
+
+                string connectionString = @"Data Source=SQL7001.site4now.net;Initial Catalog=DB_A3F19C_OG;User Id=DB_A3F19C_OG_admin;Password=xQ9znAhU;";
+
+                using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))
                 {
-                    Console.Write("La orden ya existe");
+                    bulkCopy.DestinationTableName = "dbo.ordenes";
+
+                    bulkCopy.ColumnMappings.Add("FechaAlta", "FechaAlta");
+                    bulkCopy.ColumnMappings.Add("Orden", "Orden");
+                    //bulkCopy.ColumnMappings.Add("TxnDate", "TxnDate");
+                    //bulkCopy.ColumnMappings.Add("TxnNumber", "TxnNumber");
+                    bulkCopy.ColumnMappings.Add("User", "User");
+                    bulkCopy.ColumnMappings.Add("StatusOrdenImpresa_Id", "StatusOrdenImpresa_Id");
+
+                    try
+                    {
+                        bulkCopy.WriteToServer(dtOrden);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
-            }
 
-            string connectionString = @"Data Source=SQL7001.site4now.net;Initial Catalog=DB_A3F19C_OG;User Id=DB_A3F19C_OG_admin;Password=xQ9znAhU;";
-            
-            using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))
-            {
-                bulkCopy.DestinationTableName = "dbo.ordenes";
+                DataTable dtDetalles = new DataTable();
 
-                bulkCopy.ColumnMappings.Add("FechaAlta", "FechaAlta");
-                bulkCopy.ColumnMappings.Add("Orden", "Orden");
-                bulkCopy.ColumnMappings.Add("TxnDate", "TxnDate");
-                bulkCopy.ColumnMappings.Add("TxnNumber", "TxnNumber");
-                bulkCopy.ColumnMappings.Add("User", "User");
-                bulkCopy.ColumnMappings.Add("StatusOrdenImpresa_Id", "StatusOrdenImpresa_Id");
-
-                try
+                dtDetalles.Columns.Add(new DataColumn()
                 {
-                    bulkCopy.WriteToServer(dtOrden);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            DataTable dtDetalles = new DataTable();
-
-            dtDetalles.Columns.Add(new DataColumn()
-            {
-                ColumnName = "Ordenes_Id",
-                DataType = typeof(int)
-            });
-
-            dtDetalles.Columns.Add(new DataColumn()
-            {
-                ColumnName = "Skus_Id",
-                DataType = typeof(int)
-            });
-
-            dtDetalles.Columns.Add(new DataColumn()
-            {
-                ColumnName = "cantidad",
-                DataType = typeof(int)
-            });
-
-            List<ordenes> listaOrdenes = db.ordenes.ToList();
-            List<skus> listaSKU = db.skus.ToList();
-
-            foreach (DataRow row in dtCharge.Rows)
-            {                
-                dtDetalles.Rows.Add(new object[] {
-                    listaOrdenes.Where(x => x.Orden == row[4].ToString()).FirstOrDefault().id,
-                    listaSKU.Where(x => x.Sku == row[2].ToString()).FirstOrDefault().id,
-                    int.Parse(row[5].ToString())
+                    ColumnName = "Ordenes_Id",
+                    DataType = typeof(int)
                 });
-            }
 
-            using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))
+                dtDetalles.Columns.Add(new DataColumn()
+                {
+                    ColumnName = "Skus_Id",
+                    DataType = typeof(int)
+                });
+
+                dtDetalles.Columns.Add(new DataColumn()
+                {
+                    ColumnName = "cantidad",
+                    DataType = typeof(int)
+                });
+
+                List<ordenes> listaOrdenes = db.ordenes.ToList();
+                List<skus> listaSKU = db.skus.ToList();
+
+                foreach (DataRow row in dtCharge.Rows)
+                {
+                    string orden = row[3].ToString();
+                    string sku = row[0].ToString();
+
+                    int idOrden = listaOrdenes.Where(x => x.Orden.Contains(orden)).FirstOrDefault().id;
+                    int idSKU = listaSKU.Where(x => x.Sku.Contains(sku)).FirstOrDefault().id;
+                    dtDetalles.Rows.Add(new object[] {
+                    idOrden,
+                    idSKU,
+                    int.Parse(row[1].ToString())
+                });
+                }
+
+                using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))
+                {
+                    bulkCopy.DestinationTableName = "dbo.detordenproductoshd";
+
+                    bulkCopy.ColumnMappings.Add("Ordenes_Id", "Ordenes_Id");
+                    bulkCopy.ColumnMappings.Add("Skus_Id", "Skus_Id");
+                    bulkCopy.ColumnMappings.Add("cantidad", "cantidad");
+
+                    try
+                    {
+                        bulkCopy.WriteToServer(dtDetalles);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+
+                MessageBox.Show("Se han cargado los registros correctamente");
+            }
+            else
             {
-                bulkCopy.DestinationTableName = "dbo.detordenproductoshd";
-
-                bulkCopy.ColumnMappings.Add("Ordenes_Id", "Ordenes_Id");
-                bulkCopy.ColumnMappings.Add("Skus_Id", "Skus_Id");
-                bulkCopy.ColumnMappings.Add("cantidad", "cantidad");
-
-                try
-                {
-                    bulkCopy.WriteToServer(dtDetalles);                   
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                MessageBox.Show("NO SE HAN ENCONTRADO REGISTROS NUEVOS");
             }
-
-            MessageBox.Show("Se han cargado los registros correctamente");
         }
 
         private void BtnCargarArchivos_Click(object sender, EventArgs e)

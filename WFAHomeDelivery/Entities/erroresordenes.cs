@@ -12,13 +12,13 @@ namespace WFAHomeDelivery.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class detusuariosordenes
+    public partial class erroresordenes
     {
         public int id { get; set; }
-        public int Usuarios_Id { get; set; }
         public int Ordenes_Id { get; set; }
+        public int TipoError_Id { get; set; }
     
-        public virtual usuarios usuarios { get; set; }
+        public virtual tipoerror tipoerror { get; set; }
         public virtual ordenes ordenes { get; set; }
     }
 }

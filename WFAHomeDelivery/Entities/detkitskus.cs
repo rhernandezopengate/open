@@ -12,13 +12,14 @@ namespace WFAHomeDelivery.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class detusuariosordenes
+    public partial class detkitskus
     {
         public int id { get; set; }
-        public int Usuarios_Id { get; set; }
-        public int Ordenes_Id { get; set; }
+        public Nullable<int> Cantidad { get; set; }
+        public int Kit_Id { get; set; }
+        public int Skus_Id { get; set; }
     
-        public virtual usuarios usuarios { get; set; }
-        public virtual ordenes ordenes { get; set; }
+        public virtual kit kit { get; set; }
+        public virtual skus skus { get; set; }
     }
 }

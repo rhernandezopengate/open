@@ -20,7 +20,8 @@ namespace WFAHomeDelivery
         EscaneosController ctrlEscaneos;
         int index = 0;
         List<detordenproductoshd> lista;
-        List<detordenproductoshd> ListaGrid;        
+        List<detordenproductoshd> ListaGrid;
+        List<detordenproductoshd> listaKIT;
 
         public frmEscaneos(string nombre)
         {
@@ -39,6 +40,7 @@ namespace WFAHomeDelivery
             ctrlEscaneos = new EscaneosController();
             dgvEscaneos.AutoGenerateColumns = false;
             ListaGrid = new List<detordenproductoshd>();
+            listaKIT = new List<detordenproductoshd>();
 
             if (ctrlEscaneos.ListaDetallesByOrden(orden) != null)
             {                
@@ -98,129 +100,225 @@ namespace WFAHomeDelivery
         {            
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
-                ValidarLista();                
+                ValidarLista(this.txtTicket.Text, this.txtProducto.Text);                
                 e.Handled = true;                
             }               
         }      
 
-        public void ValidarLista()
+        public void ValidarLista(string orden, string producto)
         {
             //Validar que la caja de producto no este vacia
             if (txtProducto.Text != string.Empty)
             {
-                detordenproductoshd detalle = new detordenproductoshd();
-
-                //Validando SKU
-                if (ctrlEscaneos.ValidarSKU(this.txtTicket.Text, this.txtProducto.Text))
+                if (ctrlEscaneos.IsKit(producto))
                 {
-                    index++;
-
-                    detalle.Index = index;
-                    detalle.SKU = txtProducto.Text;
-                    detalle.CantidadSKUS = 1;
-                    detalle.codigoqr = "NA";
-                    lista.Add(detalle);
-
-                    if (ValidarByCantidadTotal())
+                    if (ValidarSKUSKit(producto))
                     {
-                        if (ValidarByCantidadArticulo())
+                        if (ValidarCantidadesKit(producto))
                         {
-                            if (ctrlEscaneos.IsQTYManual(this.txtProducto.Text))
+                            List<detkitskus> listaTemp = ctrlEscaneos.listaPack(producto);
+
+                            foreach (var item in listaTemp)
                             {
-                                if (ValidarByCantidadArticulo())
+                                detordenproductoshd detalle = new detordenproductoshd();
+
+                                index++;
+
+                                detalle.Index = index;
+                                detalle.SKU = item.skus.Sku;
+                                detalle.CantidadSKUS = (int)item.Cantidad;
+                                detalle.codigoqr = "NA";
+                                lista.Add(detalle);
+
+                                if (CerrarAutomaticamente())
                                 {
                                     SystemSounds.Beep.Play();
-                                    int cantidad = int.Parse(Microsoft.VisualBasic.Interaction.InputBox("AGREGAR CANTIDAD MANUAL", "TECLEAR LA CANTIDAD DE PRODUCTOS A INGRESAR"));
-                                    if (cantidad > ctrlEscaneos.CantidadManualByArticulo(this.txtTicket.Text, this.txtProducto.Text))
-                                    {
-                                        SystemSounds.Asterisk.Play();
-                                        MessageBox.Show("ERROR EN CANTIDAD MANUAL. LA CANTIDAD NO PUEDE SER MAYOR A LADE LA ORDEN, ESCANEA NUEVAMENTE EL SKU Y TECLEA UNA CANTIDAD VALIDA");
-                                        index--;
-                                        lista.RemoveAt(index);
-                                    }
-                                    else if (cantidad < ctrlEscaneos.CantidadManualByArticulo(this.txtTicket.Text, this.txtProducto.Text))
-                                    {
-                                        SystemSounds.Asterisk.Play();
-                                        MessageBox.Show("ERROR EN CANTIDAD MANUAL. LA CANTIDAD NO PUEDE SER MENOR A LADE LA ORDEN, ESCANEA NUEVAMENTE EL SKU Y TECLEA UNA CANTIDAD VALIDA");
-                                        index--;
-                                        lista.RemoveAt(index);
-                                    }
-                                    else
-                                    {
-                                        detordenproductoshd detalleTemp = lista.Where(x => x.SKU == this.txtProducto.Text).FirstOrDefault();
-                                        detalle.CantidadSKUS = cantidad;
-                                    }
-                                }
-                            }
-
-                            if (ctrlEscaneos.IsQRCode(this.txtProducto.Text))
-                            {
-                                SystemSounds.Beep.Play();
-                                string qr = Microsoft.VisualBasic.Interaction.InputBox("AGREGAR CODIGO QR", "ESCANEAR CODIGO QR DEL PRODUCTO");
-
-                                if (qr.Equals(string.Empty))
-                                {
-                                    SystemSounds.Asterisk.Play();
-                                    MessageBox.Show("ERROR DE CODIGO QR. EL CODIGO QR NO PUEDE ESTAR VACIO, ESCANEA NUEVAMENTE EL SKU Y SU CODIGO QR");
-                                    index--;
-                                    lista.RemoveAt(index);
                                 }
                                 else
                                 {
-                                    if (ctrlEscaneos.ValidarQR(qr, this.txtProducto.Text, lista))
-                                    {
-                                        index--;
-                                        lista.RemoveAt(index);
-                                        SystemSounds.Asterisk.Play();
-                                        MessageBox.Show("ERROR DE CODIGO QR. ESTE CODIGO QR YA EXISTE, ESCANEA NUEVAMENTE EL SKU Y SU CODIGO QR");
-                                    }
-                                    else
-                                    {
-                                        detalle.codigoqr = qr;
-                                        var detalleTemp = lista.Where(x => x.Index == index).FirstOrDefault();
-                                        if (detalleTemp != null)
-                                        {
-                                            detalle.codigoqr = detalleTemp.codigoqr;
-                                        }
-                                    }
+                                    //Actualizar la cantidad escaneada en el GRIDVIEW
+                                    int cantidad = lista.Where(x => x.SKU.Contains(item.skus.Sku)).Sum(x => x.CantidadSKUS);
+                                    var detalleTemp = ListaGrid.Where(x => x.SKU.Contains(item.skus.Sku.ToUpper())).FirstOrDefault();
+                                    detalleTemp.CantidadSKUS = cantidad;
+
+                                    dgvEscaneos.DataSource = null;
+                                    dgvEscaneos.DataSource = ListaGrid;
+                                    this.txtProducto.Text = "";
+                                    this.txtProducto.Focus();
                                 }
-                            }
-
-                            if (CerrarAutomaticamente())
-                            {
-                                SystemSounds.Beep.Play();                                
-                            }
-                            else
-                            {                                
-                                int cantidad = lista.Where(x => x.SKU.Contains(this.txtProducto.Text)).Sum(x => x.CantidadSKUS);
-                                var detalleTemp = ListaGrid.Where(x => x.SKU.Contains(this.txtProducto.Text.ToUpper())).FirstOrDefault();
-                                detalleTemp.CantidadSKUS = cantidad;
-
-                                dgvEscaneos.DataSource = null;
-                                dgvEscaneos.DataSource = ListaGrid;
-                                this.txtProducto.Text = "";
-                                this.txtProducto.Focus();                                   
                             }
                         }
                         else
                         {
+                            MessageBox.Show("LA CANTIDAD DEL PAH O DEL PAQUETE ES SUPERIOR AL DE LA ORDEN",
+                                    "CANTIDAD SUPERIOR A LA DE LA ORDEN",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+
                             this.txtProducto.Text = "";
                             this.txtProducto.Focus();
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show("LOS SKUS DEL PAH O DEL PAQUETE NO PERTENECEN AL LA ORDEN",
+                                    "KIT INCORRECTO",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+
+                        this.txtProducto.Text = "";
+                        this.txtProducto.Focus();
                     }                    
                 }
                 else
                 {
-                    //Se tiene que configurar en Windows el Sonido de Asterisk
-                    SystemSounds.Asterisk.Play();
-                    MessageBox.Show("ESTE SKU NO PERTENECE A LA ORDEN");
+                    //Validando SKU
+                    if (ctrlEscaneos.ValidarSKU(orden, producto))
+                    {
+
+                        detordenproductoshd detalle = new detordenproductoshd();
+
+                        index++;
+
+                        detalle.Index = index;
+                        detalle.SKU = txtProducto.Text;
+                        detalle.CantidadSKUS = 1;
+                        detalle.codigoqr = "NA";
+                        lista.Add(detalle);
+
+                        if (ValidarByCantidadTotal())
+                        {
+                            if (ValidarByCantidadArticulo(orden, producto, lista))
+                            {
+                                if (ctrlEscaneos.IsQTYManual(producto))
+                                {
+                                    if (ValidarByCantidadArticulo(orden, producto, lista))
+                                    {
+                                        SystemSounds.Beep.Play();
+                                        int cantidad = int.Parse(Microsoft.VisualBasic.Interaction.InputBox("AGREGAR CANTIDAD MANUAL", "TECLEAR LA CANTIDAD DE PRODUCTOS A INGRESAR"));
+                                        if (cantidad > ctrlEscaneos.CantidadManualByArticulo(orden, producto))
+                                        {
+                                            SystemSounds.Asterisk.Play();
+                                            MessageBox.Show("ERROR EN CANTIDAD MANUAL. LA CANTIDAD NO PUEDE SER MAYOR A LADE LA ORDEN, ESCANEA NUEVAMENTE EL SKU Y TECLEA UNA CANTIDAD VALIDA");
+                                            index--;
+                                            lista.RemoveAt(index);
+                                            ctrlEscaneos.ErrorCantidadMayorSKU(orden);
+                                        }
+                                        else if (cantidad < ctrlEscaneos.CantidadManualByArticulo(orden, producto))
+                                        {
+                                            SystemSounds.Asterisk.Play();
+                                            MessageBox.Show("ERROR EN CANTIDAD MANUAL. LA CANTIDAD NO PUEDE SER MENOR A LADE LA ORDEN, ESCANEA NUEVAMENTE EL SKU Y TECLEA UNA CANTIDAD VALIDA");
+                                            index--;
+                                            lista.RemoveAt(index);
+                                            ctrlEscaneos.ErrorCantidadMenorSKU(orden);
+                                        }
+                                        else
+                                        {
+                                            detordenproductoshd detalleTemp = lista.Where(x => x.SKU == producto).FirstOrDefault();
+                                            detalle.CantidadSKUS = cantidad;
+                                        }
+                                    }
+                                }
+
+                                if (ctrlEscaneos.IsQRCode(producto))
+                                {
+                                    SystemSounds.Beep.Play();
+                                    string qr = Microsoft.VisualBasic.Interaction.InputBox("AGREGAR CODIGO QR", "ESCANEAR CODIGO QR DEL PRODUCTO");
+
+                                    if (qr.Equals(string.Empty))
+                                    {
+                                        SystemSounds.Asterisk.Play();
+                                        MessageBox.Show("ERROR DE CODIGO QR. EL CODIGO QR NO PUEDE ESTAR VACIO, ESCANEA NUEVAMENTE EL SKU Y SU CODIGO QR");
+                                        index--;
+                                        lista.RemoveAt(index);
+                                    }
+                                    else
+                                    {
+                                        if (ctrlEscaneos.ValidarQR(qr, producto, lista))
+                                        {
+                                            index--;
+                                            lista.RemoveAt(index);
+                                            SystemSounds.Asterisk.Play();
+                                            MessageBox.Show("ERROR DE CODIGO QR. ESTE CODIGO QR YA EXISTE, ESCANEA NUEVAMENTE EL SKU Y SU CODIGO QR");
+                                        }
+                                        else
+                                        {
+                                            detalle.codigoqr = qr;
+                                            var detalleTemp = lista.Where(x => x.Index == index).FirstOrDefault();
+                                            if (detalleTemp != null)
+                                            {
+                                                detalle.codigoqr = detalleTemp.codigoqr;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (CerrarAutomaticamente())
+                                {
+                                    SystemSounds.Beep.Play();
+                                }
+                                else
+                                {
+                                    //Actualizar la cantidad escaneada en el GRIDVIEW
+                                    int cantidad = lista.Where(x => x.SKU.Contains(producto)).Sum(x => x.CantidadSKUS);
+                                    var detalleTemp = ListaGrid.Where(x => x.SKU.Contains(producto.ToUpper())).FirstOrDefault();
+                                    detalleTemp.CantidadSKUS = cantidad;
+
+                                    dgvEscaneos.DataSource = null;
+                                    dgvEscaneos.DataSource = ListaGrid;
+                                    this.txtProducto.Text = "";
+                                    this.txtProducto.Focus();
+                                }
+                            }                            
+                            else
+                            {
+                                this.txtProducto.Text = "";
+                                this.txtProducto.Focus();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //Se tiene que configurar en Windows el Sonido de Asterisk
+                        SystemSounds.Asterisk.Play();
+                        MessageBox.Show("ESTE SKU NO PERTENECE A LA ORDEN");
+                        ctrlEscaneos.ErrorSKUIncorrecto(orden);
+                    }
                 }
             }            
         }
 
-        public bool ValidarByCantidadArticulo()
+        public bool ValidarSKUSKit(string producto)
         {
-            if (ctrlEscaneos.CantidadByArticulo(this.txtTicket.Text, this.txtProducto.Text, lista))
+            try
+            {
+                return ctrlEscaneos.SKUByKit(producto, ListaGrid) ? true : true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool ValidarCantidadesKit(string producto)
+        {
+            List<detkitskus> listaTemp = ctrlEscaneos.listaPack(producto);
+            
+            int contador = 0;
+            foreach (var item in listaTemp)
+            {
+                if (ctrlEscaneos.CantidadByPack(this.txtTicket.Text, item.skus.Sku, item.Cantidad, ListaGrid))
+                {
+                    contador++;
+                }
+            }
+
+            return contador <= 0;
+        }
+
+        public bool ValidarByCantidadArticulo(string orden, string producto, List<detordenproductoshd> listaTemporal)
+        {
+            if (ctrlEscaneos.CantidadByArticulo(orden, producto, listaTemporal))
             {
                 return true;
             }
@@ -229,6 +327,7 @@ namespace WFAHomeDelivery
                 index--;
                 lista.RemoveAt(index);
                 SystemSounds.Asterisk.Play();
+                ctrlEscaneos.ErrorCantidadMayorSKU(this.txtTicket.Text);
                 MessageBox.Show("YA SE HA COMPLETADO ES ESCANEO DE ESTE SKU");
                 return false;
             }            
@@ -334,6 +433,18 @@ namespace WFAHomeDelivery
             this.txtTicket.Enabled = true;
             dgvEscaneos.DataSource = null;
             this.txtTicket.Focus();
-        }        
+        }
+
+        private void BtnFaltantes_Click(object sender, EventArgs e)
+        {
+            if (this.txtTicket.Text.Equals(string.Empty))
+            {
+                MessageBox.Show("DEBE TENER UNA ORDEN ABIERTA", "ORDEN EN BLANCO", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            }
+            else
+            {
+                ctrlEscaneos.ErrorCantidadMenorSKU(this.txtTicket.Text);
+            }
+        }
     }
 }

@@ -285,10 +285,6 @@ namespace WFAHomeDelivery {
             
             private global::System.Data.DataColumn columnOrden;
             
-            private global::System.Data.DataColumn columnTxnDate;
-            
-            private global::System.Data.DataColumn columnTxnNumber;
-            
             private global::System.Data.DataColumn columnUser;
             
             private global::System.Data.DataColumn columnPicker;
@@ -351,22 +347,6 @@ namespace WFAHomeDelivery {
             public global::System.Data.DataColumn OrdenColumn {
                 get {
                     return this.columnOrden;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn TxnDateColumn {
-                get {
-                    return this.columnTxnDate;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn TxnNumberColumn {
-                get {
-                    return this.columnTxnNumber;
                 }
             }
             
@@ -439,14 +419,12 @@ namespace WFAHomeDelivery {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DataTable1Row AddDataTable1Row(System.DateTime FechaAlta, string Orden, System.DateTime TxnDate, string TxnNumber, string User, string Picker, string Guia, string StatusGuia) {
+            public DataTable1Row AddDataTable1Row(System.DateTime FechaAlta, string Orden, string User, string Picker, string Guia, string StatusGuia) {
                 DataTable1Row rowDataTable1Row = ((DataTable1Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         FechaAlta,
                         Orden,
-                        TxnDate,
-                        TxnNumber,
                         User,
                         Picker,
                         Guia,
@@ -483,8 +461,6 @@ namespace WFAHomeDelivery {
                 this.columnid = base.Columns["id"];
                 this.columnFechaAlta = base.Columns["FechaAlta"];
                 this.columnOrden = base.Columns["Orden"];
-                this.columnTxnDate = base.Columns["TxnDate"];
-                this.columnTxnNumber = base.Columns["TxnNumber"];
                 this.columnUser = base.Columns["User"];
                 this.columnPicker = base.Columns["Picker"];
                 this.columnGuia = base.Columns["Guia"];
@@ -500,10 +476,6 @@ namespace WFAHomeDelivery {
                 base.Columns.Add(this.columnFechaAlta);
                 this.columnOrden = new global::System.Data.DataColumn("Orden", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOrden);
-                this.columnTxnDate = new global::System.Data.DataColumn("TxnDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTxnDate);
-                this.columnTxnNumber = new global::System.Data.DataColumn("TxnNumber", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTxnNumber);
                 this.columnUser = new global::System.Data.DataColumn("User", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUser);
                 this.columnPicker = new global::System.Data.DataColumn("Picker", typeof(string), null, global::System.Data.MappingType.Element);
@@ -521,7 +493,6 @@ namespace WFAHomeDelivery {
                 this.columnid.ReadOnly = true;
                 this.columnid.Unique = true;
                 this.columnOrden.MaxLength = 20;
-                this.columnTxnNumber.MaxLength = 50;
                 this.columnUser.MaxLength = 200;
                 this.columnPicker.MaxLength = 100;
                 this.columnGuia.MaxLength = 50;
@@ -711,38 +682,6 @@ namespace WFAHomeDelivery {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime TxnDate {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableDataTable1.TxnDateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TxnDate\' de la tabla \'DataTable1\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDataTable1.TxnDateColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string TxnNumber {
-                get {
-                    try {
-                        return ((string)(this[this.tableDataTable1.TxnNumberColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TxnNumber\' de la tabla \'DataTable1\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDataTable1.TxnNumberColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string User {
                 get {
                     try {
@@ -827,30 +766,6 @@ namespace WFAHomeDelivery {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetOrdenNull() {
                 this[this.tableDataTable1.OrdenColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTxnDateNull() {
-                return this.IsNull(this.tableDataTable1.TxnDateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTxnDateNull() {
-                this[this.tableDataTable1.TxnDateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTxnNumberNull() {
-                return this.IsNull(this.tableDataTable1.TxnNumberColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTxnNumberNull() {
-                this[this.tableDataTable1.TxnNumberColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1064,8 +979,6 @@ namespace WFAHomeDelivery.DB_A3F19C_OGDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("id", "id");
             tableMapping.ColumnMappings.Add("FechaAlta", "FechaAlta");
             tableMapping.ColumnMappings.Add("Orden", "Orden");
-            tableMapping.ColumnMappings.Add("TxnDate", "TxnDate");
-            tableMapping.ColumnMappings.Add("TxnNumber", "TxnNumber");
             tableMapping.ColumnMappings.Add("User", "User");
             tableMapping.ColumnMappings.Add("Picker", "Picker");
             tableMapping.ColumnMappings.Add("Guia", "Guia");
@@ -1088,9 +1001,7 @@ namespace WFAHomeDelivery.DB_A3F19C_OGDataSetTableAdapters {
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT	dbo.ordenes.id, 
 		dbo.ordenes.FechaAlta, 
-		dbo.ordenes.Orden, 
-		dbo.ordenes.TxnDate, 
-		dbo.ordenes.TxnNumber, 
+		dbo.ordenes.Orden, 		
 		dbo.ordenes.[User], 
 		dbo.ordenes.Picker, 
 		dbo.guias.Guia, 

@@ -90,6 +90,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbOpenGateEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Entities\detkitskus.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\detordenproductoshd.cs">
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>
@@ -97,7 +100,13 @@
     <Compile Include="Entities\detusuariosordenes.cs">
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\erroresordenes.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\guias.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\kit.cs">
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\ordenes.cs">
@@ -108,6 +117,9 @@
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\statusordenimpresa.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tipoerror.cs">
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\usuarios.cs">

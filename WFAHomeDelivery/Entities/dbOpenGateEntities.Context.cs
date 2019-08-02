@@ -27,11 +27,15 @@ namespace WFAHomeDelivery.Entities
     
         public virtual DbSet<statusordenimpresa> statusordenimpresa { get; set; }
         public virtual DbSet<detordenproductoshd> detordenproductoshd { get; set; }
-        public virtual DbSet<ordenes> ordenes { get; set; }
-        public virtual DbSet<skus> skus { get; set; }
         public virtual DbSet<guias> guias { get; set; }
         public virtual DbSet<detusuariosordenes> detusuariosordenes { get; set; }
         public virtual DbSet<usuarios> usuarios { get; set; }
         public virtual DbSet<codigoqrordenes> codigoqrordenes { get; set; }
+        public virtual DbSet<erroresordenes> erroresordenes { get; set; }
+        public virtual DbSet<tipoerror> tipoerror { get; set; }
+        public virtual DbSet<detkitskus> detkitskus { get; set; }
+        public virtual DbSet<kit> kit { get; set; }
+        public virtual DbSet<ordenes> ordenes { get; set; }
+        public virtual DbSet<skus> skus { get; set; }
     }
 }

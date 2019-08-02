@@ -12,13 +12,18 @@ namespace WFAHomeDelivery.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class detusuariosordenes
+    public partial class tipoerror
     {
-        public int id { get; set; }
-        public int Usuarios_Id { get; set; }
-        public int Ordenes_Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tipoerror()
+        {
+            this.erroresordenes = new HashSet<erroresordenes>();
+        }
     
-        public virtual usuarios usuarios { get; set; }
-        public virtual ordenes ordenes { get; set; }
+        public int id { get; set; }
+        public string descripcion { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<erroresordenes> erroresordenes { get; set; }
     }
 }

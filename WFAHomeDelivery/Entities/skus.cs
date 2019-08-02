@@ -17,6 +17,7 @@ namespace WFAHomeDelivery.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public skus()
         {
+            this.detkitskus = new HashSet<detkitskus>();
             this.detordenproductoshd = new HashSet<detordenproductoshd>();
         }
     
@@ -27,7 +28,10 @@ namespace WFAHomeDelivery.Entities
         public string codigobarras { get; set; }
         public string codigobidimensional { get; set; }
         public string qtymanual { get; set; }
+        public string kit { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detkitskus> detkitskus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detordenproductoshd> detordenproductoshd { get; set; }
     }

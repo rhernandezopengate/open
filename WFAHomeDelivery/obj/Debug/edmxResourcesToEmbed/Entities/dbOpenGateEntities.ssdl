@@ -8,6 +8,15 @@
     <Property Name="CodigoQR" Type="varchar" MaxLength="100" />
     <Property Name="Ordenes_Id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="detkitskus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cantidad" Type="int" />
+    <Property Name="Kit_Id" Type="int" Nullable="false" />
+    <Property Name="Skus_Id" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="detordenproductoshd">
     <Key>
       <PropertyRef Name="id" />
@@ -25,6 +34,14 @@
     <Property Name="Usuarios_Id" Type="int" Nullable="false" />
     <Property Name="Ordenes_Id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="erroresordenes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ordenes_Id" Type="int" Nullable="false" />
+    <Property Name="TipoError_Id" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="guias">
     <Key>
       <PropertyRef Name="id" />
@@ -33,6 +50,13 @@
     <Property Name="Guia" Type="varchar" MaxLength="50" />
     <Property Name="Ordenes_Id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="kit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="ordenes">
     <Key>
       <PropertyRef Name="id" />
@@ -40,8 +64,6 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FechaAlta" Type="datetime" />
     <Property Name="Orden" Type="varchar" MaxLength="20" />
-    <Property Name="TxnDate" Type="datetime" />
-    <Property Name="TxnNumber" Type="varchar" MaxLength="50" />
     <Property Name="User" Type="varchar" MaxLength="200" />
     <Property Name="StatusOrdenImpresa_Id" Type="int" Nullable="false" />
     <Property Name="Picker" Type="varchar" MaxLength="100" />
@@ -57,8 +79,16 @@
     <Property Name="codigobarras" Type="varchar" MaxLength="50" />
     <Property Name="codigobidimensional" Type="char" MaxLength="2" />
     <Property Name="qtymanual" Type="char" MaxLength="2" />
+    <Property Name="kit" Type="char" MaxLength="2" />
   </EntityType>
   <EntityType Name="statusordenimpresa">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tipoerror">
     <Key>
       <PropertyRef Name="id" />
     </Key>
@@ -84,6 +114,30 @@
       </Principal>
       <Dependent Role="codigoqrordenes">
         <PropertyRef Name="Ordenes_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="detkitskus_kit_fk">
+    <End Role="kit" Type="Self.kit" Multiplicity="1" />
+    <End Role="detkitskus" Type="Self.detkitskus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kit">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="detkitskus">
+        <PropertyRef Name="Kit_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="detkitskus_skus_fk">
+    <End Role="skus" Type="Self.skus" Multiplicity="1" />
+    <End Role="detkitskus" Type="Self.detkitskus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="detkitskus">
+        <PropertyRef Name="Skus_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -135,6 +189,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="erroresordenes_ordenes_fk">
+    <End Role="ordenes" Type="Self.ordenes" Multiplicity="1" />
+    <End Role="erroresordenes" Type="Self.erroresordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ordenes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="erroresordenes">
+        <PropertyRef Name="Ordenes_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="erroresordenes_tipoerror_fk">
+    <End Role="tipoerror" Type="Self.tipoerror" Multiplicity="1" />
+    <End Role="erroresordenes" Type="Self.erroresordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipoerror">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="erroresordenes">
+        <PropertyRef Name="TipoError_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="guias_ordenes_fk">
     <End Role="ordenes" Type="Self.ordenes" Multiplicity="1" />
     <End Role="guias" Type="Self.guias" Multiplicity="*" />
@@ -161,16 +239,28 @@
   </Association>
   <EntityContainer Name="DB_A3F19C_OGModelStoreContainer">
     <EntitySet Name="codigoqrordenes" EntityType="Self.codigoqrordenes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="detkitskus" EntityType="Self.detkitskus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="detordenproductoshd" EntityType="Self.detordenproductoshd" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="detusuariosordenes" EntityType="Self.detusuariosordenes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="erroresordenes" EntityType="Self.erroresordenes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="guias" EntityType="Self.guias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="kit" EntityType="Self.kit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ordenes" EntityType="Self.ordenes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="skus" EntityType="Self.skus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="statusordenimpresa" EntityType="Self.statusordenimpresa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tipoerror" EntityType="Self.tipoerror" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="codigoqrordenes_ordenes_fk" Association="Self.codigoqrordenes_ordenes_fk">
       <End Role="ordenes" EntitySet="ordenes" />
       <End Role="codigoqrordenes" EntitySet="codigoqrordenes" />
+    </AssociationSet>
+    <AssociationSet Name="detkitskus_kit_fk" Association="Self.detkitskus_kit_fk">
+      <End Role="kit" EntitySet="kit" />
+      <End Role="detkitskus" EntitySet="detkitskus" />
+    </AssociationSet>
+    <AssociationSet Name="detkitskus_skus_fk" Association="Self.detkitskus_skus_fk">
+      <End Role="skus" EntitySet="skus" />
+      <End Role="detkitskus" EntitySet="detkitskus" />
     </AssociationSet>
     <AssociationSet Name="detordenesproductos_ordenes_fk" Association="Self.detordenesproductos_ordenes_fk">
       <End Role="ordenes" EntitySet="ordenes" />
@@ -187,6 +277,14 @@
     <AssociationSet Name="detusuariosordenes_usuarios_fk" Association="Self.detusuariosordenes_usuarios_fk">
       <End Role="usuarios" EntitySet="usuarios" />
       <End Role="detusuariosordenes" EntitySet="detusuariosordenes" />
+    </AssociationSet>
+    <AssociationSet Name="erroresordenes_ordenes_fk" Association="Self.erroresordenes_ordenes_fk">
+      <End Role="ordenes" EntitySet="ordenes" />
+      <End Role="erroresordenes" EntitySet="erroresordenes" />
+    </AssociationSet>
+    <AssociationSet Name="erroresordenes_tipoerror_fk" Association="Self.erroresordenes_tipoerror_fk">
+      <End Role="tipoerror" EntitySet="tipoerror" />
+      <End Role="erroresordenes" EntitySet="erroresordenes" />
     </AssociationSet>
     <AssociationSet Name="guias_ordenes_fk" Association="Self.guias_ordenes_fk">
       <End Role="ordenes" EntitySet="ordenes" />

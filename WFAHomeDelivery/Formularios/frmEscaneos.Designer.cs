@@ -42,6 +42,7 @@
             this.lblAuditor = new System.Windows.Forms.Label();
             this.lblPicker = new System.Windows.Forms.Label();
             this.lblAuditor1 = new System.Windows.Forms.Label();
+            this.btnFaltantes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEscaneos)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -50,7 +51,7 @@
             // 
             this.lblTicket.AutoSize = true;
             this.lblTicket.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTicket.Location = new System.Drawing.Point(2, 57);
+            this.lblTicket.Location = new System.Drawing.Point(2, 68);
             this.lblTicket.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTicket.Name = "lblTicket";
             this.lblTicket.Size = new System.Drawing.Size(151, 23);
@@ -60,7 +61,7 @@
             // txtTicket
             // 
             this.txtTicket.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTicket.Location = new System.Drawing.Point(175, 59);
+            this.txtTicket.Location = new System.Drawing.Point(160, 70);
             this.txtTicket.Margin = new System.Windows.Forms.Padding(2);
             this.txtTicket.Name = "txtTicket";
             this.txtTicket.Size = new System.Drawing.Size(299, 30);
@@ -74,12 +75,12 @@
             this.SKU,
             this.Cantidad,
             this.CantidadEscaneados});
-            this.dgvEscaneos.Location = new System.Drawing.Point(12, 138);
+            this.dgvEscaneos.Location = new System.Drawing.Point(12, 152);
             this.dgvEscaneos.Margin = new System.Windows.Forms.Padding(2);
             this.dgvEscaneos.Name = "dgvEscaneos";
             this.dgvEscaneos.RowHeadersWidth = 51;
             this.dgvEscaneos.RowTemplate.Height = 24;
-            this.dgvEscaneos.Size = new System.Drawing.Size(567, 597);
+            this.dgvEscaneos.Size = new System.Drawing.Size(567, 583);
             this.dgvEscaneos.TabIndex = 4;
             // 
             // SKU
@@ -109,7 +110,7 @@
             // txtProducto
             // 
             this.txtProducto.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProducto.Location = new System.Drawing.Point(175, 93);
+            this.txtProducto.Location = new System.Drawing.Point(160, 104);
             this.txtProducto.Margin = new System.Windows.Forms.Padding(2);
             this.txtProducto.Name = "txtProducto";
             this.txtProducto.Size = new System.Drawing.Size(299, 30);
@@ -120,7 +121,7 @@
             // 
             this.lblProducto.AutoSize = true;
             this.lblProducto.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProducto.Location = new System.Drawing.Point(2, 91);
+            this.lblProducto.Location = new System.Drawing.Point(2, 102);
             this.lblProducto.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblProducto.Name = "lblProducto";
             this.lblProducto.Size = new System.Drawing.Size(99, 31);
@@ -130,10 +131,10 @@
             // btnLimpiar
             // 
             this.btnLimpiar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpiar.Location = new System.Drawing.Point(494, 12);
+            this.btnLimpiar.Location = new System.Drawing.Point(479, 81);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(85, 122);
+            this.btnLimpiar.Size = new System.Drawing.Size(100, 65);
             this.btnLimpiar.TabIndex = 3;
             this.btnLimpiar.Text = "Limpiar Orden";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -142,8 +143,8 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.32076F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.67924F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.21053F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.78947F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblProducto, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.lblAuditor, 1, 0);
@@ -160,14 +161,14 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.81967F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(477, 122);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 133);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 28);
+            this.label1.Location = new System.Drawing.Point(3, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 23);
             this.label1.TabIndex = 10;
@@ -177,7 +178,7 @@
             // 
             this.lblAuditor.AutoSize = true;
             this.lblAuditor.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAuditor.Location = new System.Drawing.Point(176, 0);
+            this.lblAuditor.Location = new System.Drawing.Point(161, 0);
             this.lblAuditor.Name = "lblAuditor";
             this.lblAuditor.Size = new System.Drawing.Size(62, 23);
             this.lblAuditor.TabIndex = 11;
@@ -187,11 +188,10 @@
             // 
             this.lblPicker.AutoSize = true;
             this.lblPicker.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPicker.Location = new System.Drawing.Point(176, 28);
+            this.lblPicker.Location = new System.Drawing.Point(161, 33);
             this.lblPicker.Name = "lblPicker";
-            this.lblPicker.Size = new System.Drawing.Size(65, 23);
+            this.lblPicker.Size = new System.Drawing.Size(0, 23);
             this.lblPicker.TabIndex = 11;
-            this.lblPicker.Text = "Picker";
             // 
             // lblAuditor1
             // 
@@ -203,11 +203,24 @@
             this.lblAuditor1.TabIndex = 10;
             this.lblAuditor1.Text = "Auditor";
             // 
+            // btnFaltantes
+            // 
+            this.btnFaltantes.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFaltantes.Location = new System.Drawing.Point(479, 12);
+            this.btnFaltantes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnFaltantes.Name = "btnFaltantes";
+            this.btnFaltantes.Size = new System.Drawing.Size(100, 65);
+            this.btnFaltantes.TabIndex = 10;
+            this.btnFaltantes.Text = "Faltantes";
+            this.btnFaltantes.UseVisualStyleBackColor = true;
+            this.btnFaltantes.Click += new System.EventHandler(this.BtnFaltantes_Click);
+            // 
             // frmEscaneos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(591, 740);
+            this.ClientSize = new System.Drawing.Size(590, 740);
+            this.Controls.Add(this.btnFaltantes);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.dgvEscaneos);
@@ -240,5 +253,6 @@
         private System.Windows.Forms.Label lblPicker;
         private System.Windows.Forms.Label lblAuditor1;
         private System.Windows.Forms.Label lblAuditor;
+        private System.Windows.Forms.Button btnFaltantes;
     }
 }

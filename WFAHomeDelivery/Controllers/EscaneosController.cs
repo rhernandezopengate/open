@@ -290,5 +290,140 @@ namespace WFAHomeDelivery.Controllers
                 return false;
             }
         }
+
+        public void ErrorSKUIncorrecto(string orden)
+        {
+            try
+            {
+                erroresordenes error = new erroresordenes();                 
+                error.Ordenes_Id = db.ordenes.Where(x => x.Orden == orden).FirstOrDefault().id;
+                error.TipoError_Id = 1;
+
+                db.erroresordenes.Add(error);
+                db.SaveChanges();
+            }
+            catch (Exception _ex)
+            {
+                Console.Write(_ex.Message);
+            }
+        }
+
+        public void ErrorCantidadMayorSKU(string orden)
+        {
+            try
+            {
+                erroresordenes error = new erroresordenes();
+                error.Ordenes_Id = db.ordenes.Where(x => x.Orden == orden).FirstOrDefault().id;
+                error.TipoError_Id = 2;
+
+                db.erroresordenes.Add(error);
+                db.SaveChanges();
+            }
+            catch (Exception _ex)
+            {
+                Console.Write(_ex.Message);
+            }
+        }
+
+        public void ErrorCantidadMenorSKU(string orden)
+        {
+            try
+            {
+                erroresordenes error = new erroresordenes();
+                error.Ordenes_Id = db.ordenes.Where(x => x.Orden == orden).FirstOrDefault().id;
+                error.TipoError_Id = 3;
+
+                db.erroresordenes.Add(error);
+                db.SaveChanges();
+            }
+            catch (Exception _ex)
+            {
+                Console.Write(_ex.Message);
+            }
+        }
+
+        public bool IsKit(string sku)
+        {
+            try
+            {
+                string respuesta = db.skus.Where(x => x.Sku.Equals(sku)).FirstOrDefault().kit;
+
+                if (respuesta.Equals("SI"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public List<detkitskus> listaPack(string sku)
+        {
+            try
+            {
+                List<detkitskus> listaKit = db.detkitskus.Where(x => x.kit.descripcion.Equals(sku)).ToList();
+
+                return listaKit;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public bool SKUByKit(string kit, List<detordenproductoshd> listaOrden)
+        {
+            try
+            {
+                List<detkitskus> listaKit = db.detkitskus.Where(x => x.kit.descripcion.Equals(kit)).ToList();
+
+                foreach (var item in listaKit)
+                {
+                    var query = listaOrden.Where(x => x.SKU.Equals(item.skus.Sku));
+
+                    if (query == null)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;                
+            }            
+        }
+
+        public bool CantidadByPack(string orden, string sku, int? cantidad, List<detordenproductoshd> listaOrden)
+        {
+            try
+            {
+                int? cantidadOrden = listaOrden.Where(x => x.SKU == sku.Trim()).Sum(x => x.CantidadSKUS);
+                int? cantidadOrdenBD = db.detordenproductoshd.Where(x => x.ordenes.Orden.Equals(orden) && x.skus.Sku.Equals(sku)).Sum(x=> x.cantidad);
+                int? catidadSumaSKU = cantidadOrden + cantidad;
+                int? positivo = cantidadOrdenBD * -1;
+
+
+                if (catidadSumaSKU <= positivo)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }                
+            }
+            catch (Exception _ex)
+            {
+                return false;
+            }
+        }
     }
 }
