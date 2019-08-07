@@ -4,13 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using WFAHomeDelivery.Controllers;
 using WFAHomeDelivery.Entities;
 
 namespace WFAHomeDelivery
@@ -61,7 +57,7 @@ namespace WFAHomeDelivery
                     con.Open();
                     DataTable dtExcelSchema = con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
                     sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
-                    con.Close();
+                    con.Close();    
                 }
             }
 
@@ -135,12 +131,16 @@ namespace WFAHomeDelivery
                 //ordenes.TxnDate = DateTime.Parse(row[0].ToString());
                 //ordenes.TxnNumber = row[1].ToString();
 
-
-                var orden = listaValidacion.Where(x => x.Orden.Contains(row[4].ToString())).FirstOrDefault();
+                
+                var orden = listaValidacion.Where(x => x.Orden.Contains(ordenes.Orden)).FirstOrDefault();
                 if (orden == null)
                 {
                     lista.Add(ordenes);
-                }                
+                }
+                else
+                {
+                    Console.WriteLine("Orden Duplicada");
+                }
             }
 
             if (lista.Count > 0)
@@ -174,7 +174,7 @@ namespace WFAHomeDelivery
                 using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))
                 {
                     bulkCopy.DestinationTableName = "dbo.ordenes";
-
+                    
                     bulkCopy.ColumnMappings.Add("FechaAlta", "FechaAlta");
                     bulkCopy.ColumnMappings.Add("Orden", "Orden");
                     //bulkCopy.ColumnMappings.Add("TxnDate", "TxnDate");

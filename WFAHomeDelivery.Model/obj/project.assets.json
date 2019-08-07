@@ -179,23 +179,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rhern\\.nuget\\packages\\": {},
+    "C:\\Users\\RubenHernandez\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rhern\\OneDrive\\Documentos\\GitHub\\open\\WFAHomeDelivery.Model\\WFAHomeDelivery.Model.csproj",
+      "projectUniqueName": "C:\\Users\\RubenHernandez\\Documents\\GitHub\\open\\WFAHomeDelivery.Model\\WFAHomeDelivery.Model.csproj",
       "projectName": "WFAHomeDelivery.Model",
-      "projectPath": "C:\\Users\\rhern\\OneDrive\\Documentos\\GitHub\\open\\WFAHomeDelivery.Model\\WFAHomeDelivery.Model.csproj",
-      "packagesPath": "C:\\Users\\rhern\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rhern\\OneDrive\\Documentos\\GitHub\\open\\WFAHomeDelivery.Model\\obj\\",
+      "projectPath": "C:\\Users\\RubenHernandez\\Documents\\GitHub\\open\\WFAHomeDelivery.Model\\WFAHomeDelivery.Model.csproj",
+      "packagesPath": "C:\\Users\\RubenHernandez\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\RubenHernandez\\Documents\\GitHub\\open\\WFAHomeDelivery.Model\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\rhern\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\RubenHernandez\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

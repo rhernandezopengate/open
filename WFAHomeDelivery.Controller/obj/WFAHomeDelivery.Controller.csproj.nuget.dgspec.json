@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rhern\\OneDrive\\Documentos\\GitHub\\open\\WFAHomeDelivery.Controller\\WFAHomeDelivery.Controller.csproj": {}
+    "C:\\Users\\RubenHernandez\\Documents\\GitHub\\open\\WFAHomeDelivery.Controller\\WFAHomeDelivery.Controller.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rhern\\OneDrive\\Documentos\\GitHub\\open\\WFAHomeDelivery.Controller\\WFAHomeDelivery.Controller.csproj": {
+    "C:\\Users\\RubenHernandez\\Documents\\GitHub\\open\\WFAHomeDelivery.Controller\\WFAHomeDelivery.Controller.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rhern\\OneDrive\\Documentos\\GitHub\\open\\WFAHomeDelivery.Controller\\WFAHomeDelivery.Controller.csproj",
+        "projectUniqueName": "C:\\Users\\RubenHernandez\\Documents\\GitHub\\open\\WFAHomeDelivery.Controller\\WFAHomeDelivery.Controller.csproj",
         "projectName": "WFAHomeDelivery.Controller",
-        "projectPath": "C:\\Users\\rhern\\OneDrive\\Documentos\\GitHub\\open\\WFAHomeDelivery.Controller\\WFAHomeDelivery.Controller.csproj",
-        "packagesPath": "C:\\Users\\rhern\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rhern\\OneDrive\\Documentos\\GitHub\\open\\WFAHomeDelivery.Controller\\obj\\",
+        "projectPath": "C:\\Users\\RubenHernandez\\Documents\\GitHub\\open\\WFAHomeDelivery.Controller\\WFAHomeDelivery.Controller.csproj",
+        "packagesPath": "C:\\Users\\RubenHernandez\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\RubenHernandez\\Documents\\GitHub\\open\\WFAHomeDelivery.Controller\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\rhern\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\RubenHernandez\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

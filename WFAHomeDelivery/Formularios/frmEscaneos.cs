@@ -196,7 +196,10 @@ namespace WFAHomeDelivery
                                     {
                                         SystemSounds.Beep.Play();
                                         int cantidad = int.Parse(Microsoft.VisualBasic.Interaction.InputBox("AGREGAR CANTIDAD MANUAL", "TECLEAR LA CANTIDAD DE PRODUCTOS A INGRESAR"));
-                                        if (cantidad > ctrlEscaneos.CantidadManualByArticulo(orden, producto))
+                                        int cantidadLista = lista.Where(x => x.SKU.Contains(producto)).Sum(x => x.CantidadSKUS);
+                                        int cantidadTotal = (cantidad + cantidadLista) - 1;
+
+                                        if (cantidadTotal > ctrlEscaneos.CantidadManualByArticulo(orden, producto))
                                         {
                                             SystemSounds.Asterisk.Play();
                                             MessageBox.Show("ERROR EN CANTIDAD MANUAL. LA CANTIDAD NO PUEDE SER MAYOR A LADE LA ORDEN, ESCANEA NUEVAMENTE EL SKU Y TECLEA UNA CANTIDAD VALIDA");
@@ -204,7 +207,7 @@ namespace WFAHomeDelivery
                                             lista.RemoveAt(index);
                                             ctrlEscaneos.ErrorCantidadMayorSKU(orden);
                                         }
-                                        else if (cantidad < ctrlEscaneos.CantidadManualByArticulo(orden, producto))
+                                        else if (cantidadTotal < ctrlEscaneos.CantidadManualByArticulo(orden, producto))
                                         {
                                             SystemSounds.Asterisk.Play();
                                             MessageBox.Show("ERROR EN CANTIDAD MANUAL. LA CANTIDAD NO PUEDE SER MENOR A LADE LA ORDEN, ESCANEA NUEVAMENTE EL SKU Y TECLEA UNA CANTIDAD VALIDA");
@@ -215,7 +218,7 @@ namespace WFAHomeDelivery
                                         else
                                         {
                                             detordenproductoshd detalleTemp = lista.Where(x => x.SKU == producto).FirstOrDefault();
-                                            detalle.CantidadSKUS = cantidad;
+                                            detalle.CantidadSKUS = cantidadTotal;
                                         }
                                     }
                                 }
