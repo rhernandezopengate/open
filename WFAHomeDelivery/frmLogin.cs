@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using WFAHomeDelivery.Formularios;
 
 namespace WFAHomeDelivery
 {
@@ -43,7 +44,7 @@ namespace WFAHomeDelivery
 
                     if (dt.Rows[0][1].ToString() == "Auditor")
                     {
-                        new frmEscaneos(dt.Rows[0][0].ToString()).Show();
+                        new frmScan(dt.Rows[0][0].ToString()).Show();
                     }
                     else if (dt.Rows[0][1].ToString() == "Admin")
                     {

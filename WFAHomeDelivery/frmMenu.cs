@@ -52,7 +52,7 @@ namespace WFAHomeDelivery
 
         private void OrdenesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmScan newMDIChild = new frmScan();
+            frmScan newMDIChild = new frmScan("JESUS TOVAR");
             // Set the parent form of the child window.  
             newMDIChild.MdiParent = this;
             // Display the new form.  

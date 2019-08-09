@@ -63,6 +63,7 @@
     <Compile Include="Controllers\DetOrdenProductosHDController.cs" />
     <Compile Include="Controllers\EscaneosController.cs" />
     <Compile Include="Controllers\OrdenesController.cs" />
+    <Compile Include="Controllers\scanController.cs" />
     <Compile Include="Controllers\SkusController.cs" />
     <Compile Include="DB_A3F19C_OGDataSet.cs">
       <DependentUpon>DB_A3F19C_OGDataSet.xsd</DependentUpon>

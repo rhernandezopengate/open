@@ -207,14 +207,6 @@ namespace WFAHomeDelivery
                                             lista.RemoveAt(index);
                                             ctrlEscaneos.ErrorCantidadMayorSKU(orden);
                                         }
-                                        else if (cantidadTotal < ctrlEscaneos.CantidadManualByArticulo(orden, producto))
-                                        {
-                                            SystemSounds.Asterisk.Play();
-                                            MessageBox.Show("ERROR EN CANTIDAD MANUAL. LA CANTIDAD NO PUEDE SER MENOR A LADE LA ORDEN, ESCANEA NUEVAMENTE EL SKU Y TECLEA UNA CANTIDAD VALIDA");
-                                            index--;
-                                            lista.RemoveAt(index);
-                                            ctrlEscaneos.ErrorCantidadMenorSKU(orden);
-                                        }
                                         else
                                         {
                                             detordenproductoshd detalleTemp = lista.Where(x => x.SKU == producto).FirstOrDefault();

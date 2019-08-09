@@ -420,7 +420,7 @@ namespace WFAHomeDelivery.Controllers
                     return true;
                 }                
             }
-            catch (Exception _ex)
+            catch (Exception)
             {
                 return false;
             }
