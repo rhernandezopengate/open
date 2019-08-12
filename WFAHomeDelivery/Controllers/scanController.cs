@@ -173,7 +173,7 @@ namespace WFAHomeDelivery.Controllers
 
                 foreach (var item in listaTemp)
                 {
-                    int cantidadBD = (int)lista.Where(x => x.SKU.Equals(item.skus.Sku)).FirstOrDefault().cantidad;
+                    int cantidadBD = (int)lista.Where(x => x.SKU.Equals(item.skus.Sku)).FirstOrDefault().cantidad * -1;
                     int cantidadEscaneados = (int)lista.Where(x => x.SKU.Equals(item.skus.Sku)).FirstOrDefault().CantidadEscaneos;
                     int cantidadAgregar = cantidadEscaneados + (int)item.Cantidad;
 

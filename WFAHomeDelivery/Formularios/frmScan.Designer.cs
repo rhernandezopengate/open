@@ -34,6 +34,9 @@
             this.lblProducto = new System.Windows.Forms.Label();
             this.txtProducto = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.SKU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CantidadEscaneos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblOrdenId = new System.Windows.Forms.Label();
             this.lblPK = new System.Windows.Forms.Label();
             this.btnBackOrder = new System.Windows.Forms.Button();
@@ -42,9 +45,6 @@
             this.lblAuditor = new System.Windows.Forms.Label();
             this.btnFaltantes = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.SKU = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CantidadEscaneos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -112,8 +112,35 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(641, 878);
+            this.dataGridView1.Size = new System.Drawing.Size(641, 687);
             this.dataGridView1.TabIndex = 6;
+            // 
+            // SKU
+            // 
+            this.SKU.DataPropertyName = "SKU";
+            this.SKU.HeaderText = "SKU";
+            this.SKU.MinimumWidth = 6;
+            this.SKU.Name = "SKU";
+            this.SKU.ReadOnly = true;
+            this.SKU.Width = 200;
+            // 
+            // cantidad
+            // 
+            this.cantidad.DataPropertyName = "cantidad";
+            this.cantidad.HeaderText = "Cantidad";
+            this.cantidad.MinimumWidth = 6;
+            this.cantidad.Name = "cantidad";
+            this.cantidad.ReadOnly = true;
+            this.cantidad.Width = 200;
+            // 
+            // CantidadEscaneos
+            // 
+            this.CantidadEscaneos.DataPropertyName = "CantidadEscaneos";
+            this.CantidadEscaneos.HeaderText = "Escaneados";
+            this.CantidadEscaneos.MinimumWidth = 6;
+            this.CantidadEscaneos.Name = "CantidadEscaneos";
+            this.CantidadEscaneos.ReadOnly = true;
+            this.CantidadEscaneos.Width = 200;
             // 
             // lblOrdenId
             // 
@@ -209,38 +236,11 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.BtnLimpiar_Click);
             // 
-            // SKU
-            // 
-            this.SKU.DataPropertyName = "SKU";
-            this.SKU.HeaderText = "SKU";
-            this.SKU.MinimumWidth = 6;
-            this.SKU.Name = "SKU";
-            this.SKU.ReadOnly = true;
-            this.SKU.Width = 200;
-            // 
-            // cantidad
-            // 
-            this.cantidad.DataPropertyName = "cantidad";
-            this.cantidad.HeaderText = "Cantidad";
-            this.cantidad.MinimumWidth = 6;
-            this.cantidad.Name = "cantidad";
-            this.cantidad.ReadOnly = true;
-            this.cantidad.Width = 200;
-            // 
-            // CantidadEscaneos
-            // 
-            this.CantidadEscaneos.DataPropertyName = "CantidadEscaneos";
-            this.CantidadEscaneos.HeaderText = "Escaneados";
-            this.CantidadEscaneos.MinimumWidth = 6;
-            this.CantidadEscaneos.Name = "CantidadEscaneos";
-            this.CantidadEscaneos.ReadOnly = true;
-            this.CantidadEscaneos.Width = 200;
-            // 
             // frmScan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(667, 1055);
+            this.ClientSize = new System.Drawing.Size(667, 859);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnFaltantes);
             this.Controls.Add(this.lblPK);

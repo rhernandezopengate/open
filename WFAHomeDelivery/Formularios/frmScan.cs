@@ -27,11 +27,23 @@ namespace WFAHomeDelivery.Formularios
         {
             List<string> lista = new List<string>();
 
-            string pck2 = "GENOVEVA";
+            string pck = "GENOVEVA";
+            lista.Add(pck);
+
+            string pck2 = "GERARDO";
             lista.Add(pck2);
 
-            string pck3 = "LETICIA";
+            string pck3 = "RENE";
             lista.Add(pck3);
+
+            string pck4 = "LETICIA";
+            lista.Add(pck4);
+
+            string pck5 = "ESMERALDA";
+            lista.Add(pck5);
+
+            string pck6 = "JESUS";
+            lista.Add(pck6);
 
             return lista;
         }
@@ -96,8 +108,8 @@ namespace WFAHomeDelivery.Formularios
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
                 ctrlScan = new scanController();
-                string producto = this.txtProducto.Text;
-                string orden = this.txtOrden.Text;
+                string producto = this.txtProducto.Text.ToUpper();
+                string orden = this.txtOrden.Text.ToUpper();
                 if (ctrlScan.ExisteSKU(producto))
                 {
                     if (ctrlScan.IsKit(producto))
@@ -125,7 +137,7 @@ namespace WFAHomeDelivery.Formularios
                         this.txtProducto.Text = "";
                         this.txtProducto.Focus();
 
-                        if (ListaInicial.Sum(x => x.CantidadEscaneos) == ListaInicial.Sum(x => x.cantidad))
+                        if (ListaInicial.Sum(x => x.CantidadEscaneos) == (ListaInicial.Sum(x => x.cantidad)* -1))
                         {
                             //Cerrar Orden
                             string guia;
@@ -177,7 +189,7 @@ namespace WFAHomeDelivery.Formularios
                         {
                             if (ctrlScan.IsQRCode(producto))
                             {
-                                int cantidadBD = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().cantidad;
+                                int cantidadBD = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().cantidad * -1;
                                 int cantidadEscaneados = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().CantidadEscaneos;
                                 int cantidadAgregar = cantidadEscaneados + 1;
 
@@ -229,7 +241,7 @@ namespace WFAHomeDelivery.Formularios
                                 do
                                 {
                                     qty = Microsoft.VisualBasic.Interaction.InputBox("CAPTURE LA CANTIDAD DE SKUS");
-                                    int cantidadBD = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().cantidad;
+                                    int cantidadBD = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().cantidad * -1;
                                     int cantidadEscaneados = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().CantidadEscaneos;
                                     int cantidadAgregar = cantidadEscaneados + int.Parse(qty);
 
@@ -248,7 +260,7 @@ namespace WFAHomeDelivery.Formularios
                             }
                             else
                             {
-                                int cantidadBD = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().cantidad;
+                                int cantidadBD = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().cantidad * -1;
                                 int cantidadEscaneados = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().CantidadEscaneos;
                                 int cantidadAgregar = cantidadEscaneados + 1;
 
@@ -270,7 +282,7 @@ namespace WFAHomeDelivery.Formularios
                             this.txtProducto.Text = "";
                             this.txtProducto.Focus();
 
-                            if (ListaInicial.Sum(x => x.CantidadEscaneos) == ListaInicial.Sum(x => x.cantidad))
+                            if (ListaInicial.Sum(x => x.CantidadEscaneos) == (ListaInicial.Sum(x => x.cantidad) * -1))
                             {
                                 string guia;
                                 SystemSounds.Beep.Play();
