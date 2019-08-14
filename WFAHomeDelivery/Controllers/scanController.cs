@@ -290,6 +290,16 @@ namespace WFAHomeDelivery.Controllers
             return true;
         }
 
+        public async Task<bool> CerrarOrdenSinGuia(string orden, string picker)
+        {
+            ordenes ordenes = db.ordenes.Where(x => x.Orden.Equals(orden)).FirstOrDefault();
+            ordenes.StatusOrdenImpresa_Id = 2;
+            ordenes.Picker = picker;
+
+            await db.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<bool> AgregarAuditor(string orden, string auditor)
         {
             detusuariosordenes detusuariosordenes = new detusuariosordenes();

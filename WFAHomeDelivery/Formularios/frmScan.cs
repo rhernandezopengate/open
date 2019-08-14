@@ -45,6 +45,9 @@ namespace WFAHomeDelivery.Formularios
             string pck6 = "JESUS";
             lista.Add(pck6);
 
+            string pck7 = "PAH";
+            lista.Add(pck7);
+
             return lista;
         }
 
@@ -63,7 +66,7 @@ namespace WFAHomeDelivery.Formularios
                         {
                             picker = Microsoft.VisualBasic.Interaction.InputBox("ESCANEAR CODIGO DE PICKER QUE SURTIO LA ORDEN", "CODIGO DE PICKER");
 
-                            string pickerValidacion = ListaPicker().Where(x => x.Equals(picker)).FirstOrDefault();
+                            string pickerValidacion = ListaPicker().Where(x => x.Equals(picker.ToUpper())).FirstOrDefault();
 
                             if (pickerValidacion == null)
                             {
@@ -133,7 +136,7 @@ namespace WFAHomeDelivery.Formularios
                         }
 
                         this.dataGridView1.DataSource = null;
-                        this.dataGridView1.DataSource = ListaInicial;                        
+                        this.dataGridView1.DataSource = ListaInicial;
                         this.txtProducto.Text = "";
                         this.txtProducto.Focus();
 
@@ -148,37 +151,52 @@ namespace WFAHomeDelivery.Formularios
                             {
                                 guia = Microsoft.VisualBasic.Interaction.InputBox("ESCANEAR GUIA");
 
-                                if (guia.Equals("NA"))
+                                if (guia != string.Empty)
                                 {
-                                    SystemSounds.Asterisk.Play();
-                                    MessageBox.Show("ESTA ORDEN NO SE PUEDE CERRAR, SIN LA GUIA CORRECTA, DEBE LIMPIAR LA ORDEN Y COMENZAR NUEVAMENTE.");
-                                    break;
-                                }
-
-                                if (ctrlScan.ExisteGuia(guia))
-                                {
-                                    if (ctrlScan.GuiaOrden(orden, guia))
+                                    if (guia.ToUpper().Equals("NA"))
+                                    {
+                                        SystemSounds.Asterisk.Play();
+                                        MessageBox.Show("ESTA ORDEN NO SE PUEDE CERRAR, SIN LA GUIA CORRECTA, DEBE LIMPIAR LA ORDEN Y COMENZAR NUEVAMENTE.");
+                                        break;
+                                    }
+                                    else if (guia.ToUpper().Equals("M"))
                                     {
                                         //Cerrar Orden                                            
                                         bool qr = await ctrlScan.CapturaQR(ListaQR);
                                         bool error = await ctrlScan.CapturaErrores(ListaErrores);
                                         bool agregarauditor = await ctrlScan.AgregarAuditor(orden, this.lblAuditor.Text);
-                                        bool cerrarorden = await ctrlScan.CerrarOrden(orden, this.lblPicker.Text);
+                                        bool cerrarorden = await ctrlScan.CerrarOrdenSinGuia(orden, this.lblPicker.Text);
                                         Limpiar();
+                                        break;
                                     }
                                     else
                                     {
-                                        SystemSounds.Asterisk.Play();
-                                        MessageBox.Show("GUIA NO PERTENECE A LA ORDEN");
-                                        guia = string.Empty;
+                                        if (ctrlScan.ExisteGuia(guia))
+                                        {
+                                            if (ctrlScan.GuiaOrden(orden, guia))
+                                            {
+                                                //Cerrar Orden                                            
+                                                bool qr = await ctrlScan.CapturaQR(ListaQR);
+                                                bool error = await ctrlScan.CapturaErrores(ListaErrores);
+                                                bool agregarauditor = await ctrlScan.AgregarAuditor(orden, this.lblAuditor.Text);
+                                                bool cerrarorden = await ctrlScan.CerrarOrden(orden, this.lblPicker.Text);
+                                                Limpiar();
+                                            }
+                                            else
+                                            {
+                                                SystemSounds.Asterisk.Play();
+                                                MessageBox.Show("GUIA NO PERTENECE A LA ORDEN");
+                                                guia = string.Empty;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            SystemSounds.Asterisk.Play();
+                                            MessageBox.Show("GUIA NO EXISTE");
+                                            guia = string.Empty;
+                                        }
                                     }
-                                }
-                                else
-                                {
-                                    SystemSounds.Asterisk.Play();
-                                    MessageBox.Show("GUIA NO EXISTE");
-                                    guia = string.Empty;
-                                }
+                                }                      
                             }
                             while (guia.Equals(string.Empty));
                         }
@@ -187,10 +205,11 @@ namespace WFAHomeDelivery.Formularios
                     {
                         if (ctrlScan.SKUPerteneceOrden(orden, producto))
                         {
+                            int cantidadBD = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).Sum(x => x.cantidad * -1);
+                            int cantidadEscaneados = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).Sum(x => x.CantidadEscaneos);
+
                             if (ctrlScan.IsQRCode(producto))
-                            {
-                                int cantidadBD = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().cantidad * -1;
-                                int cantidadEscaneados = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().CantidadEscaneos;
+                            {                                
                                 int cantidadAgregar = cantidadEscaneados + 1;
 
                                 if (cantidadAgregar <= cantidadBD)
@@ -241,8 +260,7 @@ namespace WFAHomeDelivery.Formularios
                                 do
                                 {
                                     qty = Microsoft.VisualBasic.Interaction.InputBox("CAPTURE LA CANTIDAD DE SKUS");
-                                    int cantidadBD = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().cantidad * -1;
-                                    int cantidadEscaneados = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().CantidadEscaneos;
+                                                                        
                                     int cantidadAgregar = cantidadEscaneados + int.Parse(qty);
 
                                     if (cantidadAgregar <= cantidadBD)
@@ -259,9 +277,7 @@ namespace WFAHomeDelivery.Formularios
                                 } while (qty.Equals(string.Empty));
                             }
                             else
-                            {
-                                int cantidadBD = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().cantidad * -1;
-                                int cantidadEscaneados = (int)ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault().CantidadEscaneos;
+                            {                                
                                 int cantidadAgregar = cantidadEscaneados + 1;
 
                                 if (cantidadAgregar <= cantidadBD)
@@ -290,37 +306,52 @@ namespace WFAHomeDelivery.Formularios
                                 {
                                     guia = Microsoft.VisualBasic.Interaction.InputBox("ESCANEAR GUIA");
 
-                                    if (guia.Equals("NA"))
+                                    if (guia != string.Empty)
                                     {
-                                        SystemSounds.Asterisk.Play();
-                                        MessageBox.Show("ESTA ORDEN NO SE PUEDE CERRAR, SIN LA GUIA CORRECTA, DEBE LIMPIAR LA ORDEN Y COMENZAR NUEVAMENTE.");
-                                        break;
-                                    }
-
-                                    if (ctrlScan.ExisteGuia(guia))
-                                    {
-                                        if (ctrlScan.GuiaOrden(orden, guia))
+                                        if (guia.ToUpper().Equals("NA"))
+                                        {
+                                            SystemSounds.Asterisk.Play();
+                                            MessageBox.Show("ESTA ORDEN NO SE PUEDE CERRAR, SIN LA GUIA CORRECTA, DEBE LIMPIAR LA ORDEN Y COMENZAR NUEVAMENTE.");
+                                            break;
+                                        }
+                                        else if (guia.ToUpper().Equals("M"))
                                         {
                                             //Cerrar Orden                                            
                                             bool qr = await ctrlScan.CapturaQR(ListaQR);
                                             bool error = await ctrlScan.CapturaErrores(ListaErrores);
                                             bool agregarauditor = await ctrlScan.AgregarAuditor(orden, this.lblAuditor.Text);
-                                            bool cerrarorden = await ctrlScan.CerrarOrden(orden, this.lblPicker.Text);
-
+                                            bool cerrarorden = await ctrlScan.CerrarOrdenSinGuia(orden, this.lblPicker.Text);
                                             Limpiar();
+                                            break;
                                         }
                                         else
                                         {
-                                            SystemSounds.Asterisk.Play();
-                                            MessageBox.Show("GUIA NO PERTENECE A LA ORDEN");                                            
-                                            guia = string.Empty;
+                                            if (ctrlScan.ExisteGuia(guia))
+                                            {
+                                                if (ctrlScan.GuiaOrden(orden, guia))
+                                                {
+                                                    //Cerrar Orden                                            
+                                                    bool qr = await ctrlScan.CapturaQR(ListaQR);
+                                                    bool error = await ctrlScan.CapturaErrores(ListaErrores);
+                                                    bool agregarauditor = await ctrlScan.AgregarAuditor(orden, this.lblAuditor.Text);
+                                                    bool cerrarorden = await ctrlScan.CerrarOrden(orden, this.lblPicker.Text);
+
+                                                    Limpiar();
+                                                }
+                                                else
+                                                {
+                                                    SystemSounds.Asterisk.Play();
+                                                    MessageBox.Show("GUIA NO PERTENECE A LA ORDEN");
+                                                    guia = string.Empty;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                SystemSounds.Asterisk.Play();
+                                                MessageBox.Show("GUIA NO EXISTE");
+                                                guia = string.Empty;
+                                            }
                                         }                                        
-                                    }
-                                    else
-                                    {
-                                        SystemSounds.Asterisk.Play();
-                                        MessageBox.Show("GUIA NO EXISTE");
-                                        guia = string.Empty;
                                     }
                                 }
                                 while (guia.Equals(string.Empty));                        
