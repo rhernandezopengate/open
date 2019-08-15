@@ -27,10 +27,10 @@ namespace WFAHomeDelivery.Formularios
         {
             List<string> lista = new List<string>();
 
-            string pck = "GENOVEVA";
+            string pck = "GENOVEVA SAYNES";
             lista.Add(pck);
 
-            string pck2 = "GERARDO";
+            string pck2 = "GERARDO ";
             lista.Add(pck2);
 
             string pck3 = "RENE";
@@ -222,23 +222,31 @@ namespace WFAHomeDelivery.Formularios
 
                                         if (qrcode != string.Empty)
                                         {
-                                            var validarqr = ListaQR.Where(x => x.CodigoQR.Equals(qrcode)).FirstOrDefault();
-
-                                            if (validarqr == null)
+                                            if (qrcode.Length < 15)
                                             {
-                                                var cantidadEscaneado = ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault();
-                                                cantidadEscaneado.CantidadEscaneos = cantidadAgregar;
-
-                                                codigoqrordenes codigoqrordenes = new codigoqrordenes();
-                                                codigoqrordenes.CodigoQR = qrcode;
-                                                codigoqrordenes.Ordenes_Id = int.Parse(lblOrdenId.Text);
-                                                ListaQR.Add(codigoqrordenes);
+                                                MessageBox.Show("CODIGO QR NO VALIDO");
+                                                qrcode = string.Empty;
                                             }
                                             else
                                             {
-                                                SystemSounds.Asterisk.Play();
-                                                MessageBox.Show("EL CODIGO QR NO PUEDE ESTAR REPETIDO");
-                                            }
+                                                var validarqr = ListaQR.Where(x => x.CodigoQR.Equals(qrcode)).FirstOrDefault();
+
+                                                if (validarqr == null)
+                                                {
+                                                    var cantidadEscaneado = ListaInicial.Where(x => x.SKU.Equals(producto)).FirstOrDefault();
+                                                    cantidadEscaneado.CantidadEscaneos = cantidadAgregar;
+
+                                                    codigoqrordenes codigoqrordenes = new codigoqrordenes();
+                                                    codigoqrordenes.CodigoQR = qrcode;
+                                                    codigoqrordenes.Ordenes_Id = int.Parse(lblOrdenId.Text);
+                                                    ListaQR.Add(codigoqrordenes);
+                                                }
+                                                else
+                                                {
+                                                    SystemSounds.Asterisk.Play();
+                                                    MessageBox.Show("EL CODIGO QR NO PUEDE ESTAR REPETIDO");
+                                                }
+                                            }                                            
                                         }
                                         else
                                         {
