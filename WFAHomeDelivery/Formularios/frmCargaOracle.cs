@@ -117,7 +117,6 @@ namespace WFAHomeDelivery
                 DataType = typeof(string)
             });
             
-
             List<ordenes> lista = new List<ordenes>();
 
             foreach (DataRow row in dtCharge.Rows)
@@ -132,7 +131,7 @@ namespace WFAHomeDelivery
                 //ordenes.TxnNumber = row[1].ToString();
 
                 
-                var orden = listaValidacion.Where(x => x.Orden.Contains(ordenes.Orden)).FirstOrDefault();
+                var orden = listaValidacion.Where(x => x.Orden.Equals(ordenes.Orden.Trim())).FirstOrDefault();
                 if (orden == null)
                 {
                     lista.Add(ordenes);
@@ -220,13 +219,18 @@ namespace WFAHomeDelivery
                     string orden = row[3].ToString();
                     string sku = row[0].ToString();
 
-                    int idOrden = listaOrdenes.Where(x => x.Orden.Contains(orden)).FirstOrDefault().id;
-                    int idSKU = listaSKU.Where(x => x.Sku.Contains(sku)).FirstOrDefault().id;
-                    dtDetalles.Rows.Add(new object[] {
-                    idOrden,
-                    idSKU,
-                    int.Parse(row[1].ToString())
-                });
+                    var ordenTemp = lista.Where(x => x.Orden.Contains(orden)).FirstOrDefault();
+
+                    if (ordenTemp != null)
+                    {
+                        int idOrden = listaOrdenes.Where(x => x.Orden.Contains(orden)).FirstOrDefault().id;
+                        int idSKU = listaSKU.Where(x => x.Sku.Contains(sku)).FirstOrDefault().id;
+                        dtDetalles.Rows.Add(new object[] {
+                            idOrden,
+                            idSKU,
+                            int.Parse(row[1].ToString())
+                        });
+                    }               
                 }
 
                 using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))

@@ -173,8 +173,9 @@ namespace WFAHomeDelivery.Controllers
 
                 foreach (var item in listaTemp)
                 {
-                    int cantidadBD = (int)lista.Where(x => x.SKU.Equals(item.skus.Sku)).FirstOrDefault().cantidad * -1;
-                    int cantidadEscaneados = (int)lista.Where(x => x.SKU.Equals(item.skus.Sku)).FirstOrDefault().CantidadEscaneos;
+                    int cantidadBD = (int)lista.Where(x => x.SKU.Equals(item.skus.Sku)).Sum(x => x.cantidad * -1);
+                    int cantidadEscaneados = (int)lista.Where(x => x.SKU.Equals(item.skus.Sku)).Sum(x => x.CantidadEscaneos);
+
                     int cantidadAgregar = cantidadEscaneados + (int)item.Cantidad;
 
                     if (cantidadAgregar > cantidadBD)
@@ -232,7 +233,7 @@ namespace WFAHomeDelivery.Controllers
         {
             try
             {
-                var validarguia = db.guias.Where(x => x.Guia.Equals(guia)).FirstOrDefault();
+                var validarguia = db.guias.Where(x => x.Guia.Contains(guia)).FirstOrDefault();
 
                 if (validarguia != null)
                 {
@@ -253,7 +254,7 @@ namespace WFAHomeDelivery.Controllers
         {
             try
             {
-                var validarguia = db.guias.Where(x => x.ordenes.Orden.Equals(orden) && x.Guia.Equals(guia)).FirstOrDefault();
+                var validarguia = db.guias.Where(x => x.ordenes.Orden.Contains(orden) && x.Guia.Contains(guia)).FirstOrDefault();
 
                 if (validarguia != null)
                 {
@@ -272,7 +273,7 @@ namespace WFAHomeDelivery.Controllers
 
         public async Task<bool> CerrarOrden(string orden, string picker)
         {
-            ordenes ordenes = db.ordenes.Where(x => x.Orden.Equals(orden)).FirstOrDefault();
+            ordenes ordenes = db.ordenes.Where(x => x.Orden.Contains(orden)).FirstOrDefault();
             ordenes.StatusOrdenImpresa_Id = 3;
             ordenes.Picker = picker;
 
@@ -303,7 +304,7 @@ namespace WFAHomeDelivery.Controllers
         public async Task<bool> AgregarAuditor(string orden, string auditor)
         {
             detusuariosordenes detusuariosordenes = new detusuariosordenes();
-            detusuariosordenes.Ordenes_Id = db.ordenes.Where(x => x.Orden == orden).FirstOrDefault().id;
+            detusuariosordenes.Ordenes_Id = db.ordenes.Where(x => x.Orden.Contains(orden)).FirstOrDefault().id;
             detusuariosordenes.Usuarios_Id = db.usuarios.Where(x => x.nombre.Equals(auditor)).FirstOrDefault().id;
             db.detusuariosordenes.Add(detusuariosordenes);        
 

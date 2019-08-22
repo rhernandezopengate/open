@@ -30,22 +30,22 @@ namespace WFAHomeDelivery.Formularios
             string pck = "GENOVEVA SAYNES";
             lista.Add(pck);
 
-            string pck2 = "GERARDO ";
+            string pck2 = "GERARDO HERNANDEZ";
             lista.Add(pck2);
 
-            string pck3 = "RENE";
+            string pck3 = "RENE CERVANTES";
             lista.Add(pck3);
 
-            string pck4 = "LETICIA";
+            string pck4 = "LETICIA MAYA";
             lista.Add(pck4);
 
-            string pck5 = "ESMERALDA";
+            string pck5 = "ESMERALDA CAMACHO";
             lista.Add(pck5);
 
-            string pck6 = "JESUS";
+            string pck6 = "JESUS TOVAR";
             lista.Add(pck6);
 
-            string pck7 = "PAH";
+            string pck7 = "KIT";
             lista.Add(pck7);
 
             return lista;
@@ -64,6 +64,8 @@ namespace WFAHomeDelivery.Formularios
                     {
                         do
                         {
+                            SystemSounds.Beep.Play();
+
                             picker = Microsoft.VisualBasic.Interaction.InputBox("ESCANEAR CODIGO DE PICKER QUE SURTIO LA ORDEN", "CODIGO DE PICKER");
 
                             string pickerValidacion = ListaPicker().Where(x => x.Equals(picker.ToUpper())).FirstOrDefault();
@@ -79,7 +81,7 @@ namespace WFAHomeDelivery.Formularios
                         ListaQR = new List<codigoqrordenes>();
                         ListaErrores = new List<erroresordenes>();
                         lblOrdenId.Text = ctrlScan.IdOrdenByOrden(orden).ToString();
-                        lblPicker.Text = picker;
+                        lblPicker.Text = picker.ToUpper();
                         this.txtOrden.Enabled = false;
                         this.dataGridView1.AutoGenerateColumns = false;
                         this.dataGridView1.DataSource = ListaInicial;
@@ -121,7 +123,7 @@ namespace WFAHomeDelivery.Formularios
                         {
                             foreach (var item in ctrlScan.ListaKit(producto))
                             {
-                                int cantidadEscaneados = (int)ListaInicial.Where(x => x.SKU.Equals(item.skus.Sku)).FirstOrDefault().CantidadEscaneos;
+                                int cantidadEscaneados = (int)ListaInicial.Where(x => x.SKU.Equals(item.skus.Sku)).Sum(x => x.CantidadEscaneos);
                                 int cantidadAgregar = cantidadEscaneados + (int)item.Cantidad;
 
                                 var cantidadEscaneado = ListaInicial.Where(x => x.SKU.Equals(item.skus.Sku)).FirstOrDefault();
@@ -165,7 +167,7 @@ namespace WFAHomeDelivery.Formularios
                                         bool qr = await ctrlScan.CapturaQR(ListaQR);
                                         bool error = await ctrlScan.CapturaErrores(ListaErrores);
                                         bool agregarauditor = await ctrlScan.AgregarAuditor(orden, this.lblAuditor.Text);
-                                        bool cerrarorden = await ctrlScan.CerrarOrdenSinGuia(orden, this.lblPicker.Text);
+                                        bool cerrarorden = await ctrlScan.CerrarOrdenSinGuia(orden, this.lblPicker.Text.ToUpper());
                                         Limpiar();
                                         break;
                                     }
@@ -179,7 +181,7 @@ namespace WFAHomeDelivery.Formularios
                                                 bool qr = await ctrlScan.CapturaQR(ListaQR);
                                                 bool error = await ctrlScan.CapturaErrores(ListaErrores);
                                                 bool agregarauditor = await ctrlScan.AgregarAuditor(orden, this.lblAuditor.Text);
-                                                bool cerrarorden = await ctrlScan.CerrarOrden(orden, this.lblPicker.Text);
+                                                bool cerrarorden = await ctrlScan.CerrarOrden(orden, this.lblPicker.Text.ToUpper());
                                                 Limpiar();
                                             }
                                             else
@@ -224,6 +226,7 @@ namespace WFAHomeDelivery.Formularios
                                         {
                                             if (qrcode.Length < 15)
                                             {
+                                                SystemSounds.Asterisk.Play();
                                                 MessageBox.Show("CODIGO QR NO VALIDO");
                                                 qrcode = string.Empty;
                                             }
@@ -328,7 +331,7 @@ namespace WFAHomeDelivery.Formularios
                                             bool qr = await ctrlScan.CapturaQR(ListaQR);
                                             bool error = await ctrlScan.CapturaErrores(ListaErrores);
                                             bool agregarauditor = await ctrlScan.AgregarAuditor(orden, this.lblAuditor.Text);
-                                            bool cerrarorden = await ctrlScan.CerrarOrdenSinGuia(orden, this.lblPicker.Text);
+                                            bool cerrarorden = await ctrlScan.CerrarOrdenSinGuia(orden, this.lblPicker.Text.ToUpper());
                                             Limpiar();
                                             break;
                                         }
@@ -342,7 +345,7 @@ namespace WFAHomeDelivery.Formularios
                                                     bool qr = await ctrlScan.CapturaQR(ListaQR);
                                                     bool error = await ctrlScan.CapturaErrores(ListaErrores);
                                                     bool agregarauditor = await ctrlScan.AgregarAuditor(orden, this.lblAuditor.Text);
-                                                    bool cerrarorden = await ctrlScan.CerrarOrden(orden, this.lblPicker.Text);
+                                                    bool cerrarorden = await ctrlScan.CerrarOrden(orden, this.lblPicker.Text.ToUpper());
 
                                                     Limpiar();
                                                 }
@@ -442,6 +445,7 @@ namespace WFAHomeDelivery.Formularios
                 SystemSounds.Beep.Play();
                 MessageBox.Show("FALTANTE AGREGADO CORRECTAMENTE");
                 ErrorFaltante();
+                txtProducto.Focus();
             }            
         }
 
@@ -454,16 +458,61 @@ namespace WFAHomeDelivery.Formularios
             }
             else
             {
-                bool cerrarorden = await ctrlScan.CerrarOrdenBackOrden(this.txtOrden.Text, this.lblPicker.Text);
-
-                bool qr = await ctrlScan.CapturaQR(ListaQR);
-
-                bool error = await ctrlScan.CapturaErrores(ListaErrores);
-
-                bool agregarauditor = await ctrlScan.AgregarAuditor(this.txtOrden.Text, this.lblAuditor.Text);
-
+                string orden = this.txtOrden.Text;
+                string guia;
                 SystemSounds.Beep.Play();
+                do
+                {
+                    guia = Microsoft.VisualBasic.Interaction.InputBox("ESCANEAR GUIA");
 
+                    if (guia != string.Empty)
+                    {
+                        if (guia.ToUpper().Equals("NA"))
+                        {
+                            SystemSounds.Asterisk.Play();
+                            MessageBox.Show("ESTA ORDEN NO SE PUEDE CERRAR, SIN LA GUIA CORRECTA, DEBE LIMPIAR LA ORDEN Y COMENZAR NUEVAMENTE.");
+                            break;
+                        }
+                        else if (guia.ToUpper().Equals("M"))
+                        {
+                            //Cerrar Orden                                            
+                            bool qr = await ctrlScan.CapturaQR(ListaQR);                            
+                            bool agregarauditor = await ctrlScan.AgregarAuditor(orden, this.lblAuditor.Text);
+                            bool cerrarorden = await ctrlScan.CerrarOrdenBackOrden(orden, this.lblPicker.Text.ToUpper());
+                            Limpiar();
+                            break;
+                        }
+                        else
+                        {
+                            if (ctrlScan.ExisteGuia(guia))
+                            {
+                                if (ctrlScan.GuiaOrden(orden, guia))
+                                {
+                                    //Cerrar Orden                                            
+                                    bool qr = await ctrlScan.CapturaQR(ListaQR);                                    
+                                    bool agregarauditor = await ctrlScan.AgregarAuditor(orden, this.lblAuditor.Text);
+                                    bool cerrarorden = await ctrlScan.CerrarOrdenBackOrden(orden, this.lblPicker.Text.ToUpper());
+
+                                    Limpiar();
+                                }
+                                else
+                                {
+                                    SystemSounds.Asterisk.Play();
+                                    MessageBox.Show("GUIA NO PERTENECE A LA ORDEN");
+                                    guia = string.Empty;
+                                }
+                            }
+                            else
+                            {
+                                SystemSounds.Asterisk.Play();
+                                MessageBox.Show("GUIA NO EXISTE");
+                                guia = string.Empty;
+                            }
+                        }
+                    }
+                }
+                while (guia.Equals(string.Empty));
+                         
                 MessageBox.Show("ORDEN CERRADA CORRECTAMENTE");
 
                 Limpiar();
@@ -471,4 +520,3 @@ namespace WFAHomeDelivery.Formularios
         }
     }
 }
-
