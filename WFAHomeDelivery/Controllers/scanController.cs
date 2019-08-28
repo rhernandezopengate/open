@@ -56,7 +56,7 @@ namespace WFAHomeDelivery.Controllers
 
         public int IdOrdenByOrden(string orden)
         {
-            return db.ordenes.Where(x => x.Orden.Equals(orden)).FirstOrDefault().id;
+            return db.ordenes.Where(x => x.Orden.Contains(orden)).FirstOrDefault().id;
         }
 
         public bool ExisteSKU(string producto)

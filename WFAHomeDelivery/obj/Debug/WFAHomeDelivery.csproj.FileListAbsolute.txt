@@ -30,6 +30,8 @@ C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHome
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.exe
 C:\Users\rhern\OneDrive\Documentos\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.pdb
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\bin\Debug\WFAHomeDelivery.exe.config
+C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\bin\Debug\WFAHomeDelivery.exe.manifest
+C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\bin\Debug\WFAHomeDelivery.application
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\bin\Debug\WFAHomeDelivery.exe
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\bin\Debug\WFAHomeDelivery.pdb
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\bin\Debug\EntityFramework.dll
@@ -49,6 +51,8 @@ C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeD
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.Properties.Resources.resources
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.csproj.GenerateResource.cache
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.csproj.CoreCompileInputs.cache
+C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.exe.manifest
+C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.application
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.csproj.CopyComplete
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.exe
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.pdb
