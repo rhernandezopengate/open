@@ -433,11 +433,10 @@ namespace WFAHomeDelivery.Formularios
         public void ErrorGuiaIncorrecta()
         {
             erroresordenes erroresordenes = new erroresordenes();
-            erroresordenes.TipoError_Id = 6;
+            erroresordenes.TipoError_Id = 5;
             erroresordenes.Ordenes_Id = int.Parse(lblOrdenId.Text);
             ListaErrores.Add(erroresordenes);
         }
-
 
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
