@@ -39,6 +39,7 @@ C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\bin\Debug\EntityFr
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\bin\Debug\System.Linq.Dynamic.dll
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\bin\Debug\EntityFramework.xml
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.csprojAssemblyReference.cache
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.Formularios.frmCargaGuias.resources
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.frmCargaOracle.resources
 C:\Users\RubenHernandez\Documents\GitHub\open\WFAHomeDelivery\obj\Debug\WFAHomeDelivery.frmEscaneos.resources

@@ -48,6 +48,12 @@ namespace WFAHomeDelivery.Formularios
             string pck7 = "KIT";
             lista.Add(pck7);
 
+            string pck8 = "BRYAN GONZALEZ";
+            lista.Add(pck8);
+
+            string pck9 = "OTRO";
+            lista.Add(pck9);
+
             return lista;
         }
 
@@ -133,7 +139,13 @@ namespace WFAHomeDelivery.Formularios
                         else
                         {
                             SystemSounds.Asterisk.Play();
-                            MessageBox.Show("LA CANTIDAD DEL PAH O KIT ES MAYOR A LA SOLICITADA EN LA ORDEN");
+                            string respuesta;
+
+                            do
+                            {
+                                respuesta = Microsoft.VisualBasic.Interaction.InputBox("LA CANTIDAD DEL PAH O KIT ES MAYOR A LA SOLICITADA EN LA ORDEN");
+                            } while (respuesta.ToUpper() != "OK");
+                            
                             ErrorSobrante();
                         }
 
@@ -187,6 +199,7 @@ namespace WFAHomeDelivery.Formularios
                                             else
                                             {
                                                 SystemSounds.Asterisk.Play();
+
                                                 MessageBox.Show("GUIA NO PERTENECE A LA ORDEN");
                                                 guia = string.Empty;
                                                 ErrorGuiaIncorrecta();
@@ -195,7 +208,7 @@ namespace WFAHomeDelivery.Formularios
                                         else
                                         {
                                             SystemSounds.Asterisk.Play();
-                                            MessageBox.Show("GUIA NO EXISTE");
+                                            MessageBox.Show("GUIA NO EXISTE");                                                                                        
                                             guia = string.Empty;
                                         }
                                     }
@@ -260,9 +273,15 @@ namespace WFAHomeDelivery.Formularios
                                     } while (qrcode.Equals(string.Empty));
                                 }
                                 else
-                                {
-                                    SystemSounds.Asterisk.Play();
-                                    MessageBox.Show("YA SE HA COMPLETADO EL ESCANEO DE ESTE SKU");
+                                {                                    
+                                    string respuesta;
+
+                                    do
+                                    {
+                                        SystemSounds.Asterisk.Play();
+                                        respuesta = Microsoft.VisualBasic.Interaction.InputBox("YA SE HA COMPLETADO EL ESCANEO DE ESTE SKU");
+                                    } while (respuesta.ToUpper() != "OK");
+                                    
                                     ErrorSobrante();
                                 }
                             }
@@ -281,9 +300,14 @@ namespace WFAHomeDelivery.Formularios
                                         cantidadEscaneado.CantidadEscaneos = cantidadAgregar;
                                     }
                                     else
-                                    {
-                                        SystemSounds.Asterisk.Play();
-                                        MessageBox.Show("LA CANTIDAD DE SKUS NO PUEDE SER MAYOR A LA DE LA ORDEN");
+                                    {                                        
+                                        string respuesta;
+                                        do
+                                        {
+                                            SystemSounds.Asterisk.Play();
+                                            respuesta = Microsoft.VisualBasic.Interaction.InputBox("LA CANTIDAD DE SKUS NO PUEDE SER MAYOR A LA DE LA ORDEN");
+                                        } while (respuesta.ToUpper() != "OK");
+                                        
                                         ErrorSobrante();
                                     }
                                 } while (qty.Equals(string.Empty));
@@ -299,8 +323,15 @@ namespace WFAHomeDelivery.Formularios
                                 }
                                 else
                                 {
-                                    SystemSounds.Asterisk.Play();
-                                    MessageBox.Show("YA SE HA COMPLETADO EL ESCANEO DE ESTE SKU");
+                                    
+                                    string respuesta;
+
+                                    do
+                                    {
+                                        SystemSounds.Asterisk.Play();
+                                        respuesta = Microsoft.VisualBasic.Interaction.InputBox("YA SE HA COMPLETADO EL ESCANEO DE ESTE SKU");
+                                    } while (respuesta.ToUpper() != "OK");
+                                    
                                     ErrorSobrante();
                                 }
                             }
@@ -371,9 +402,15 @@ namespace WFAHomeDelivery.Formularios
                             }
                         }
                         else
-                        {
-                            SystemSounds.Asterisk.Play();
-                            MessageBox.Show("ESTE SKU NO PERTENECE A LA ORDEN");
+                        {                            
+                            string respuesta;
+
+                            do
+                            {
+                                SystemSounds.Asterisk.Play();
+                                respuesta = Microsoft.VisualBasic.Interaction.InputBox("ESTE SKU NO PERTENECE A LA ORDEN");
+                            } while (respuesta.ToUpper() != "OK");
+                            
                             ErrorSkuIncorrecto();
                             this.txtProducto.Text = "";
                             this.txtProducto.Focus();
@@ -381,9 +418,15 @@ namespace WFAHomeDelivery.Formularios
                     }                    
                 }
                 else
-                {
-                    SystemSounds.Asterisk.Play();
-                    MessageBox.Show("ESTE SKU NO EXISTE");
+                {                    
+                    string respuesta;
+
+                    do
+                    {
+                        SystemSounds.Asterisk.Play();
+                        respuesta = Microsoft.VisualBasic.Interaction.InputBox("ESTE SKU NO EXISTE");
+                    } while (respuesta.ToUpper() != "OK");
+                    
                     this.txtProducto.Text = "";
                     this.txtProducto.Focus();
                 }
