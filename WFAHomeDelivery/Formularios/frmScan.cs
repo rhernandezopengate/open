@@ -39,7 +39,7 @@ namespace WFAHomeDelivery.Formularios
             string pck4 = "LETICIA MAYA";
             lista.Add(pck4);
 
-            string pck5 = "ESMERALDA CAMACHO";
+            string pck5 = "ALMA LINO";
             lista.Add(pck5);
 
             string pck6 = "JESUS TOVAR";
@@ -48,7 +48,7 @@ namespace WFAHomeDelivery.Formularios
             string pck7 = "KIT";
             lista.Add(pck7);
 
-            string pck8 = "BRYAN GONZALEZ";
+            string pck8 = "JAHIR JIMENEZ";
             lista.Add(pck8);
 
             string pck9 = "OTRO";
@@ -109,7 +109,6 @@ namespace WFAHomeDelivery.Formularios
                     this.txtOrden.Text = "";
                     this.txtOrden.Focus();
                 }
-
                 e.Handled = true;
             }
         }
