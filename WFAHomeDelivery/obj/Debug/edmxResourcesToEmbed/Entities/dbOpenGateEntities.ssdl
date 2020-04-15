@@ -81,6 +81,14 @@
     <Property Name="qtymanual" Type="char" MaxLength="2" />
     <Property Name="kit" Type="char" MaxLength="2" />
   </EntityType>
+  <EntityType Name="skusbenavides">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="varchar" MaxLength="50" />
+    <Property Name="skus_Id" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="statusordenimpresa">
     <Key>
       <PropertyRef Name="id" />
@@ -237,6 +245,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="skusbenavides_skus_fk">
+    <End Role="skus" Type="Self.skus" Multiplicity="1" />
+    <End Role="skusbenavides" Type="Self.skusbenavides" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="skusbenavides">
+        <PropertyRef Name="skus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="DB_A3F19C_OGModelStoreContainer">
     <EntitySet Name="codigoqrordenes" EntityType="Self.codigoqrordenes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="detkitskus" EntityType="Self.detkitskus" Schema="dbo" store:Type="Tables" />
@@ -247,6 +267,7 @@
     <EntitySet Name="kit" EntityType="Self.kit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ordenes" EntityType="Self.ordenes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="skus" EntityType="Self.skus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="skusbenavides" EntityType="Self.skusbenavides" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="statusordenimpresa" EntityType="Self.statusordenimpresa" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tipoerror" EntityType="Self.tipoerror" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
@@ -293,6 +314,10 @@
     <AssociationSet Name="ordenes_statusordenimpresa_fk" Association="Self.ordenes_statusordenimpresa_fk">
       <End Role="statusordenimpresa" EntitySet="statusordenimpresa" />
       <End Role="ordenes" EntitySet="ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="skusbenavides_skus_fk" Association="Self.skusbenavides_skus_fk">
+      <End Role="skus" EntitySet="skus" />
+      <End Role="skusbenavides" EntitySet="skusbenavides" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

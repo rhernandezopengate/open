@@ -215,7 +215,7 @@ namespace WFAHomeDelivery.Formularios
                             }
                             while (guia.Equals(string.Empty));
                         }
-                    }
+                    }                    
                     else
                     {
                         if (ctrlScan.SKUPerteneceOrden(orden, producto))
@@ -416,6 +416,206 @@ namespace WFAHomeDelivery.Formularios
                         }
                     }                    
                 }
+                else if (ctrlScan.IsBenevidesCode(producto))
+                {
+                    string skuvalido = ctrlScan.SkuValidoDesdeBenavides(producto);
+                    if (ctrlScan.SKUPerteneceOrden(orden, skuvalido))
+                    {
+                        int cantidadBD = (int)ListaInicial.Where(x => x.SKU.Equals(skuvalido)).Sum(x => x.cantidad * -1);
+                        int cantidadEscaneados = (int)ListaInicial.Where(x => x.SKU.Equals(skuvalido)).Sum(x => x.CantidadEscaneos);
+
+                        if (ctrlScan.IsQRCode(skuvalido))
+                        {
+                            int cantidadAgregar = cantidadEscaneados + 1;
+
+                            if (cantidadAgregar <= cantidadBD)
+                            {
+                                string qrcode;
+                                SystemSounds.Beep.Play();
+                                do
+                                {
+                                    qrcode = Microsoft.VisualBasic.Interaction.InputBox("ESCANEAR CODIGO QR");
+
+                                    if (qrcode != string.Empty)
+                                    {
+                                        if (qrcode.Length < 15)
+                                        {
+                                            SystemSounds.Asterisk.Play();
+                                            MessageBox.Show("CODIGO QR NO VALIDO");
+                                            qrcode = string.Empty;
+                                        }
+                                        else
+                                        {
+                                            var validarqr = ListaQR.Where(x => x.CodigoQR.Equals(qrcode)).FirstOrDefault();
+
+                                            if (validarqr == null)
+                                            {
+                                                var cantidadEscaneado = ListaInicial.Where(x => x.SKU.Equals(skuvalido)).FirstOrDefault();
+                                                cantidadEscaneado.CantidadEscaneos = cantidadAgregar;
+
+                                                codigoqrordenes codigoqrordenes = new codigoqrordenes();
+                                                codigoqrordenes.CodigoQR = qrcode;
+                                                codigoqrordenes.Ordenes_Id = int.Parse(lblOrdenId.Text);
+                                                ListaQR.Add(codigoqrordenes);
+                                            }
+                                            else
+                                            {
+                                                SystemSounds.Asterisk.Play();
+                                                MessageBox.Show("EL CODIGO QR NO PUEDE ESTAR REPETIDO");
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        SystemSounds.Asterisk.Play();
+                                        MessageBox.Show("EL CODIGO QR NO PUEDE ESTAR VACIO");
+                                    }
+                                } while (qrcode.Equals(string.Empty));
+                            }
+                            else
+                            {
+                                string respuesta;
+
+                                do
+                                {
+                                    SystemSounds.Asterisk.Play();
+                                    respuesta = Microsoft.VisualBasic.Interaction.InputBox("YA SE HA COMPLETADO EL ESCANEO DE ESTE SKU");
+                                } while (respuesta.ToUpper() != "OK");
+
+                                ErrorSobrante();
+                            }
+                        }
+                        else if (ctrlScan.IsQTYManual(skuvalido))
+                        {
+                            string qty;
+                            do
+                            {
+                                qty = Microsoft.VisualBasic.Interaction.InputBox("CAPTURE LA CANTIDAD DE SKUS");
+
+                                int cantidadAgregar = cantidadEscaneados + int.Parse(qty);
+
+                                if (cantidadAgregar <= cantidadBD)
+                                {
+                                    var cantidadEscaneado = ListaInicial.Where(x => x.SKU.Equals(skuvalido)).FirstOrDefault();
+                                    cantidadEscaneado.CantidadEscaneos = cantidadAgregar;
+                                }
+                                else
+                                {
+                                    string respuesta;
+                                    do
+                                    {
+                                        SystemSounds.Asterisk.Play();
+                                        respuesta = Microsoft.VisualBasic.Interaction.InputBox("LA CANTIDAD DE SKUS NO PUEDE SER MAYOR A LA DE LA ORDEN");
+                                    } while (respuesta.ToUpper() != "OK");
+
+                                    ErrorSobrante();
+                                }
+                            } while (qty.Equals(string.Empty));
+                        }
+                        else
+                        {
+                            int cantidadAgregar = cantidadEscaneados + 1;
+
+                            if (cantidadAgregar <= cantidadBD)
+                            {
+                                var cantidadEscaneado = ListaInicial.Where(x => x.SKU.Equals(skuvalido)).FirstOrDefault();
+                                cantidadEscaneado.CantidadEscaneos = cantidadAgregar;
+                            }
+                            else
+                            {
+
+                                string respuesta;
+
+                                do
+                                {
+                                    SystemSounds.Asterisk.Play();
+                                    respuesta = Microsoft.VisualBasic.Interaction.InputBox("YA SE HA COMPLETADO EL ESCANEO DE ESTE SKU");
+                                } while (respuesta.ToUpper() != "OK");
+
+                                ErrorSobrante();
+                            }
+                        }
+
+                        this.dataGridView1.DataSource = null;
+                        this.dataGridView1.DataSource = ListaInicial;
+                        this.txtProducto.Text = "";
+                        this.txtProducto.Focus();
+
+                        if (ListaInicial.Sum(x => x.CantidadEscaneos) == (ListaInicial.Sum(x => x.cantidad) * -1))
+                        {
+                            string guia;
+                            SystemSounds.Beep.Play();
+                            do
+                            {
+                                guia = Microsoft.VisualBasic.Interaction.InputBox("ESCANEAR GUIA");
+
+                                if (guia != string.Empty)
+                                {
+                                    if (guia.ToUpper().Equals("NA"))
+                                    {
+                                        SystemSounds.Asterisk.Play();
+                                        MessageBox.Show("ESTA ORDEN NO SE PUEDE CERRAR, SIN LA GUIA CORRECTA, DEBE LIMPIAR LA ORDEN Y COMENZAR NUEVAMENTE.");
+                                        break;
+                                    }
+                                    else if (guia.ToUpper().Equals("M"))
+                                    {
+                                        //Cerrar Orden                                            
+                                        bool qr = await ctrlScan.CapturaQR(ListaQR);
+                                        bool error = await ctrlScan.CapturaErrores(ListaErrores);
+                                        bool agregarauditor = await ctrlScan.AgregarAuditor(orden, this.lblAuditor.Text);
+                                        bool cerrarorden = await ctrlScan.CerrarOrdenSinGuia(orden, this.lblPicker.Text.ToUpper());
+                                        Limpiar();
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        if (ctrlScan.ExisteGuia(guia))
+                                        {
+                                            if (ctrlScan.GuiaOrden(orden, guia))
+                                            {
+                                                //Cerrar Orden                                            
+                                                bool qr = await ctrlScan.CapturaQR(ListaQR);
+                                                bool error = await ctrlScan.CapturaErrores(ListaErrores);
+                                                bool agregarauditor = await ctrlScan.AgregarAuditor(orden, this.lblAuditor.Text);
+                                                bool cerrarorden = await ctrlScan.CerrarOrden(orden, this.lblPicker.Text.ToUpper());
+
+                                                Limpiar();
+                                            }
+                                            else
+                                            {
+                                                SystemSounds.Asterisk.Play();
+                                                MessageBox.Show("GUIA NO PERTENECE A LA ORDEN");
+                                                guia = string.Empty;
+                                                ErrorGuiaIncorrecta();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            SystemSounds.Asterisk.Play();
+                                            MessageBox.Show("GUIA NO EXISTE");
+                                            guia = string.Empty;
+                                        }
+                                    }
+                                }
+                            }
+                            while (guia.Equals(string.Empty));
+                        }
+                    }
+                    else
+                    {
+                        string respuesta;
+
+                        do
+                        {
+                            SystemSounds.Asterisk.Play();
+                            respuesta = Microsoft.VisualBasic.Interaction.InputBox("ESTE SKU NO PERTENECE A LA ORDEN");
+                        } while (respuesta.ToUpper() != "OK");
+
+                        ErrorSkuIncorrecto();
+                        this.txtProducto.Text = "";
+                        this.txtProducto.Focus();
+                    }
+                }
                 else
                 {                    
                     string respuesta;
@@ -569,6 +769,11 @@ namespace WFAHomeDelivery.Formularios
 
                 Limpiar();
             }            
+        }
+
+        private void FrmScan_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

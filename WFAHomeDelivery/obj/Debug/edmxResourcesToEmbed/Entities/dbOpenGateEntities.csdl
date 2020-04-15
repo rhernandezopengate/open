@@ -57,6 +57,11 @@
       <End Role="skus" EntitySet="skus" />
       <End Role="detordenproductoshd" EntitySet="detordenproductoshd" />
     </AssociationSet>
+    <EntitySet Name="skusbenavides" EntityType="DB_A3F19C_OGModel.skusbenavides" />
+    <AssociationSet Name="skusbenavides_skus_fk" Association="DB_A3F19C_OGModel.skusbenavides_skus_fk">
+      <End Role="skus" EntitySet="skus" />
+      <End Role="skusbenavides" EntitySet="skusbenavides" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="statusordenimpresa">
     <Key>
@@ -292,6 +297,7 @@
     <Property Name="kit" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="detkitskus" Relationship="DB_A3F19C_OGModel.detkitskus_skus_fk" FromRole="skus" ToRole="detkitskus" />
     <NavigationProperty Name="detordenproductoshd" Relationship="DB_A3F19C_OGModel.detordenesproductos_skus_fk" FromRole="skus" ToRole="detordenproductoshd" />
+    <NavigationProperty Name="skusbenavides" Relationship="DB_A3F19C_OGModel.skusbenavides_skus_fk" FromRole="skus" ToRole="skusbenavides" />
   </EntityType>
   <Association Name="detkitskus_skus_fk">
     <End Type="DB_A3F19C_OGModel.skus" Role="skus" Multiplicity="1" />
@@ -314,6 +320,27 @@
       </Principal>
       <Dependent Role="detordenproductoshd">
         <PropertyRef Name="Skus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="skusbenavides">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="skus_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="skus" Relationship="DB_A3F19C_OGModel.skusbenavides_skus_fk" FromRole="skusbenavides" ToRole="skus" />
+  </EntityType>
+  <Association Name="skusbenavides_skus_fk">
+    <End Type="DB_A3F19C_OGModel.skus" Role="skus" Multiplicity="1" />
+    <End Type="DB_A3F19C_OGModel.skusbenavides" Role="skusbenavides" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="skusbenavides">
+        <PropertyRef Name="skus_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

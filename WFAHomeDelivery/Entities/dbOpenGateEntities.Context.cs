@@ -37,5 +37,6 @@ namespace WFAHomeDelivery.Entities
         public virtual DbSet<kit> kit { get; set; }
         public virtual DbSet<ordenes> ordenes { get; set; }
         public virtual DbSet<skus> skus { get; set; }
+        public virtual DbSet<skusbenavides> skusbenavides { get; set; }
     }
 }

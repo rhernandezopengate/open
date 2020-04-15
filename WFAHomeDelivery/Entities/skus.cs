@@ -19,6 +19,7 @@ namespace WFAHomeDelivery.Entities
         {
             this.detkitskus = new HashSet<detkitskus>();
             this.detordenproductoshd = new HashSet<detordenproductoshd>();
+            this.skusbenavides = new HashSet<skusbenavides>();
         }
     
         public int id { get; set; }
@@ -34,5 +35,7 @@ namespace WFAHomeDelivery.Entities
         public virtual ICollection<detkitskus> detkitskus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detordenproductoshd> detordenproductoshd { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<skusbenavides> skusbenavides { get; set; }
     }
 }

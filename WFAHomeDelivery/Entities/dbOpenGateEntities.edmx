@@ -86,6 +86,14 @@
           <Property Name="qtymanual" Type="char" MaxLength="2" />
           <Property Name="kit" Type="char" MaxLength="2" />
         </EntityType>
+        <EntityType Name="skusbenavides">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="varchar" MaxLength="50" />
+          <Property Name="skus_Id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="statusordenimpresa">
           <Key>
             <PropertyRef Name="id" />
@@ -242,6 +250,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="skusbenavides_skus_fk">
+          <End Role="skus" Type="Self.skus" Multiplicity="1" />
+          <End Role="skusbenavides" Type="Self.skusbenavides" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="skus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="skusbenavides">
+              <PropertyRef Name="skus_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DB_A3F19C_OGModelStoreContainer">
           <EntitySet Name="codigoqrordenes" EntityType="Self.codigoqrordenes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="detkitskus" EntityType="Self.detkitskus" Schema="dbo" store:Type="Tables" />
@@ -252,6 +272,7 @@
           <EntitySet Name="kit" EntityType="Self.kit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ordenes" EntityType="Self.ordenes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="skus" EntityType="Self.skus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="skusbenavides" EntityType="Self.skusbenavides" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="statusordenimpresa" EntityType="Self.statusordenimpresa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tipoerror" EntityType="Self.tipoerror" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
@@ -298,6 +319,10 @@
           <AssociationSet Name="ordenes_statusordenimpresa_fk" Association="Self.ordenes_statusordenimpresa_fk">
             <End Role="statusordenimpresa" EntitySet="statusordenimpresa" />
             <End Role="ordenes" EntitySet="ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="skusbenavides_skus_fk" Association="Self.skusbenavides_skus_fk">
+            <End Role="skus" EntitySet="skus" />
+            <End Role="skusbenavides" EntitySet="skusbenavides" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -360,6 +385,11 @@
           <AssociationSet Name="detordenesproductos_skus_fk" Association="DB_A3F19C_OGModel.detordenesproductos_skus_fk">
             <End Role="skus" EntitySet="skus" />
             <End Role="detordenproductoshd" EntitySet="detordenproductoshd" />
+          </AssociationSet>
+          <EntitySet Name="skusbenavides" EntityType="DB_A3F19C_OGModel.skusbenavides" />
+          <AssociationSet Name="skusbenavides_skus_fk" Association="DB_A3F19C_OGModel.skusbenavides_skus_fk">
+            <End Role="skus" EntitySet="skus" />
+            <End Role="skusbenavides" EntitySet="skusbenavides" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="statusordenimpresa">
@@ -596,6 +626,7 @@
           <Property Name="kit" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="detkitskus" Relationship="DB_A3F19C_OGModel.detkitskus_skus_fk" FromRole="skus" ToRole="detkitskus" />
           <NavigationProperty Name="detordenproductoshd" Relationship="DB_A3F19C_OGModel.detordenesproductos_skus_fk" FromRole="skus" ToRole="detordenproductoshd" />
+          <NavigationProperty Name="skusbenavides" Relationship="DB_A3F19C_OGModel.skusbenavides_skus_fk" FromRole="skus" ToRole="skusbenavides" />
         </EntityType>
         <Association Name="detkitskus_skus_fk">
           <End Type="DB_A3F19C_OGModel.skus" Role="skus" Multiplicity="1" />
@@ -618,6 +649,27 @@
             </Principal>
             <Dependent Role="detordenproductoshd">
               <PropertyRef Name="Skus_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="skusbenavides">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="skus_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="skus" Relationship="DB_A3F19C_OGModel.skusbenavides_skus_fk" FromRole="skusbenavides" ToRole="skus" />
+        </EntityType>
+        <Association Name="skusbenavides_skus_fk">
+          <End Type="DB_A3F19C_OGModel.skus" Role="skus" Multiplicity="1" />
+          <End Type="DB_A3F19C_OGModel.skusbenavides" Role="skusbenavides" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="skus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="skusbenavides">
+              <PropertyRef Name="skus_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -740,6 +792,15 @@
                 <ScalarProperty Name="uom" ColumnName="uom" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Sku" ColumnName="Sku" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skusbenavides">
+            <EntityTypeMapping TypeName="DB_A3F19C_OGModel.skusbenavides">
+              <MappingFragment StoreEntitySet="skusbenavides">
+                <ScalarProperty Name="skus_Id" ColumnName="skus_Id" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

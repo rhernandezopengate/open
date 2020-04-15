@@ -164,6 +164,32 @@ namespace WFAHomeDelivery.Controllers
             }
         }
 
+        public bool IsBenevidesCode(string codigo)
+        {
+            try
+            {
+                skusbenavides skusbenavides = db.skusbenavides.Where(x => x.Codigo.Equals(codigo)).FirstOrDefault();
+
+                if (skusbenavides != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public string SkuValidoDesdeBenavides(string benavidescode)
+        {
+            return db.skusbenavides.Where(x => x.Codigo.Equals(benavidescode)).FirstOrDefault().skus.codigobarras;
+        }
+
         public bool CantidadKitCorrecta(string producto, List<detordenproductoshd> lista)
         {
             try

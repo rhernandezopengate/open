@@ -148,6 +148,9 @@
     <Compile Include="Entities\skus.cs">
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\skusbenavides.cs">
+      <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\statusordenimpresa.cs">
       <DependentUpon>dbOpenGateEntities.tt</DependentUpon>
     </Compile>

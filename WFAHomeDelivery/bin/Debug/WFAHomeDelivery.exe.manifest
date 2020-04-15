@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WFAHomeDelivery.exe" size="176616">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WFAHomeDelivery.exe" size="186344">
       <assemblyIdentity name="WFAHomeDelivery" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>qDpmIoWxMGASDp9+bgfkQ8cYE/Xb/MkvMAku27SHbLc=</dsig:DigestValue>
+        <dsig:DigestValue>Cw8K4hSNoaBEVT+D+O3ydCrkR7Qx4pi3wh9Qg6nWLd0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
